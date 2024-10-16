@@ -1,11 +1,10 @@
-package vn.iotstar.dao;
+package vn.iotstar.services;
 
 import java.util.List;
 
 import vn.iotstar.models.AnhKhachSanModel;
 
-public interface IAnhKhachSanDao {
-	
+public interface IAnhKhachSanService {
 	List<AnhKhachSanModel> findAll();
 
 	void insert(AnhKhachSanModel anhKhachSan);

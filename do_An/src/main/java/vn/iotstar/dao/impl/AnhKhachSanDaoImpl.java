@@ -8,9 +8,7 @@ import java.util.List;
 
 import vn.iotstar.configs.DBConnectionSQL;
 import vn.iotstar.dao.IAnhKhachSanDao;
-import vn.iotstar.dao.IKhachSanDao;
 import vn.iotstar.models.AnhKhachSanModel;
-import vn.iotstar.models.KhachSanModel;
 
 public class AnhKhachSanDaoImpl extends DBConnectionSQL implements IAnhKhachSanDao {
 

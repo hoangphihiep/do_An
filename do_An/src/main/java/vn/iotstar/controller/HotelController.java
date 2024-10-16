@@ -8,12 +8,21 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import vn.iotstar.models.AnhKhachSanModel;
+import vn.iotstar.models.DanhGiaModel;
 import vn.iotstar.models.KhachSanModel;
 import vn.iotstar.models.PhongModel;
+import vn.iotstar.models.TienIchModel;
+import vn.iotstar.services.IAnhKhachSanService;
+import vn.iotstar.services.IDanhGiaService;
 import vn.iotstar.services.IKhachSanService;
 import vn.iotstar.services.IPhongService;
+import vn.iotstar.services.ITienIchService;
+import vn.iotstar.services.impl.AnhKhachSanServiceImpl;
+import vn.iotstar.services.impl.DanhGiaServiceImpl;
 import vn.iotstar.services.impl.KhachSanServiceImpl;
 import vn.iotstar.services.impl.PhongServiceImpl;
+import vn.iotstar.services.impl.TienIchServiceImpl;
 
 @WebServlet(urlPatterns = {"/khachsan"})
 public class HotelController extends HttpServlet {
@@ -21,6 +30,9 @@ public class HotelController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public IKhachSanService khachSanService = new KhachSanServiceImpl();
 	public IPhongService phongService = new PhongServiceImpl();
+	public IAnhKhachSanService anhKhachSanService = new AnhKhachSanServiceImpl();
+	public ITienIchService tienIchService = new TienIchServiceImpl();
+	public IDanhGiaService danhGiaService = new DanhGiaServiceImpl();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int id = Integer.parseInt(req.getParameter("id"));
@@ -29,15 +41,59 @@ public class HotelController extends HttpServlet {
 		req.setAttribute("ks", khachSan);
 		
 		List<PhongModel> listPhong = phongService.findByIdKhachSan(id);
-		for (PhongModel phong: listPhong)
-		{
-			System.out.println(phong.getLoaiGiuong());
-		}
 		req.setAttribute("listPhong", listPhong);
 		
 		String[] strDanhGia = {"Bình thường", "Khá ổn", "Chất lượng", "Sang trọng", "Tuyệt vời", "Xuất sắc"};
 		req.setAttribute("strDanhGia", strDanhGia);
 		
+		List<AnhKhachSanModel> listAnh = anhKhachSanService.findByIdKhachSan(id);
+		req.setAttribute("listAnh", listAnh);
+		
+		List<TienIchModel> listTienIch = tienIchService.findByIdKhachSan(id);
+		req.setAttribute("listTienIch", listTienIch);
+		
+		List<DanhGiaModel> listDanhGia = danhGiaService.findByIdKhachSan(id);
+		int tuyetVoi = 0;
+		int ratTot = 0;
+		int haiLong = 0;
+		int trungBinh = 0;
+		int kem = 0;
+		int count = 0;
+		int tongDiem = 0;
+		for (DanhGiaModel danhGia : listDanhGia)
+		{
+			if (danhGia.getDiem() == 10){
+				tuyetVoi++;
+				System.out.println("Id khach hang: "+danhGia.getIdKhachHang() + " diem: " + danhGia.getDiem());
+			}	
+			else if (danhGia.getDiem() == 9 || danhGia.getDiem() == 8) {
+				ratTot++;
+				System.out.println("Id khach hang: "+danhGia.getIdKhachHang() + " diem: " + danhGia.getDiem());
+			}	
+			else if (danhGia.getDiem() == 7 || danhGia.getDiem() == 6) {
+				haiLong++;
+				System.out.println("Id khach hang: "+danhGia.getIdKhachHang() + " diem: " + danhGia.getDiem());
+			}	
+			else if (danhGia.getDiem() == 5 || danhGia.getDiem() == 4) {
+				trungBinh++;
+				System.out.println("Id khach hang: "+danhGia.getIdKhachHang() + " diem: " + danhGia.getDiem());
+			}
+			else if (danhGia.getDiem() < 4) {
+				kem++;
+				System.out.println("Id khach hang: "+danhGia.getIdKhachHang() + " diem: " + danhGia.getDiem());
+			}	
+			count++;
+			tongDiem = tongDiem + danhGia.getDiem();
+		}
+		double trungBinhCong = (double)tongDiem/count;
+		
+		req.setAttribute("count", count);
+		req.setAttribute("tuyetVoi", tuyetVoi);
+		req.setAttribute("ratTot", ratTot);
+		req.setAttribute("haiLong", haiLong);
+		req.setAttribute("trungBinh", trungBinh);
+		req.setAttribute("kem", kem);
+		req.setAttribute("trungBinhCong", trungBinhCong);
 		req.getRequestDispatcher("/views/khachsan.jsp").forward(req, resp);
 	}
 

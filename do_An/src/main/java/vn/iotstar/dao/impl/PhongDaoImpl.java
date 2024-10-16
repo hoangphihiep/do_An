@@ -8,9 +8,7 @@ import java.util.List;
 
 import vn.iotstar.configs.DBConnectionSQL;
 import vn.iotstar.dao.IPhongDao;
-import vn.iotstar.dao.IThanhPhoDao;
 import vn.iotstar.models.PhongModel;
-import vn.iotstar.models.ThanhPhoModel;
 
 public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 

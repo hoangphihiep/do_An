@@ -1,6 +1,7 @@
 package vn.iotstar.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.servlet.ServletException;
@@ -13,16 +14,19 @@ import vn.iotstar.models.DanhGiaModel;
 import vn.iotstar.models.KhachSanModel;
 import vn.iotstar.models.PhongModel;
 import vn.iotstar.models.TienIchModel;
+import vn.iotstar.models.UserModel;
 import vn.iotstar.services.IAnhKhachSanService;
 import vn.iotstar.services.IDanhGiaService;
 import vn.iotstar.services.IKhachSanService;
 import vn.iotstar.services.IPhongService;
 import vn.iotstar.services.ITienIchService;
+import vn.iotstar.services.IUserServices;
 import vn.iotstar.services.impl.AnhKhachSanServiceImpl;
 import vn.iotstar.services.impl.DanhGiaServiceImpl;
 import vn.iotstar.services.impl.KhachSanServiceImpl;
 import vn.iotstar.services.impl.PhongServiceImpl;
 import vn.iotstar.services.impl.TienIchServiceImpl;
+import vn.iotstar.services.impl.UserServiceImpl;
 
 @WebServlet(urlPatterns = {"/khachsan"})
 public class HotelController extends HttpServlet {
@@ -33,6 +37,7 @@ public class HotelController extends HttpServlet {
 	public IAnhKhachSanService anhKhachSanService = new AnhKhachSanServiceImpl();
 	public ITienIchService tienIchService = new TienIchServiceImpl();
 	public IDanhGiaService danhGiaService = new DanhGiaServiceImpl();
+	public IUserServices userService = new UserServiceImpl();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int id = Integer.parseInt(req.getParameter("id"));
@@ -86,7 +91,6 @@ public class HotelController extends HttpServlet {
 			tongDiem = tongDiem + danhGia.getDiem();
 		}
 		double trungBinhCong = (double)tongDiem/count;
-		
 		req.setAttribute("count", count);
 		req.setAttribute("tuyetVoi", tuyetVoi);
 		req.setAttribute("ratTot", ratTot);
@@ -94,6 +98,7 @@ public class HotelController extends HttpServlet {
 		req.setAttribute("trungBinh", trungBinh);
 		req.setAttribute("kem", kem);
 		req.setAttribute("trungBinhCong", trungBinhCong);
+		req.setAttribute("listDanhGia", listDanhGia);
 		req.getRequestDispatcher("/views/khachsan.jsp").forward(req, resp);
 	}
 

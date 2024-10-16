@@ -375,71 +375,167 @@
 					</form>
 
 					<!-- hiển thị đánh giá của khách hàng  -->
-					<div style="display: flex; align-items: center; margin-top: 20px; font-family: Arial, sans-serif;">
+					<div
+						style="display: flex; align-items: center; margin-top: 20px; font-family: Arial, sans-serif;">
 						<!-- Điểm đánh giá tổng quát -->
-						<div style="display: flex;justify-content: center;align-items: center;width: 100px;height: 100px;border-radius: 50%;background-color: #f0f8ff;position: relative;margin-right: 20px;">
+						<div
+							style="display: flex; justify-content: center; align-items: center; width: 100px; height: 100px; border-radius: 50%; background-color: #f0f8ff; position: relative; margin-right: 20px;">
 							<div style="font-size: 36px; color: #007bff;">${trungBinhCong}</div>
 							<c:if test="${trungBinhCong >= 8}">
-								<div style="font-size: 14px;font-weight: bold;color: #007bff;position: absolute;bottom: -20px;text-align: center; width: 100%;">Ấn tượng</div>
+								<div
+									style="font-size: 14px; font-weight: bold; color: #007bff; position: absolute; bottom: -20px; text-align: center; width: 100%;">Ấn
+									tượng</div>
 							</c:if>
 							<c:if test="${trungBinhCong >= 6 && trungBinhCong < 8}">
-								<div style="font-size: 14px;font-weight: bold;color: #007bff;position: absolute;bottom: -20px;text-align: center; width: 100%;">Bình thường</div>
+								<div
+									style="font-size: 14px; font-weight: bold; color: #007bff; position: absolute; bottom: -20px; text-align: center; width: 100%;">Bình
+									thường</div>
 							</c:if>
 							<c:if test="${trungBinhCong < 6} ">
-								<div style="font-size: 14px;font-weight: bold;color: #007bff;position: absolute;bottom: -20px;text-align: center; width: 100%;">Bình thường</div>
+								<div
+									style="font-size: 14px; font-weight: bold; color: #007bff; position: absolute; bottom: -20px; text-align: center; width: 100%;">Bình
+									thường</div>
 							</c:if>
 						</div>
 
 						<!-- Chi tiết đánh giá -->
 						<div style="flex-grow: 1;">
-							<p style="margin: 0;font-size: 14px; color: #555; margin-left: -120px;">Từ ${count} đánh giá của khách đã ở</p>
+							<p
+								style="margin: 0; font-size: 14px; color: #555; margin-left: -120px;">Từ
+								${count} đánh giá của khách đã ở</p>
 
 							<!-- Thanh đánh giá Tuyệt vời -->
-							<div style="display: flex;align-items: center;margin-bottom: 10px;">
-								<div style="width: 100px;font-weight: bold;font-size: 14px;">Tuyệt vời</div>
-								<div style="flex-grow: 1;height: 10px;background-color: #f0f0f0;border-radius: 5px;overflow: hidden;margin-right: 10px;">
-									<div style="width: ${tuyetVoi}%; height: 100%; background-color: #007bff;border-radius: 5px;"></div>
+							<div
+								style="display: flex; align-items: center; margin-bottom: 10px;">
+								<div style="width: 100px; font-weight: bold; font-size: 14px;">Tuyệt
+									vời</div>
+								<div
+									style="flex-grow: 1; height: 10px; background-color: #f0f0f0; border-radius: 5px; overflow: hidden; margin-right: 10px;">
+									<div
+										style="width: ${tuyetVoi}%; height: 100%; background-color: #007bff;border-radius: 5px;"></div>
 									<!-- Chiều dài tùy thuộc vào tỷ lệ đánh giá -->
 								</div>
-								<div style="width: 30px;text-align: right;font-weight: bold;font-size: 14px;">${tuyetVoi}</div>
+								<div
+									style="width: 30px; text-align: right; font-weight: bold; font-size: 14px;">${tuyetVoi}</div>
 							</div>
 
 							<!-- Thanh đánh giá Rất tốt -->
-							<div style="display: flex;align-items: center;margin-bottom: 10px;">
-								<div style="width: 100px;font-weight: bold;font-size: 14px;">Rất tốt</div>
-								<div style="flex-grow: 1;height: 10px;background-color: #f0f0f0;border-radius: 5px;overflow: hidden;margin-right: 10px;">
-									<div style="width: ${ratTot}%; height: 100%; background-color: #007bff;border-radius: 5px;"></div>
+							<div
+								style="display: flex; align-items: center; margin-bottom: 10px;">
+								<div style="width: 100px; font-weight: bold; font-size: 14px;">Rất
+									tốt</div>
+								<div
+									style="flex-grow: 1; height: 10px; background-color: #f0f0f0; border-radius: 5px; overflow: hidden; margin-right: 10px;">
+									<div
+										style="width: ${ratTot}%; height: 100%; background-color: #007bff;border-radius: 5px;"></div>
 								</div>
-								<div style="width: 30px;text-align: right;font-weight: bold;font-size: 14px;">${ratTot}</div>
+								<div
+									style="width: 30px; text-align: right; font-weight: bold; font-size: 14px;">${ratTot}</div>
 							</div>
 
 							<!-- Thanh đánh giá Hài lòng -->
-							<div style="display: flex;align-items: center;margin-bottom: 10px;">
-								<div style="width: 100px;font-weight: bold;font-size: 14px;">Hài lòng</div>
-								<div style="flex-grow: 1;height: 10px;background-color: #f0f0f0;border-radius: 5px;overflow: hidden;margin-right: 10px;">
-									<div style="width: ${haiLong}%; height: 100%; background-color: #007bff;border-radius: 5px;"></div>
+							<div
+								style="display: flex; align-items: center; margin-bottom: 10px;">
+								<div style="width: 100px; font-weight: bold; font-size: 14px;">Hài
+									lòng</div>
+								<div
+									style="flex-grow: 1; height: 10px; background-color: #f0f0f0; border-radius: 5px; overflow: hidden; margin-right: 10px;">
+									<div
+										style="width: ${haiLong}%; height: 100%; background-color: #007bff;border-radius: 5px;"></div>
 								</div>
-								<div style="width: 30px;text-align: right;font-weight: bold;font-size: 14px;">${haiLong}</div>
+								<div
+									style="width: 30px; text-align: right; font-weight: bold; font-size: 14px;">${haiLong}</div>
 							</div>
 
 							<!-- Thanh đánh giá Trung bình -->
-							<div style="display: flex;align-items: center;margin-bottom: 10px;">
-								<div style="width: 100px;font-weight: bold;font-size: 14px;">Trung bình</div>
-								<div style="flex-grow: 1;height: 10px;background-color: #f0f0f0;border-radius: 5px;overflow: hidden;margin-right: 10px;">
-									<div style="width: ${trungBinh}%;height: 100%; background-color: #007bff;border-radius: 5px;"></div>
+							<div
+								style="display: flex; align-items: center; margin-bottom: 10px;">
+								<div style="width: 100px; font-weight: bold; font-size: 14px;">Trung
+									bình</div>
+								<div
+									style="flex-grow: 1; height: 10px; background-color: #f0f0f0; border-radius: 5px; overflow: hidden; margin-right: 10px;">
+									<div
+										style="width: ${trungBinh}%;height: 100%; background-color: #007bff;border-radius: 5px;"></div>
 								</div>
-								<div style="width: 30px;text-align: right;font-weight: bold;font-size: 14px;">${trungBinh}</div>
+								<div
+									style="width: 30px; text-align: right; font-weight: bold; font-size: 14px;">${trungBinh}</div>
 							</div>
 
 							<!-- Thanh đánh giá Kém -->
-							<div style="display: flex;align-items: center;margin-bottom: 10px;">
-								<div style="width: 100px;font-weight: bold;font-size: 14px;">Kém</div>
-								<div style="flex-grow: 1;height: 10px;background-color: #f0f0f0;border-radius: 5px;overflow: hidden;margin-right: 10px;">
-									<div style="width: ${kem}%;height: 100%; background-color: #007bff;border-radius: 5px;"></div>
+							<div
+								style="display: flex; align-items: center; margin-bottom: 10px;">
+								<div style="width: 100px; font-weight: bold; font-size: 14px;">Kém</div>
+								<div
+									style="flex-grow: 1; height: 10px; background-color: #f0f0f0; border-radius: 5px; overflow: hidden; margin-right: 10px;">
+									<div
+										style="width: ${kem}%;height: 100%; background-color: #007bff;border-radius: 5px;"></div>
 								</div>
-								<div style="width: 30px;text-align: right;font-weight: bold;font-size: 14px;">${kem}</div>
+								<div
+									style="width: 30px; text-align: right; font-weight: bold; font-size: 14px;">${kem}</div>
 							</div>
 						</div>
+
+					</div>
+					<!-- Phản hồi từ khách hàng -->
+					<c:forEach var="danhGia" items="${listDanhGia}">
+						<table>
+	
+							<tr>
+								<th style="width: 20%; text-align: left; font-weight: bold;
+									padding-bottom: 10px;"></th>
+								<th style="width: 70%; text-align: left; font-weight: bold;
+									padding-bottom: 10px;"></th>
+							</tr>
+							<tr
+								style="width: 80%; margin: 20px auto; border: 1px solid #e0e0e0; padding: 20px; border-radius: 10px; background-color: #f9f9f9;">
+								<td style="vertical-align: top; padding: 10px;">
+									<div style="display: flex; align-items: center;">
+										<img style="width: 50px; height: 50px; border-radius: 50%;"
+											src="https://via.placeholder.com/50" alt="User Avatar">
+										<div>
+											<div style="font-weight: bold; margin-left: 10px">${danhGia.tenKhachHang}</div>
+											
+										</div>
+									</div>
+								</td>
+								<td>
+									<div style="color: #007bff; margin-left: -1px; font-weight: bold;">${danhGia.diem}/ 10</div>
+									<div style="margin-top: 10px; font-size: 14px;">
+										${danhGia.noiDung} <br> <img src="https://via.placeholder.com/60" alt="Review Image">
+									</div>
+									<div
+										style="margin-top: 20px; padding: 10px; border-left: 3px solid #007bff; background-color: #f0f8ff; font-size: 14px;">
+										<div style="color: #007bff; font-weight: bold;">Trả lời
+											của khách sạn</div>
+										<div style="font-size: 12px; color: #888; margin-bottom: 10px;">25
+											Jun 2024</div>
+										<div class="hotel-reply-content">
+											Xin chào anh/chị Nguyen D. T.,<br> Lời chào trân trọng từ
+											khách sạn Mường Thanh Luxury Đà Nẵng!<br> Tôi rất lấy làm
+											vinh dự và hạnh phúc khi nhận được đánh giá của anh/chị về
+											chất lượng dịch vụ của Khách sạn.<br> Chăm sóc khách hàng
+											bằng sự tận tâm và chuyên nghiệp luôn là tiêu chí hàng đầu của
+											chúng tôi.<br> Mong sớm gặp lại anh/chị và gia đình lần
+											tới.<br> Trân trọng,<br> Ngô Thị Hương<br> Giám
+											đốc Khách sạn
+										</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</c:forEach>
+					<div
+						style="display: flex; justify-content: center; margin-top: 20px;">
+						<button
+							style="margin: 0 5px; padding: 5px 10px; border: 1px solid #007bff; background-color: #fff; color: #007bff; cursor: pointer; border-radius: 5px; background-color: #007bff; color: white;">1</button>
+						<button
+							style="margin: 0 5px; padding: 5px 10px; border: 1px solid #007bff; background-color: #fff; color: #007bff; cursor: pointer; border-radius: 5px;">2</button>
+						<button
+							style="margin: 0 5px; padding: 5px 10px; border: 1px solid #007bff; background-color: #fff; color: #007bff; cursor: pointer; border-radius: 5px;">3</button>
+						<button
+							style="margin: 0 5px; padding: 5px 10px; border: 1px solid #007bff; background-color: #fff; color: #007bff; cursor: pointer; border-radius: 5px;">...</button>
+						<button
+							style="margin: 0 5px; padding: 5px 10px; border: 1px solid #007bff; background-color: #fff; color: #007bff; cursor: pointer; border-radius: 5px;">11</button>
 					</div>
 				</div>
 			</div>

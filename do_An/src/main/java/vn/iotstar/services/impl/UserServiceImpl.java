@@ -74,4 +74,9 @@ public class UserServiceImpl implements IUserServices {
 				userDao.insert(new UserModel(username, fullname, createDate, gender, email, phone, password));
 				return true;
 	}
+
+	@Override
+	public UserModel findById(int id) {
+		return userDao.findById(id);
+	}
 }

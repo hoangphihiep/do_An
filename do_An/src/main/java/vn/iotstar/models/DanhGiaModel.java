@@ -11,7 +11,7 @@ public class DanhGiaModel implements Serializable {
 	String noiDung;
 	int idKhachHang;
 	int idKhachSan;
-	int soLuongKhachHang;
+	String tenKhachHang;
 	
 	public DanhGiaModel(int id, int diem, String noiDung, int idKhachHang, int idKhachSan) {
 		super();
@@ -21,6 +21,18 @@ public class DanhGiaModel implements Serializable {
 		this.idKhachHang = idKhachHang;
 		this.idKhachSan = idKhachSan;
 	}
+
+	
+	public DanhGiaModel(int id, int diem, String noiDung, int idKhachHang, int idKhachSan, String tenKhachHang) {
+		super();
+		this.id = id;
+		this.diem = diem;
+		this.noiDung = noiDung;
+		this.idKhachHang = idKhachHang;
+		this.idKhachSan = idKhachSan;
+		this.tenKhachHang = tenKhachHang;
+	}
+
 
 	public int getId() {
 		return id;
@@ -62,17 +74,19 @@ public class DanhGiaModel implements Serializable {
 		this.idKhachSan = idKhachSan;
 	}
 
-	public int getSoLuongKhachHang() {
-		return soLuongKhachHang;
+
+	public String getTenKhachHang() {
+		return tenKhachHang;
 	}
 
-	public void setSoLuongKhachHang(int soLuongKhachHang) {
-		this.soLuongKhachHang = soLuongKhachHang;
+
+	public void setTenKhachHang(String tenKhachHang) {
+		this.tenKhachHang = tenKhachHang;
 	}
 
 	@Override
 	public String toString() {
 		return "DanhGiaModel [id=" + id + ", diem=" + diem + ", noiDung=" + noiDung + ", idKhachHang=" + idKhachHang
-				+ ", tenKhachHang="+ ", idKhachSan=" + idKhachSan + "]";
+				+ ", idKhachSan=" + idKhachSan + ", tenKhachHang=" + tenKhachHang + "]";
 	}
 }

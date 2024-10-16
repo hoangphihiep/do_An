@@ -8,7 +8,9 @@ import java.util.List;
 
 import vn.iotstar.configs.DBConnectionSQL;
 import vn.iotstar.dao.IDanhGiaDao;
+import vn.iotstar.dao.IUserDao;
 import vn.iotstar.models.DanhGiaModel;
+import vn.iotstar.models.UserModel;
 
 public class DanhGiaDaoImpl extends DBConnectionSQL implements IDanhGiaDao {
 
@@ -41,7 +43,7 @@ public class DanhGiaDaoImpl extends DBConnectionSQL implements IDanhGiaDao {
 
 	@Override
 	public List<DanhGiaModel> findByIdKhachSan(int idKhachSan) {
-		String sql = "select * from DanhGia where IdKhachSan = ?";
+		String sql = "select d.Id as Id, d.Diem as Diem, d.NoiDung as NoiDung, d.IdKhachHang as IdKhachHang, d.IdKhachSan as IdKhachSan, u.Fullname as Ten from DanhGia d, Users u where d.IdKhachSan = ? and d.IdKhachHang = u.Id";
 		List<DanhGiaModel> list = new ArrayList<DanhGiaModel>();
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -54,7 +56,8 @@ public class DanhGiaDaoImpl extends DBConnectionSQL implements IDanhGiaDao {
 						rs.getInt("Diem"),
 						rs.getString("NoiDung"),
 						rs.getInt("IdKhachHang"),
-						rs.getInt("IdKhachSan")));
+						rs.getInt("IdKhachSan"),
+						rs.getString("Ten")));
 			}
 			return list;
 		} catch (Exception e) {
@@ -67,6 +70,24 @@ public class DanhGiaDaoImpl extends DBConnectionSQL implements IDanhGiaDao {
 	public List<DanhGiaModel> countUserByIdKhachSan(int idKhachSan) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public static void main(String[] args) {
+
+		try {
+			IDanhGiaDao userDao = new DanhGiaDaoImpl();
+
+			
+			List<DanhGiaModel> list = userDao.findByIdKhachSan(1);
+			for (DanhGiaModel user : list) {
+				System.out.println(user);
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
 	}
 
 }

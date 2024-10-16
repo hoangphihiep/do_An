@@ -10,6 +10,8 @@ public interface IUserServices {
 	
 	UserModel login(String username, String password);
 	
+	UserModel findById (int id);
+	
 	void insert(UserModel user);
 	
 	boolean register(String username, String fullname, Date createDate, String gender,  String email, String phone, String password);

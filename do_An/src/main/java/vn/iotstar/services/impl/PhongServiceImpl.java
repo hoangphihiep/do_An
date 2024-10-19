@@ -35,4 +35,9 @@ public class PhongServiceImpl implements IPhongService {
 		return phongDao.findByIdKhachSan(idKhachSan);
 	}
 
+	@Override
+	public List<PhongModel> phongMinByIdKhachSan(int idKhachSan) {
+		return phongDao.phongMinByIdKhachSan(idKhachSan);
+	}
+
 }

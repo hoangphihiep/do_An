@@ -69,23 +69,18 @@ public class HotelController extends HttpServlet {
 		{
 			if (danhGia.getDiem() == 10){
 				tuyetVoi++;
-				System.out.println("Id khach hang: "+danhGia.getIdKhachHang() + " diem: " + danhGia.getDiem());
 			}	
 			else if (danhGia.getDiem() == 9 || danhGia.getDiem() == 8) {
 				ratTot++;
-				System.out.println("Id khach hang: "+danhGia.getIdKhachHang() + " diem: " + danhGia.getDiem());
 			}	
 			else if (danhGia.getDiem() == 7 || danhGia.getDiem() == 6) {
 				haiLong++;
-				System.out.println("Id khach hang: "+danhGia.getIdKhachHang() + " diem: " + danhGia.getDiem());
 			}	
 			else if (danhGia.getDiem() == 5 || danhGia.getDiem() == 4) {
 				trungBinh++;
-				System.out.println("Id khach hang: "+danhGia.getIdKhachHang() + " diem: " + danhGia.getDiem());
 			}
 			else if (danhGia.getDiem() < 4) {
 				kem++;
-				System.out.println("Id khach hang: "+danhGia.getIdKhachHang() + " diem: " + danhGia.getDiem());
 			}	
 			count++;
 			tongDiem = tongDiem + danhGia.getDiem();

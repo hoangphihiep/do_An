@@ -15,4 +15,6 @@ public interface IPhongService {
 	void delete(int idPhong);
 
 	List<PhongModel> findByIdKhachSan(int idKhachSan);
+	
+	List<PhongModel> phongMinByIdKhachSan (int idKhachSan);
 }

@@ -139,7 +139,7 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 
 		try {
 			IPhongDao phongDao = new PhongDaoImpl();
-			List<PhongModel> list = phongDao.findAll();
+			List<PhongModel> list = phongDao.phongMinByIdKhachSan(1);
 			for (PhongModel user : list) {
 				System.out.println(user);
 			}
@@ -149,6 +149,28 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public List<PhongModel> phongMinByIdKhachSan(int idKhachSan) {
+		String sql = "select P.IdKhachSan, MIN(P.GiaThue) AS GiaThapNhat from Phong P, KhachSan K where K.Id = ? and P.IdKhachSan=K.Id GROUP BY P.IdKhachSan";
+		List<PhongModel> list = new ArrayList<PhongModel>();
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idKhachSan);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(new PhongModel(
+						rs.getInt("IdKhachSan"),
+						rs.getInt("GiaThapNhat")
+						));
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

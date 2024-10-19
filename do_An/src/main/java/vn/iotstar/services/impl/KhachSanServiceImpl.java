@@ -40,4 +40,9 @@ public class KhachSanServiceImpl implements IKhachSanService {
 		return khachSanDao.findById(id);
 	}
 
+	@Override
+	public List<KhachSanModel> findByIdLoaiKhachSan(int idLoaiKhachSan) {
+		return khachSanDao.findByIdLoaiKhachSan(idLoaiKhachSan);
+	}
+
 }

@@ -16,4 +16,6 @@ public interface IKhachSanService {
 	List<KhachSanModel> findByIdThanhPho(int idThanhPho);
 	
 	KhachSanModel findById(int id);
+	
+	List<KhachSanModel> findByIdLoaiKhachSan(int idLoaiKhachSan);
 }

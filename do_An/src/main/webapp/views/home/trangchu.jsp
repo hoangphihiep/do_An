@@ -35,7 +35,7 @@
 	<div class="row">
 		<form action="${pageContext.request.contextPath}/home" method="post">
 			<c:forEach items="${listthanhpho}" var="thanhpho" begin="0" end="1">
-				<a href="${pageContext.request.contextPath}/home?id=${thanhpho.id}" style="display: block; text-decoration: none; color: inherit;">
+				<a href="${pageContext.request.contextPath}/danhsachks?id=${thanhpho.id}" style="display: block; text-decoration: none; color: inherit;">
 					<div class="col-md-6">
 						<div class="div-zoom">
 							<img class="img-zoom" src="${thanhpho.urlHinhAnh}" alt="Img" width="1000" style="margin-right: 150px;"/>
@@ -56,7 +56,7 @@
 	<div class="row">
 		<form action="${pageContext.request.contextPath}/home" method="post">
 			<c:forEach items="${listthanhpho}" var="thanhpho" begin="2" end="4">
-				<a href="${pageContext.request.contextPath}/home?id=${thanhpho.id}" style="display: block; text-decoration: none; color: inherit;">
+				<a href="${pageContext.request.contextPath}/danhsachks?id=${thanhpho.id}" style="display: block; text-decoration: none; color: inherit;">
 					<div class="col-md-4">
 						<div class="div-zoom">
 							<img class="img-zoom" src="${thanhpho.urlHinhAnh}" alt="Img" width="1000" style="margin-right: 150px;"/>
@@ -82,7 +82,7 @@
                 <div class="MultiCarousel-inner">
                     <form action="${pageContext.request.contextPath}/home" method="post">
                         <c:forEach items="${listloaiks}" var="loaiks">
-                            <a href="${pageContext.request.contextPath}/home?id=${loaiks.id}" style="text-decoration: none">
+                            <a href="${pageContext.request.contextPath}/danhsachks?idloaiks=${loaiks.id}" style="text-decoration: none">
                                 <div class="item">
                                     <div class="img-loaiks"><img src="${loaiks.urlHinhAnh}" alt="Img"/></div>
                                     <br/>
@@ -111,7 +111,7 @@
             <c:forEach items="${listks}" begin="0" end="3" var="ks">
                 <div class="col-md-3 ks-noibat">
                     <form action="${pageContext.request.contextPath}/home" method="post">
-                        <a href="${pageContext.request.contextPath}/home?id=${ks.id}">
+                        <a href="${pageContext.request.contextPath}/khachsan?id=${ks.id}">
                             <div class="div-ks">
                                 <img style="height: 220px" src="/do_An_CNTT/Content/Images/KhachSan/3.jpg" alt="Img"/>
                             </div>

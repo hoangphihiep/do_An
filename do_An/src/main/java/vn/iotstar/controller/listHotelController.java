@@ -112,11 +112,11 @@ public class listHotelController extends HttpServlet {
 			}
 			req.setAttribute("listGiapBien", listGiapBien);
 	        
+			List<KhachSanModel> originalHotelList = (List<KhachSanModel>) session.getAttribute("originalHotelList");
 	        Object filteredHotelsObj = session.getAttribute("filteredHotels");
 	        List<KhachSanModel> listKS = null;
 	        if (filteredHotelsObj != null) {
 	        	listKS = (List<KhachSanModel>) filteredHotelsObj;
-	        	System.out.println("Có vào đây 1");
 	        }
 	        else {
 	        	Object idThanhPhoObj = session.getAttribute("idThanhPhoTimKiem");
@@ -133,18 +133,16 @@ public class listHotelController extends HttpServlet {
 		        if (idThanhPho != 0){
 		        	listKS = khachSanService.findByIdThanhPho(idThanhPho);
 		        	req.getSession().setAttribute("idTP", idThanhPho);
-		        	System.out.println("Có vào đây 2");
+		        	session.setAttribute("originalHotelList", listKS);
 		        }
 		        else {
 		        	String idLoaiKhachSanStr = req.getParameter("idloaiks");
-		        	System.out.println("Có vào đây 3");
 		        	int idloaiKhachSan = Integer.parseInt(idLoaiKhachSanStr);
 		        	listKS = khachSanService.findByIdLoaiKhachSan(idloaiKhachSan);
 		        }
 	        }
 	        
-	        
-	        req.getSession().setAttribute("danhSachTimKiem", listKS);
+	        //session.setAttribute("danhSachTimKiem", listKS);
         	req.setAttribute("listks", listKS);
         	Map<Integer, List<AnhKhachSanModel>> anhMap = new HashMap<>();
 	        Map<Integer, List<TienIchModel>> tienIchMap = new HashMap<>();
@@ -193,75 +191,115 @@ public class listHotelController extends HttpServlet {
 		    String[] nearSeas = req.getParameterValues("nearSea");
 		    
 		    HttpSession session = req.getSession();
-		    List<KhachSanModel> danhSachTimKiem = (List<KhachSanModel>) req.getSession().getAttribute("danhSachTimKiem");
-		    
-		    
-		    List<CheckboxModel> listXepHang = (List<CheckboxModel>) session.getAttribute("listXepHang");
-		    if (rankings != null) {
-		        for (CheckboxModel checkbox : listXepHang) {
-		            if (Arrays.asList(rankings).contains(checkbox.getLabel())) {
-		                checkbox.setChecked(true);  // Được chọn
-		            } else {
-		                checkbox.setChecked(false); // Không được chọn
-		            }
-		        }
-		    }
-		    
-		    List<CheckboxModel> listLoaiKhachSan = (List<CheckboxModel>) session.getAttribute("listLoaiKhachSan");
-		    if (hotelTypes != null) {
-		        for (CheckboxModel checkbox : listLoaiKhachSan) {
-		            if (Arrays.asList(hotelTypes).contains(checkbox.getLabel())) {
-		                checkbox.setChecked(true);  // Được chọn
-		            } else {
-		                checkbox.setChecked(false); // Không được chọn
-		            }
-		        }
-		    }
-		    
-		    List<CheckboxModel> listBuaAn = (List<CheckboxModel>) session.getAttribute("listBuaAn");
-		    if (mealTypes != null) {
-		        for (CheckboxModel checkbox : listBuaAn) {
-		            if (Arrays.asList(mealTypes).contains(checkbox.getLabel())) {
-		                checkbox.setChecked(true);  // Được chọn
-		            } else {
-		                checkbox.setChecked(false); // Không được chọn
-		            }
-		        }
-		    }
-		    
-		    List<CheckboxModel> listCachTrungTam = (List<CheckboxModel>) session.getAttribute("listCachTrungTam");
-		    if (distances != null) {
-		        for (CheckboxModel checkbox : listCachTrungTam) {
-		            if (Arrays.asList(distances).contains(checkbox.getLabel())) {
-		                checkbox.setChecked(true);  // Được chọn
-		            } else {
-		                checkbox.setChecked(false); // Không được chọn
-		            }
-		        }
-		    }
-		    
-		    List<CheckboxModel> listGiapBien = (List<CheckboxModel>) session.getAttribute("listGiapBien");
-		    if (nearSeas != null) {
-		        for (CheckboxModel checkbox : listGiapBien) {
-		            if (Arrays.asList(nearSeas).contains(checkbox.getLabel())) {
-		                checkbox.setChecked(true);  // Được chọn
-		            } else {
-		                checkbox.setChecked(false); // Không được chọn
-		            }
-		        }
-		    }
-		    // Sau đó gửi lại danh sách đã cập nhật tới JSP
-		    
-		    session.setAttribute("listXepHang", listXepHang);
-		    session.setAttribute("listLoaiKhachSan", listLoaiKhachSan);
-		    session.setAttribute("listBuaAn", listBuaAn);
-		    session.setAttribute("listCachTrungTam", listCachTrungTam);
-		    session.setAttribute("listGiapBien", listGiapBien);
-		    
+		    List<KhachSanModel> originalHotelList = (List<KhachSanModel>) session.getAttribute("originalHotelList");
+		    if ((rankings == null || rankings.length == 0) &&
+		            (hotelTypes == null || hotelTypes.length == 0) &&
+		            (mealTypes == null || mealTypes.length == 0) &&
+		            (distances == null || distances.length == 0) &&
+		            (nearSeas == null || nearSeas.length == 0)) {
+		            
+		    		List<CheckboxModel> listXepHang = (List<CheckboxModel>) session.getAttribute("listXepHang");
+			    	for (CheckboxModel checkbox : listXepHang) {
+			            checkbox.setChecked(false);
+			        }
+			    	System.out.println("Có vào đây !!!!");
+			    	for (CheckboxModel check : listXepHang)
+				    {
+				    	System.out.println (check.getLabel() + check.isChecked());
+				    }
+			    	
+			    	List<CheckboxModel> listLoaiKhachSan = (List<CheckboxModel>) session.getAttribute("listLoaiKhachSan");
+			    	for (CheckboxModel checkbox : listLoaiKhachSan) {
+			            checkbox.setChecked(false);
+			        }
+			    	
+			    	List<CheckboxModel> listBuaAn = (List<CheckboxModel>) session.getAttribute("listBuaAn");
+			    	for (CheckboxModel checkbox : listBuaAn) {
+			            checkbox.setChecked(false);
+			        }
+			    	
+			    	List<CheckboxModel> listCachTrungTam = (List<CheckboxModel>) session.getAttribute("listCachTrungTam");
+			    	for (CheckboxModel checkbox : listCachTrungTam) {
+			            checkbox.setChecked(false);
+			        }
+			    	
+			    	List<CheckboxModel> listGiapBien = (List<CheckboxModel>) session.getAttribute("listGiapBien");
+			    	for (CheckboxModel checkbox : listGiapBien) {
+			            checkbox.setChecked(false);
+			        }
+			    	session.setAttribute("filteredHotels", originalHotelList);
+		            
+		        } else
+		        {
+		        	
+		        	List<CheckboxModel> listXepHang = (List<CheckboxModel>) session.getAttribute("listXepHang");
+				    if (rankings != null) {
+				        for (CheckboxModel checkbox : listXepHang) {
+				            if (Arrays.asList(rankings).contains(checkbox.getLabel())) {
+				                checkbox.setChecked(true);
+				            } else {
+				                checkbox.setChecked(false);
+				            }
+				        }
+				    }
+				    for (CheckboxModel check : listXepHang)
+				    {
+				    	System.out.println (check.getLabel() + check.isChecked());
+				    }
+				    List<CheckboxModel> listLoaiKhachSan = (List<CheckboxModel>) session.getAttribute("listLoaiKhachSan");
+				    if (hotelTypes != null) {
+				        for (CheckboxModel checkbox : listLoaiKhachSan) {
+				            if (Arrays.asList(hotelTypes).contains(checkbox.getLabel())) {
+				                checkbox.setChecked(true);
+				            } else {
+				                checkbox.setChecked(false);
+				            }
+				        }
+				    }
+				    
+				    List<CheckboxModel> listBuaAn = (List<CheckboxModel>) session.getAttribute("listBuaAn");
+				    if (mealTypes != null) {
+				        for (CheckboxModel checkbox : listBuaAn) {
+				            if (Arrays.asList(mealTypes).contains(checkbox.getLabel())) {
+				                checkbox.setChecked(true);
+				            } else {
+				                checkbox.setChecked(false);
+				            }
+				        }
+				    }
+				    
+				    List<CheckboxModel> listCachTrungTam = (List<CheckboxModel>) session.getAttribute("listCachTrungTam");
+				    if (distances != null) {
+				        for (CheckboxModel checkbox : listCachTrungTam) {
+				            if (Arrays.asList(distances).contains(checkbox.getLabel())) {
+				                checkbox.setChecked(true);
+				            } else {
+				                checkbox.setChecked(false);
+				            }
+				        }
+				    }
+				    
+				    List<CheckboxModel> listGiapBien = (List<CheckboxModel>) session.getAttribute("listGiapBien");
+				    if (nearSeas != null) {
+				        for (CheckboxModel checkbox : listGiapBien) {
+				            if (Arrays.asList(nearSeas).contains(checkbox.getLabel())) {
+				                checkbox.setChecked(true);
+				            } else {
+				                checkbox.setChecked(false);
+				            }
+				        }
+				    }
+				    
+				    session.setAttribute("listXepHang", listXepHang);
+				    session.setAttribute("listLoaiKhachSan", listLoaiKhachSan);
+				    session.setAttribute("listBuaAn", listBuaAn);
+				    session.setAttribute("listCachTrungTam", listCachTrungTam);
+				    session.setAttribute("listGiapBien", listGiapBien);
+				    
+			    	List<KhachSanModel> filteredHotels = locKhachSan(listXepHang, listLoaiKhachSan, listBuaAn, listCachTrungTam, listGiapBien, originalHotelList);
+			    	session.setAttribute("filteredHotels", filteredHotels);
+		        } 
 		    int idThanhPho = 0;
-	    	List<KhachSanModel> filteredHotels = locKhachSan(listXepHang, listLoaiKhachSan, listBuaAn, listCachTrungTam, listGiapBien, danhSachTimKiem);
-	    	session.setAttribute("filteredHotels", filteredHotels);
-		    
 		    Object idThanhPhoTimKiem = session.getAttribute("idThanhPhoTimKiem");
             if (idThanhPhoTimKiem != null) {
                 idThanhPho = (int) idThanhPhoTimKiem;
@@ -272,8 +310,7 @@ public class listHotelController extends HttpServlet {
 
 		}
 
-	}
-	
+	}	
 	private List<KhachSanModel> locKhachSan(List<CheckboxModel> listXepHang2, List<CheckboxModel> listLoaiKhachSan2,
 			List<CheckboxModel> listBuaAn2, List<CheckboxModel> listCachTrungTam2, List<CheckboxModel> listGiapBien2,
 			List<KhachSanModel> danhSachTimKiem) {
@@ -360,8 +397,5 @@ public class listHotelController extends HttpServlet {
             }
         }
         return !check;
-	}
-	
-	
+	}	
 }
-

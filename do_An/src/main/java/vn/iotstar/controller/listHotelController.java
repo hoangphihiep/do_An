@@ -49,6 +49,9 @@ public class listHotelController extends HttpServlet {
 	ArrayList<CheckboxModel> listBuaAn = new ArrayList<CheckboxModel>();
 	ArrayList<CheckboxModel> listCachTrungTam = new ArrayList<CheckboxModel>();
 	ArrayList<CheckboxModel> listGiapBien = new ArrayList<CheckboxModel>();
+	Map<Integer, List<AnhKhachSanModel>> anhMap = new HashMap<>();
+    Map<Integer, List<TienIchModel>> tienIchMap = new HashMap<>();
+    Map<Integer, List<PhongModel>> phongMap = new HashMap<>();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String url = req.getRequestURI();
@@ -139,14 +142,13 @@ public class listHotelController extends HttpServlet {
 		        	String idLoaiKhachSanStr = req.getParameter("idloaiks");
 		        	int idloaiKhachSan = Integer.parseInt(idLoaiKhachSanStr);
 		        	listKS = khachSanService.findByIdLoaiKhachSan(idloaiKhachSan);
+		        	session.setAttribute("originalHotelList", listKS);
 		        }
 	        }
 	        
 	        //session.setAttribute("danhSachTimKiem", listKS);
         	req.setAttribute("listks", listKS);
-        	Map<Integer, List<AnhKhachSanModel>> anhMap = new HashMap<>();
-	        Map<Integer, List<TienIchModel>> tienIchMap = new HashMap<>();
-	        Map<Integer, List<PhongModel>> phongMap = new HashMap<>();
+        	
 	        for (KhachSanModel khachSan : listKS) {
 	            List<AnhKhachSanModel> listAnh = anhKhachSanService.findByIdKhachSan(khachSan.getId());
 	            anhMap.put(khachSan.getId(), listAnh);
@@ -157,9 +159,12 @@ public class listHotelController extends HttpServlet {
 	            List<PhongModel> listPhong = phongService.phongMinByIdKhachSan(khachSan.getId());
 	            phongMap.put(khachSan.getId(), listPhong);
 	        }
+	        
 	        req.setAttribute("anhMap", anhMap);
 	        req.setAttribute("tienIchMap", tienIchMap);
+	        session.setAttribute("tienIchMoiKS", tienIchMap);
 	        req.setAttribute("phongMap", phongMap);
+	        session.setAttribute("tienThueMoiKS", phongMap);
 	        String[] strDanhGia = {"Bình thường", "Khá ổn", "Chất lượng", "Sang trọng", "Tuyệt vời", "Xuất sắc"};
 	        req.setAttribute("strDanhGia", strDanhGia);
 	        
@@ -202,11 +207,6 @@ public class listHotelController extends HttpServlet {
 			    	for (CheckboxModel checkbox : listXepHang) {
 			            checkbox.setChecked(false);
 			        }
-			    	System.out.println("Có vào đây !!!!");
-			    	for (CheckboxModel check : listXepHang)
-				    {
-				    	System.out.println (check.getLabel() + check.isChecked());
-				    }
 			    	
 			    	List<CheckboxModel> listLoaiKhachSan = (List<CheckboxModel>) session.getAttribute("listLoaiKhachSan");
 			    	for (CheckboxModel checkbox : listLoaiKhachSan) {
@@ -242,10 +242,7 @@ public class listHotelController extends HttpServlet {
 				            }
 				        }
 				    }
-				    for (CheckboxModel check : listXepHang)
-				    {
-				    	System.out.println (check.getLabel() + check.isChecked());
-				    }
+				    
 				    List<CheckboxModel> listLoaiKhachSan = (List<CheckboxModel>) session.getAttribute("listLoaiKhachSan");
 				    if (hotelTypes != null) {
 				        for (CheckboxModel checkbox : listLoaiKhachSan) {
@@ -267,7 +264,6 @@ public class listHotelController extends HttpServlet {
 				            }
 				        }
 				    }
-				    
 				    List<CheckboxModel> listCachTrungTam = (List<CheckboxModel>) session.getAttribute("listCachTrungTam");
 				    if (distances != null) {
 				        for (CheckboxModel checkbox : listCachTrungTam) {
@@ -296,8 +292,15 @@ public class listHotelController extends HttpServlet {
 				    session.setAttribute("listCachTrungTam", listCachTrungTam);
 				    session.setAttribute("listGiapBien", listGiapBien);
 				    
-			    	List<KhachSanModel> filteredHotels = locKhachSan(listXepHang, listLoaiKhachSan, listBuaAn, listCachTrungTam, listGiapBien, originalHotelList);
+				    Map<Integer, List<TienIchModel>> tienIchMap = (Map<Integer, List<TienIchModel>>) session.getAttribute("tienIchMoiKS");
+			    	List<KhachSanModel> filteredHotels = locKhachSan(listXepHang, listLoaiKhachSan, listBuaAn, listCachTrungTam, listGiapBien, originalHotelList,tienIchMap);
 			    	session.setAttribute("filteredHotels", filteredHotels);
+			    	
+			    	//List<CheckboxModel> listXepHang = (List<CheckboxModel>) session.getAttribute("listXepHang");
+			    	
+			    	//session.setAttribute("tienIchMoiKS", tienIchMap);
+			    	
+			    	
 		        } 
 		    int idThanhPho = 0;
 		    Object idThanhPhoTimKiem = session.getAttribute("idThanhPhoTimKiem");
@@ -313,7 +316,7 @@ public class listHotelController extends HttpServlet {
 	}	
 	private List<KhachSanModel> locKhachSan(List<CheckboxModel> listXepHang2, List<CheckboxModel> listLoaiKhachSan2,
 			List<CheckboxModel> listBuaAn2, List<CheckboxModel> listCachTrungTam2, List<CheckboxModel> listGiapBien2,
-			List<KhachSanModel> danhSachTimKiem) {
+			List<KhachSanModel> danhSachTimKiem, Map<Integer, List<TienIchModel>> tienIchMap2) {
 		List<KhachSanModel> filteredHotels = new ArrayList<>();
 		for (KhachSanModel tmp : danhSachTimKiem) {
             if (locXepHang(tmp,listXepHang2) && locLoaiKhachSan(tmp,listLoaiKhachSan2) && locBuaAn(tmp,listBuaAn2) && locCachTrungTam(tmp,listCachTrungTam2) && locGiapBien(tmp,listGiapBien2)) {
@@ -347,16 +350,18 @@ public class listHotelController extends HttpServlet {
         return !check;
 	}
 	private boolean locBuaAn(KhachSanModel ks, List<CheckboxModel> listBuaAn2) {
-		boolean check = false;
-        for (int i = 0; i <= 4; i++) {
-            if (listBuaAn2.get(i).isChecked()) {
-                check = true;
-                if (ks.getBuaAn() == i) {
-                    return true;
+		//boolean check = false;
+		List<TienIchModel> listTienIch = tienIchService.findByIdKhachSan(ks.getId());
+		for (CheckboxModel check1 : listBuaAn2) {
+			if (check1.isChecked() == true) {
+				for (TienIchModel tienIch : listTienIch) {
+                    if(tienIch.getTenTienNghi().equals(check1.getLabel())) {
+                    	return true;
+                    }
                 }
             }
         }
-        return !check;
+        return false;
 	}
 	private boolean locCachTrungTam(KhachSanModel ks, List<CheckboxModel> listCachTrungTam2) {
 		boolean check = false;

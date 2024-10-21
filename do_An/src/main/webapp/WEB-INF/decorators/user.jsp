@@ -7,15 +7,12 @@
 <html>
 <head>
 <title>PrimeFaces</title>
-<link type="text/css" rel="stylesheet"
-	href="/do_An_CNTT/Content/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="/do_An/Content/css/bootstrap.min.css" />
 <!-- // -->
-<link type="text/css" rel="stylesheet"
-	href="/do_An_CNTT/Content/css/style.css" />
-<link type="text/css" rel="stylesheet"
-	href="/do_An_CNTT/Content/css/font.css" />
-<link type="text/css" rel="stylesheet"
-	href="/do_An_CNTT/Content/css/carousel.css" />
+<link type="text/css" rel="stylesheet" href="/do_An/Content/css/style.css" />
+<link type="text/css" rel="stylesheet" href="/do_An/Content/css/font.css" />
+<link type="text/css" rel="stylesheet" href="/do_An/Content/css/carousel.css" />
+<link type="text/css" rel="stylesheet" href="/do_An/Content/css/style2.css" />
 
 <!--<link href="https://fonts.googleapis.com/css?family=Quicksand&amp;display=swap" rel="stylesheet"/>-->
 
@@ -40,8 +37,9 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="/do_An_CNTT/Content/js/bootstrap.min.js"></script>
-	<script src="/do_An_CNTT/Content/js/carousel.js"></script>
+	<script src="/do_An/Content/js/bootstrap.min.js"></script>
+	<script src="/do_An/Content/js/carousel.js"></script>
+	<script src="/do_An/Content/js/Pointrange.js"></script>
 	<script>
 		var link_active = 1;
 	</script>
@@ -53,5 +51,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
 </body>
 </html>

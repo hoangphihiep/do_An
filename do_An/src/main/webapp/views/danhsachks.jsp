@@ -12,6 +12,7 @@
 		<h3 style="text-align: center; color: #444; margin-bottom: 0px">Các
 			Khách sạn tìm thấy</h3>
 		<div class="row">
+			
 			<div class="col-md-3">
 				<div
 					style="border: 1px solid #c0c0c0; border-radius: 5px; margin-top: 20px">
@@ -19,7 +20,27 @@
 					    <div style="padding: 10px 0 8px 20px">
 					        <span style="font-size: 16px; font-weight: bold">Chọn lọc theo</span>
 					    </div>
-					
+						<div>
+						  <div class="row">
+						    <div class="col-sm-12">
+						      <div id="slider-range"></div>
+						    </div>
+						  </div>
+						  <div class="row slider-labels">
+						    <div class="col-xs-6 caption">
+						      <strong>Min:</strong> <span id="slider-range-value1"></span>
+						    </div>
+						    <div class="col-xs-6 text-right caption">
+						      <strong>Max:</strong> <span id="slider-range-value2"></span>
+						    </div>
+						  </div>
+						  <div class="row">
+						    <div class="col-sm-12">
+						        <input type="hidden" name="min-value" value="">
+						        <input type="hidden" name="max-value" value="">
+						    </div>
+						  </div>
+						</div>
 					    <!-- Xếp hạng -->
 					    <div class="khoi-loc">
 					        <div class="head">Xếp hạng</div>
@@ -46,9 +67,9 @@
 					        </c:forEach>
 					    </div>
 					
-					    <!-- Bữa ăn -->
+					    <!-- Tiện ích -->
 					    <div class="khoi-loc">
-					        <div class="head">Bữa ăn</div>
+					        <div class="head">Tiện ích</div>
 					        <c:forEach var="buaan" items="${listBuaAn}">
 					            <div>
 					                <input type="checkbox" class="filter-checkbox" name="mealType" value="${buaan.label}" 
@@ -84,6 +105,7 @@
 					            </div>
 					        </c:forEach>
 					    </div>
+					    
 					</form>
 				</div>
 			</div>
@@ -140,7 +162,9 @@
 							            </div>
 							            <div style="text-align: right;">
 							                <div style="text-decoration: line-through; color: #999; font-size: 14px;"></div>
-							                <div style="color: red; font-size: 24px; font-weight: bold;">82 USD</div>
+							                <c:forEach items="${phongMap[ks.id]}" var="phong" >
+							                	<div style="color: red; font-size: 24px; font-weight: bold;">${phong.giaThue} VNĐ</div>
+							            	</c:forEach>
 							            </div>
 							            <div style="font-size: 14px; color: #666; margin-top: -30px;">${ks.diaChi}</div>
 							            <div style="margin-top: 20px;">

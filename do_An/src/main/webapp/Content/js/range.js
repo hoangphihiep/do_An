@@ -5,31 +5,56 @@ $(document).ready(function() {
   $('.noUi-handle').on('click', function() {
     $(this).width(50);
   });
+
   var rangeSlider = document.getElementById('slider-range');
   var moneyFormat = wNumb({
     decimals: 0,
     thousand: ',',
-    prefix: '$'
+    suffix: ' VNĐ'
   });
+
+  // Lấy giá trị từ LocalStorage (nếu có)
+  var minVal = localStorage.getItem('min-value');
+  var maxVal = localStorage.getItem('max-value');
+
+  // Nếu không có giá trị trong LocalStorage, gán giá trị mặc định
+  if (!minVal || !maxVal) {
+    minVal = 100000;
+    maxVal = 1000000;
+  } else {
+    // Chuyển từ chuỗi sang số
+    minVal = parseInt(minVal, 10);
+    maxVal = parseInt(maxVal, 10);
+  }
+
+  // Khởi tạo noUiSlider
   noUiSlider.create(rangeSlider, {
-    start: [500000, 1000000],
+    start: [minVal, maxVal],
     step: 1,
     range: {
-      'min': [100000],
+      'min': [50000],
       'max': [1000000]
     },
     format: moneyFormat,
     connect: true
   });
-  
+
   // Set visual min and max values and also update value hidden form inputs
   rangeSlider.noUiSlider.on('update', function(values, handle) {
     document.getElementById('slider-range-value1').innerHTML = values[0];
     document.getElementById('slider-range-value2').innerHTML = values[1];
-    document.getElementsByName('min-value').value = moneyFormat.from(
-      values[0]);
-    document.getElementsByName('max-value').value = moneyFormat.from(
-      values[1]);
+
+    // Gán giá trị cho input ẩn
+    document.getElementsByName('min-value')[0].value = moneyFormat.from(values[0]);
+    document.getElementsByName('max-value')[0].value = moneyFormat.from(values[1]);
+
+    // Lưu giá trị vào LocalStorage
+    localStorage.setItem('min-value', moneyFormat.from(values[0]));
+    localStorage.setItem('max-value', moneyFormat.from(values[1]));
+
+    // Kiểm tra giá trị lưu trong LocalStorage
+    console.log('Min value saved:', localStorage.getItem('min-value'));
+    console.log('Max value saved:', localStorage.getItem('max-value'));
   });
 });
 

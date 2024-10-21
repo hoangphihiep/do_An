@@ -8,7 +8,7 @@
 <title>Danh sách Khách sạn</title>
 </head>
 <body>
-	<div class="c80">
+	<div style = "width: 90%;margin: auto;">
 		<h3 style="text-align: center; color: #444; margin-bottom: 0px">Các
 			Khách sạn tìm thấy</h3>
 		<div class="row">
@@ -229,5 +229,6 @@
         document.getElementById("filterForm").submit();
     }
 </script>
+
 </body>
 </html>

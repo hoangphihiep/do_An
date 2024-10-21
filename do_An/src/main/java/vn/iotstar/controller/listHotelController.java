@@ -162,7 +162,6 @@ public class listHotelController extends HttpServlet {
 	        
 	        req.setAttribute("anhMap", anhMap);
 	        req.setAttribute("tienIchMap", tienIchMap);
-	        session.setAttribute("tienIchMoiKS", tienIchMap);
 	        req.setAttribute("phongMap", phongMap);
 	        session.setAttribute("tienThueMoiKS", phongMap);
 	        String[] strDanhGia = {"Bình thường", "Khá ổn", "Chất lượng", "Sang trọng", "Tuyệt vời", "Xuất sắc"};
@@ -194,7 +193,13 @@ public class listHotelController extends HttpServlet {
 		    String[] mealTypes = req.getParameterValues("mealType");
 		    String[] distances = req.getParameterValues("distanceFromCenter");
 		    String[] nearSeas = req.getParameterValues("nearSea");
+		    String minValue = req.getParameter("min-value");
+		    String maxValue = req.getParameter("max-value");
 		    
+		    int min = Integer.parseInt(minValue);
+            int max = Integer.parseInt(maxValue);
+            System.out.println("Min value: " + min);
+            System.out.println("Max value: " + max);
 		    HttpSession session = req.getSession();
 		    List<KhachSanModel> originalHotelList = (List<KhachSanModel>) session.getAttribute("originalHotelList");
 		    if ((rankings == null || rankings.length == 0) &&
@@ -292,8 +297,8 @@ public class listHotelController extends HttpServlet {
 				    session.setAttribute("listCachTrungTam", listCachTrungTam);
 				    session.setAttribute("listGiapBien", listGiapBien);
 				    
-				    Map<Integer, List<TienIchModel>> tienIchMap = (Map<Integer, List<TienIchModel>>) session.getAttribute("tienIchMoiKS");
-			    	List<KhachSanModel> filteredHotels = locKhachSan(listXepHang, listLoaiKhachSan, listBuaAn, listCachTrungTam, listGiapBien, originalHotelList,tienIchMap);
+				    
+			    	List<KhachSanModel> filteredHotels = locKhachSan(listXepHang, listLoaiKhachSan, listBuaAn, listCachTrungTam, listGiapBien, originalHotelList,min,max);
 			    	session.setAttribute("filteredHotels", filteredHotels);
 			    	
 			    	//List<CheckboxModel> listXepHang = (List<CheckboxModel>) session.getAttribute("listXepHang");
@@ -316,14 +321,27 @@ public class listHotelController extends HttpServlet {
 	}	
 	private List<KhachSanModel> locKhachSan(List<CheckboxModel> listXepHang2, List<CheckboxModel> listLoaiKhachSan2,
 			List<CheckboxModel> listBuaAn2, List<CheckboxModel> listCachTrungTam2, List<CheckboxModel> listGiapBien2,
-			List<KhachSanModel> danhSachTimKiem, Map<Integer, List<TienIchModel>> tienIchMap2) {
+			List<KhachSanModel> danhSachTimKiem, int min, int max) {
 		List<KhachSanModel> filteredHotels = new ArrayList<>();
+		System.out.println ("Có vào đây ");
 		for (KhachSanModel tmp : danhSachTimKiem) {
-            if (locXepHang(tmp,listXepHang2) && locLoaiKhachSan(tmp,listLoaiKhachSan2) && locBuaAn(tmp,listBuaAn2) && locCachTrungTam(tmp,listCachTrungTam2) && locGiapBien(tmp,listGiapBien2)) {
+            if (locXepHang(tmp,listXepHang2) && locLoaiKhachSan(tmp,listLoaiKhachSan2) && locBuaAn(tmp,listBuaAn2) && locCachTrungTam(tmp,listCachTrungTam2) && locGiapBien(tmp,listGiapBien2) && locTienThue(tmp,min,max)) {
             	filteredHotels.add(tmp);
             }
         }
 		return filteredHotels;
+	}
+	private boolean locTienThue(KhachSanModel tmp, int min, int max) {
+		boolean check = false;
+		List<PhongModel> listPhong = phongService.phongMinByIdKhachSan(tmp.getId());
+		System.out.println ("Id khách sạn: " + tmp.getId() + "tên khách sạn: " + tmp.getTen());
+		for (PhongModel phong : listPhong) {
+			check = true;
+			if (phong.getGiaThue() >= min && phong.getGiaThue() <= max) {
+				return true;
+			}
+		}
+		return !check;
 	}
 	private boolean locXepHang(KhachSanModel ks, List<CheckboxModel> listXepHang2) {
 		boolean check = false;
@@ -350,10 +368,11 @@ public class listHotelController extends HttpServlet {
         return !check;
 	}
 	private boolean locBuaAn(KhachSanModel ks, List<CheckboxModel> listBuaAn2) {
-		//boolean check = false;
+		boolean check = false;
 		List<TienIchModel> listTienIch = tienIchService.findByIdKhachSan(ks.getId());
 		for (CheckboxModel check1 : listBuaAn2) {
-			if (check1.isChecked() == true) {
+			if (check1.isChecked()) {
+				check = true;
 				for (TienIchModel tienIch : listTienIch) {
                     if(tienIch.getTenTienNghi().equals(check1.getLabel())) {
                     	return true;
@@ -361,7 +380,7 @@ public class listHotelController extends HttpServlet {
                 }
             }
         }
-        return false;
+		return !check;
 	}
 	private boolean locCachTrungTam(KhachSanModel ks, List<CheckboxModel> listCachTrungTam2) {
 		boolean check = false;

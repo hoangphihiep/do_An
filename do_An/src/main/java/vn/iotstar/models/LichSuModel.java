@@ -1,6 +1,7 @@
 package vn.iotstar.models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class LichSuModel implements Serializable {
 
@@ -10,20 +11,21 @@ public class LichSuModel implements Serializable {
     String tenPhong;
     int idKhachSan;
     String tenKhachSan;
-    String ngayDat;
-    String ngayDen;
-    String ngayTra;
+    Date ngayDat;
+    Date ngayDen;
+    Date ngayTra;
     String dichVu;
     String ghiChu;
     String thanhTien;
     int trangThai; // 0: Đang xử lý, 1: Quá hạn, 2: Đã hủy
+    String anhPhong;
     
 	public LichSuModel() {
 		super();
 	}
 
-	public LichSuModel(int id, String tenPhong, int idKhachSan, String tenKhachSan, String ngayDat, String ngayDen,
-			String ngayTra, String dichVu, String ghiChu, String thanhTien, int trangThai) {
+	public LichSuModel(int id, String tenPhong, int idKhachSan, String tenKhachSan, Date ngayDat, Date ngayDen,
+			Date ngayTra, String dichVu, String ghiChu, String thanhTien, int trangThai, String anhPhong) {
 		super();
 		this.id = id;
 		this.tenPhong = tenPhong;
@@ -36,6 +38,7 @@ public class LichSuModel implements Serializable {
 		this.ghiChu = ghiChu;
 		this.thanhTien = thanhTien;
 		this.trangThai = trangThai;
+		this.anhPhong = anhPhong;
 	}
 
 	public int getId() {
@@ -70,27 +73,27 @@ public class LichSuModel implements Serializable {
 		this.tenKhachSan = tenKhachSan;
 	}
 
-	public String getNgayDat() {
+	public Date getNgayDat() {
 		return ngayDat;
 	}
 
-	public void setNgayDat(String ngayDat) {
+	public void setNgayDat(Date ngayDat) {
 		this.ngayDat = ngayDat;
 	}
 
-	public String getNgayDen() {
+	public Date getNgayDen() {
 		return ngayDen;
 	}
 
-	public void setNgayDen(String ngayDen) {
+	public void setNgayDen(Date ngayDen) {
 		this.ngayDen = ngayDen;
 	}
 
-	public String getNgayTra() {
+	public Date getNgayTra() {
 		return ngayTra;
 	}
 
-	public void setNgayTra(String ngayTra) {
+	public void setNgayTra(Date ngayTra) {
 		this.ngayTra = ngayTra;
 	}
 
@@ -124,5 +127,21 @@ public class LichSuModel implements Serializable {
 
 	public void setTrangThai(int trangThai) {
 		this.trangThai = trangThai;
-	}  
+	}
+
+	public String getAnhPhong() {
+		return anhPhong;
+	}
+
+	public void setAnhPhong(String anhPhong) {
+		this.anhPhong = anhPhong;
+	}
+
+	@Override
+	public String toString() {
+		return "LichSuModel [id=" + id + ", tenPhong=" + tenPhong + ", idKhachSan=" + idKhachSan + ", tenKhachSan="
+				+ tenKhachSan + ", ngayDat=" + ngayDat + ", ngayDen=" + ngayDen + ", ngayTra=" + ngayTra + ", dichVu="
+				+ dichVu + ", ghiChu=" + ghiChu + ", thanhTien=" + thanhTien + ", trangThai=" + trangThai
+				+ ", anhPhong=" + anhPhong + "]";
+	}
 }

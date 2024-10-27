@@ -52,5 +52,16 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.1.0/wNumb.min.js"></script>
+    <script>
+		var link_active = 1;
+
+		// Tự động hiển thị modal đăng nhập nếu có tham số showLoginModal=true
+		$(document).ready(function() {
+		    const urlParams = new URLSearchParams(window.location.search);
+		    if (urlParams.get('showLoginModal') === 'true') {
+		        $('#dangnhap').modal('show');
+		    }
+		});
+	</script>
 </body>
 </html>

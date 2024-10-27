@@ -8,9 +8,7 @@ import java.util.List;
 
 import vn.iotstar.configs.DBConnectionSQL;
 import vn.iotstar.dao.IDanhGiaDao;
-import vn.iotstar.dao.IUserDao;
 import vn.iotstar.models.DanhGiaModel;
-import vn.iotstar.models.UserModel;
 
 public class DanhGiaDaoImpl extends DBConnectionSQL implements IDanhGiaDao {
 

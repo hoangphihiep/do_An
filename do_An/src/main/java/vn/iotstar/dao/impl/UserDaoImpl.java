@@ -35,6 +35,8 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 				user.setEmail(rs.getString("Email"));
 				user.setPhone(rs.getString("Phone"));
 				user.setPassword(rs.getString("Password"));
+				user.setDiaChi(rs.getString("DiaChi"));
+				user.setIdRole(rs.getInt("RoleId"));
 				return user;
 			}
 		} catch (Exception e) {
@@ -55,7 +57,7 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 			while (rs.next()) {
 
 				list.add(new UserModel(rs.getInt("Id"), rs.getString("Username"), rs.getString("Fullname"), rs.getDate("Dateofbirth"), rs.getString("Gender"), rs.getString("Email"),rs.getString("Phone"),
-						rs.getString("Password")));
+						rs.getString("Password"), rs.getString("DiaChi"), rs.getInt("RoleId")));
 			}
 			return list;
 		} catch (Exception e) {
@@ -94,7 +96,7 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 	@Override
 	public void insert(UserModel user) {
 		// TODO Auto-generated method stub
-		String sql = "INSERT INTO Users(Username, Fullname, Dateofbirth, Gender, Email, Phone, Password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO Users(Username, Fullname, Dateofbirth, Gender, Email, Phone, Password, DiaChi, RoleId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -107,6 +109,8 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 			ps.setString(5, user.getEmail());
 			ps.setString(6, user.getPhone());
 			ps.setString(7, user.getPassword());
+			ps.setString(8, user.getDiaChi());
+			ps.setInt(9, user.getIdRole());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -115,25 +119,23 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 
 	}
 
-	public static void main(String[] args) {
-
-		try {
-			IUserDao userDao = new UserDaoImpl();
-
-			userDao.insert(
-					new UserModel("khanh1", "Nguyen Van Khanh1", null , "Nam", "khanh1@gmail.com", "07242841241", "123"));
-
-			List<UserModel> list = userDao.findAll();
-			for (UserModel user : list) {
-				System.out.println(user);
-			}
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-
-	}
+	
+	  public static void main(String[] args) {
+	  
+	  try { IUserDao userDao = new UserDaoImpl();
+	  
+	  userDao.update( new UserModel(4,"hiep12", "HoangPhiHiep", null , "Nam",
+	  "khanh1@gmail.com", "07242841241", "123", "Thu duc", 1));
+	  
+	  List<UserModel> list = userDao.findAll(); for (UserModel user : list) {
+	  System.out.println(user); }
+	  
+	  } catch (Exception e) {
+	  
+	  e.printStackTrace(); }
+	  
+	 }
+	 
 
 	@Override
 	public boolean checkExistEmail(String email) {
@@ -229,15 +231,22 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 	@Override
 	public void update(UserModel user) {
 		// TODO Auto-generated method stub
-		String sql = "UPDATE Users SET  Password = ? WHERE Username = ? OR Email = ?";
+		String sql = "UPDATE Users SET Username = ?, Fullname = ?, Dateofbirth = ?, Gender = ?, Email = ?, Phone = ?, Password = ?, DiaChi = ?, RoleId = ? WHERE Id = ?";
 
 		try {
 			conn = new DBConnectionSQL().getConnection();
 			ps = conn.prepareStatement(sql);
 
-			ps.setString(1, user.getPassword());
-			ps.setString(2, user.getUsername());
-			ps.setString(3, user.getEmail());
+			ps.setString(1, user.getUsername());
+			ps.setString(2, user.getFullname());
+			ps.setDate(3, user.getCreatedDate());
+			ps.setString(4, user.getGender());
+			ps.setString(5, user.getEmail());
+			ps.setString(6, user.getPhone());
+			ps.setString(7, user.getPassword());
+			ps.setString(8, user.getDiaChi());
+			ps.setInt(9, user.getIdRole());
+			ps.setInt(10, user.getId());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

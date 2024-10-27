@@ -14,7 +14,9 @@ public interface IUserServices {
 	
 	void insert(UserModel user);
 	
-	boolean register(String username, String fullname, Date createDate, String gender,  String email, String phone, String password);
+	void update(UserModel user);
+	
+	boolean register(String username, String fullname, Date createDate, String gender,  String email, String phone, String password, String diaChi, int RoleId);
 	
 	boolean checkExistEmail(String email);
 	

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemesh>
-	<mapping path="/*" name="user" decorator="user.jsp" />
+	<mapping path="/home" name="user" decorator="user.jsp" />
+	<mapping path="/khachsan" name="user" decorator="user.jsp" />
+	<mapping path="/danhsachks" name="user" decorator="user.jsp" />
+	<mapping path="/danhsachks/timkiem" name="user" decorator="user.jsp" />
+	<mapping path="/danhsachks/locks" name="user" decorator="user.jsp" />
+	<mapping path="/myAccount/trangCaNhan" name="user" decorator="templateCaNhan.jsp" />
+	<mapping path="/myAccount/lichSuDatPhong" name="user" decorator="templateCaNhan.jsp" />
 	<mapping path="/admin/*" name="admin" decorator="admin.jsp" />
 	<mapping path="/manager/*" name="manager" decorator="manager.jsp"/>
 	<mapping path="/v1/api/*" name="api" exclude = "true"/>

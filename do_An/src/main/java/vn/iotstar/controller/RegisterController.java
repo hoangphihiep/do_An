@@ -32,6 +32,7 @@ public class RegisterController extends HttpServlet {
 		String phone = req.getParameter("Phone");
 		String password = req.getParameter("Password");
 		String repeatPassword = req.getParameter("Psw-repeat");
+		String diaChi = req.getParameter("Address" );
 
 		Date createdDate = null;
 		try {
@@ -62,7 +63,7 @@ public class RegisterController extends HttpServlet {
 			req.getRequestDispatcher(Constant.Path.REGISTER).forward(req, resp);
 			return;
 		}
-		boolean isSuccess = service.register(username, fullname, createdDate, gender, email, phone, password);
+		boolean isSuccess = service.register(username, fullname, createdDate, gender, email, phone, password,diaChi,1);
 		if (isSuccess) {
 			alertMsg = "Bạn đã đăng ký thành công!";
 			req.setAttribute("alert", alertMsg);

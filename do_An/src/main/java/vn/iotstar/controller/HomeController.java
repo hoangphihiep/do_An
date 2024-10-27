@@ -52,5 +52,5 @@ public class HomeController extends HttpServlet {
 		req.setAttribute("listks", listKS);
 		req.setAttribute("strDanhGia", strDanhGia);
 		req.getRequestDispatcher("/views/home/trangchu.jsp").forward(req, resp);
-	}
+	} 
 }

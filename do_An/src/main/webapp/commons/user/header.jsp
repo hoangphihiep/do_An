@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
 
 <div style="background-color: #003580;">
 	<a href="trangchu.jsp"><img src="/do_An/Content/Images/Logo.png"
@@ -16,7 +19,7 @@
             </c:when>
             <c:otherwise>
                 <div>
-                    <span style="margin-right: 20px; color: white; font-weight: bold">Xin chào<strong>${username}</strong>,</span>
+                    <span style="margin-right: 20px; color: white; font-weight: bold">Xin chào, <strong>${username}</strong></span>
                     <a href="<c:url value='/logout'/>" style="color: #00BBFF; font-weight: bold">Đăng Xuất</a>
                 </div>
             </c:otherwise>
@@ -26,13 +29,13 @@
 		<div class="topnav">
 			<form id="form-nav" action="#" method="post">
 				<a href="/do_An/home">Trang chủ</a> 
-				<a href="caNhan.jsp">Cá nhân</a> 
-				<a href="tinTuc.jsp">Tin tức</a> <a href="lienHe.jsp">Liên hệ</a>
+				<a href="/do_An/myAccount/trangCaNhan">Cá nhân</a> 
+				<a href="tinTuc.jsp">Tin tức</a> 
+				<a href="lienHe.jsp">Liên hệ</a>
 			</form>
 		</div>
 	</div>
 </div>
-
 <div class="modal fade" id="dangnhap" tabindex="-1" role="dialog" aria-labelledby="dangnhapLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -45,6 +48,9 @@
             <form action="\do_An\login" method="post">
                 <div class="modal-body">
                     <div class="form-dang-nhap">
+                    	<c:if test="${alert !=null}">
+							<h3 class="alert alertdanger">${alert}</h3>
+						</c:if>
                         <div class="form-group">
                             <label for="taiKhoan">Tài Khoản</label>
                             <input type="text" class="form-control" id="taiKhoan" name="username" placeholder="Tên Tên Khoản ..."/>
@@ -77,6 +83,7 @@
     </div>
 </div>
 
+
 <!-- Modal Đăng Ký -->
 <div class="modal fade" id="dangky" tabindex="-1" role="dialog" aria-labelledby="dangkyLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -108,6 +115,14 @@
                             <input type="text" class="form-control" id="Phone" name="Phone" placeholder="Số điện thoại ..."/>
                         </div>
                         <div class="form-group">
+                            <label for="ngaySinh">Ngày Sinh</label>
+                            <input type="date" class="form-control" id="DateofBirth" name="DateofBirth" placeholder="Ngày sinh của bạn ..."/>
+                        </div>
+                        <div class="form-group">
+                            <label for="Address">Địa chỉ</label>
+                            <input type="text" class="form-control" id="Address" name="Address" placeholder="Địa chỉ của bạn ..."/>
+                        </div>
+                        <div class="form-group">
                             <label for="dkMatKhau">Mật Khẩu</label>
                             <input type="password" class="form-control" id="Password" name="Password" placeholder="Mật Khẩu ..."/>
                         </div>
@@ -115,10 +130,7 @@
                             <label for="dkNhapLaiMatKhau">Nhập lại Mật Khẩu</label>
                             <input type="password" class="form-control" id="Psw-repeat" name="Psw-repeat" placeholder="Nhập lại Mật Khẩu ..."/>
                         </div>
-                        <div class="form-group">
-                            <label for="ngaySinh">Ngày Sinh</label>
-                            <input type="date" class="form-control" id="DateofBirth" name="DateofBirth" placeholder="Ngày sinh của bạn ..."/>
-                        </div>
+                        
                         <div class="form-group">
                             <label>Giới Tính</label><br/>
                             <div class="form-check">
@@ -154,3 +166,4 @@
         </div>
     </div>
 </div>
+

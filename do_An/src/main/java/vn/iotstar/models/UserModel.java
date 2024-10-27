@@ -14,15 +14,16 @@ public class UserModel implements Serializable {
 	private String email;
 	private String phone;
 	private String password;
+	private String diaChi;
+	private int idRole;
 	
 
 	public UserModel() {
 		super();
 	}
 
-
 	public UserModel(String username, String fullname, Date createdDate, String gender, String email, String phone,
-			String password) {
+			String password, String diaChi, int idRole) {
 		super();
 		this.username = username;
 		this.fullname = fullname;
@@ -31,11 +32,12 @@ public class UserModel implements Serializable {
 		this.email = email;
 		this.phone = phone;
 		this.password = password;
+		this.diaChi = diaChi;
+		this.idRole = idRole;
 	}
 
-
 	public UserModel(int id, String username, String fullname, Date createdDate, String gender, String email,
-			String phone, String password) {
+			String phone,String diaChi, String password , int idRole) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -45,6 +47,8 @@ public class UserModel implements Serializable {
 		this.email = email;
 		this.phone = phone;
 		this.password = password;
+		this.diaChi = diaChi;
+		this.idRole = idRole;
 	}
 
 
@@ -126,15 +130,33 @@ public class UserModel implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	
+
+	public String getDiaChi() {
+		return diaChi;
+	}
+
+
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
+	}
+
+
+	public int getIdRole() {
+		return idRole;
+	}
+
+
+	public void setIdRole(int idRole) {
+		this.idRole = idRole;
+	}
 
 
 	@Override
 	public String toString() {
 		return "UserModel [id=" + id + ", username=" + username + ", fullname=" + fullname + ", createdDate="
 				+ createdDate + ", gender=" + gender + ", email=" + email + ", phone=" + phone + ", password="
-				+ password + "]";
+				+ password + ", diaChi=" + diaChi + ", idRole=" + idRole + "]";
 	}
-
-	
-
 }

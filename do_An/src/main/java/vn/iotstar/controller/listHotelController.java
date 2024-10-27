@@ -334,7 +334,6 @@ public class listHotelController extends HttpServlet {
 	private boolean locTienThue(KhachSanModel tmp, int min, int max) {
 		boolean check = false;
 		List<PhongModel> listPhong = phongService.phongMinByIdKhachSan(tmp.getId());
-		System.out.println ("Id khách sạn: " + tmp.getId() + "tên khách sạn: " + tmp.getTen());
 		for (PhongModel phong : listPhong) {
 			check = true;
 			if (phong.getGiaThue() >= min && phong.getGiaThue() <= max) {

@@ -63,7 +63,7 @@
     </div>
 
     <div style="height: 50px; text-align: center">
-        <a href="https://www.facebook.com/WH.KnightZ"><img style="margin-right: 10px" src="Content/Images/sticker_facebook.png" alt="Facebook"/></a>
-        <a href="https://www.youtube.com/channel/UCyRY53rs_lgyJ-p3PzZj0Og"><img src="Content/Images/sticker_youtube.png" alt="Youtube"/></a>
+        <a href="https://www.facebook.com/WH.KnightZ"><img style="margin-right: 10px" src="/do_An/Content/Images/sticker_facebook.png" alt="Facebook"/></a>
+        <a href="https://www.youtube.com/channel/UCyRY53rs_lgyJ-p3PzZj0Og"><img src="/do_An/Content/Images/sticker_youtube.png" alt="Youtube"/></a>
     </div>
 </div>

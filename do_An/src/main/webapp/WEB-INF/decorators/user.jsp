@@ -35,31 +35,73 @@
 		<!-- End Footer -->
 	</div>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="/do_An/Content/js/bootstrap.min.js"></script>
 	<script src="/do_An/Content/js/carousel.js"></script>
 	<script src="/do_An/Content/js/range.js"></script>
-	<script>
-		var link_active = 1;
-	</script>
-	<script>
-		var li = document.getElementById('form-nav:link-' + link_active);
-		li.classList.add('active');
-	</script>
 	<!-- Thêm Bootstrap JS và jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.1.0/wNumb.min.js"></script>
     <script>
-		var link_active = 1;
+	    $(window).on("load", function() {
+	        const urlParams = new URLSearchParams(window.location.search);
+	        if (urlParams.get("showLoginModal") === "true") {
+	            const modalElement = $("#dangnhap");
+	            modalElement.modal("show");
+	            
+	            // Kiểm tra và ép buộc hiển thị modal nếu cần
+	            modalElement.find(".modal-dialog").css("display", "block");
+	            modalElement.removeClass("fade");
+	        }
+	    });
 
-		// Tự động hiển thị modal đăng nhập nếu có tham số showLoginModal=true
-		$(document).ready(function() {
+	</script>
+	<script>
+		$(window).on("load", function() {
 		    const urlParams = new URLSearchParams(window.location.search);
-		    if (urlParams.get('showLoginModal') === 'true') {
-		        $('#dangnhap').modal('show');
+		    if (urlParams.get("showRegisterModal") === "true") {
+		    	const modalElement = $("#dangky");
+		        modalElement.modal("show");
+		    	
+		        modalElement.find(".modal-dialog").css("display", "block");
+	            modalElement.removeClass("fade");
+		    }
+		});
+	</script>
+	<script>
+		$(window).on("load", function() {
+		    const urlParams = new URLSearchParams(window.location.search);
+		    if (urlParams.get("showForgotPassword") === "true") {
+		    	const modalElement = $("#quenMatKhau");
+		        modalElement.modal("show");
+		    	
+		        modalElement.find(".modal-dialog").css("display", "block");
+	            modalElement.removeClass("fade");
+		    }
+		});
+	</script>
+	<script>
+		$(window).on("load", function() {
+		    const urlParams = new URLSearchParams(window.location.search);
+		    if (urlParams.get("showOTP") === "true") {
+		    	const modalElement = $("#xacThucOTP");
+		        modalElement.modal("show");
+		    	
+		        modalElement.find(".modal-dialog").css("display", "block");
+	            modalElement.removeClass("fade");
+		    }
+		});
+	</script>
+	<script>
+		$(window).on("load", function() {
+		    const urlParams = new URLSearchParams(window.location.search);
+		    if (urlParams.get("showResetPassword") === "true") {
+		    	const modalElement = $("#capNhatMatKhau");
+		        modalElement.modal("show");
+		    	
+		        modalElement.find(".modal-dialog").css("display", "block");
+	            modalElement.removeClass("fade");
 		    }
 		});
 	</script>

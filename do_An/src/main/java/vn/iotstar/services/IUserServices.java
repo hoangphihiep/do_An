@@ -12,6 +12,8 @@ public interface IUserServices {
 	
 	UserModel findById (int id);
 	
+	UserModel findByUsernameOrEmail(String usernameOrEmail);
+	
 	void insert(UserModel user);
 	
 	void update(UserModel user);

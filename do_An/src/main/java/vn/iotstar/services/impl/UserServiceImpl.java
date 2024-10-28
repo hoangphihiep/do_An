@@ -53,7 +53,6 @@ public class UserServiceImpl implements IUserServices {
 
 	@Override
 	public boolean updatePassword(String usernameOrEmail, String newPassword) {
-		// TODO Auto-generated method stub
 		UserModel user = userDao.findByUsernameOrEmail(usernameOrEmail);
 		if (user != null) {
 			user.setPassword(newPassword);
@@ -83,5 +82,10 @@ public class UserServiceImpl implements IUserServices {
 	@Override
 	public void update(UserModel user) {
 		userDao.update(user);
+	}
+
+	@Override
+	public UserModel findByUsernameOrEmail(String Email) {
+		return userDao.findByUsernameOrEmail(Email);
 	}
 }

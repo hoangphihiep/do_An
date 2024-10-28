@@ -219,6 +219,8 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 					user.setEmail(rs.getString("Email"));
 					user.setPhone(rs.getString("Phone"));
 					user.setPassword(rs.getString("Password"));
+					user.setDiaChi(rs.getString("DiaChi"));
+					user.setIdRole(rs.getInt("RoleId"));
 					return user;
 				}
 			}
@@ -230,7 +232,6 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 
 	@Override
 	public void update(UserModel user) {
-		// TODO Auto-generated method stub
 		String sql = "UPDATE Users SET Username = ?, Fullname = ?, Dateofbirth = ?, Gender = ?, Email = ?, Phone = ?, Password = ?, DiaChi = ?, RoleId = ? WHERE Id = ?";
 
 		try {

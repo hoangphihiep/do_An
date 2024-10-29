@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import vn.iotstar.models.UserModel;
 import vn.iotstar.services.IUserServices;
 import vn.iotstar.services.impl.UserServiceImpl;
+import vn.iotstar.utils.AESUtil;
 
 @WebServlet(urlPatterns = "/updatePassword")
 public class ResetPasswordController extends HttpServlet {
@@ -24,7 +25,8 @@ public class ResetPasswordController extends HttpServlet {
 		String newPassword = req.getParameter("newPassword");
 		String confirmPassword = req.getParameter("confirmPassword");
 		String skipUpdate = req.getParameter("skipUpdate");
-		System.out.println ("skipUpdate: " + skipUpdate);
+		
+		
 		IUserServices service = new UserServiceImpl();
 		String alertMsg = "";
 		UserModel user = userService.findByUsernameOrEmail(email);
@@ -36,6 +38,14 @@ public class ResetPasswordController extends HttpServlet {
 			return;
 		}
 		
+		String encryptedPassword = null;
+		try {
+			encryptedPassword = AESUtil.encrypt(newPassword);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if ("true".equals(skipUpdate)) {
 			
 			HttpSession session = req.getSession(false);
@@ -45,7 +55,7 @@ public class ResetPasswordController extends HttpServlet {
 			resp.sendRedirect(req.getContextPath() + "/home");
 		}
 		else{
-			boolean isSuccess = service.updatePassword(email, newPassword);
+			boolean isSuccess = service.updatePassword(email, encryptedPassword);
 			if (isSuccess) {
 				alertMsg = "Bạn đã cập nhật mật khẩu mới! Đăng nhập lại.";
 				req.getSession().setAttribute("alert", alertMsg);

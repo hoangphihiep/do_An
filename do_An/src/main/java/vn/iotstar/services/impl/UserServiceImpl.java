@@ -6,6 +6,7 @@ import vn.iotstar.dao.IUserDao;
 import vn.iotstar.dao.impl.UserDaoImpl;
 import vn.iotstar.models.UserModel;
 import vn.iotstar.services.IUserServices;
+import vn.iotstar.utils.AESUtil;
 
 public class UserServiceImpl implements IUserServices {
 
@@ -21,7 +22,14 @@ public class UserServiceImpl implements IUserServices {
 	public UserModel login(String username, String password) {
 		// TODO Auto-generated method stub
 		UserModel user = this.findByUserName(username);
-		if (user != null && password.equals(user.getPassword())) {
+		String encryptedPassword = user.getPassword();
+		String decryptedPassword = null;
+		try {
+			decryptedPassword = AESUtil.decrypt(encryptedPassword);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (user != null && password.equals(decryptedPassword)) {
 			return user;
 		}
 		return null;

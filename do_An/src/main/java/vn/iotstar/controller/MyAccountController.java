@@ -18,6 +18,7 @@ import vn.iotstar.services.ILichSuDatPhongService;
 import vn.iotstar.services.IUserServices;
 import vn.iotstar.services.impl.LichSuDatPhongServiceImpl;
 import vn.iotstar.services.impl.UserServiceImpl;
+import vn.iotstar.utils.AESUtil;
 
 @WebServlet(urlPatterns = {"/myAccount","/myAccount/trangCaNhan","/myAccount/lichSuDatPhong"})
 public class MyAccountController extends HttpServlet {
@@ -41,7 +42,15 @@ public class MyAccountController extends HttpServlet {
 			req.setAttribute("email", taiKhoan.getEmail());
 			req.setAttribute("dienthoai", taiKhoan.getPhone());
 			req.setAttribute("diaChi", taiKhoan.getDiaChi());
-			req.setAttribute("matkhau", taiKhoan.getPassword());
+			
+			String encryptedPassword = taiKhoan.getPassword();
+			String decryptedPassword = null;
+			try {
+				decryptedPassword = AESUtil.decrypt(encryptedPassword);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			req.setAttribute("matkhau", decryptedPassword);
 			req.getRequestDispatcher("/views/caNhan.jsp").forward(req, resp);
 	
 		}
@@ -72,9 +81,16 @@ public class MyAccountController extends HttpServlet {
 		} catch (IllegalArgumentException e) {
 			return;
 		}
+		String encryptedPassword = null;
+		try {
+			encryptedPassword = AESUtil.encrypt(matkhau);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println (ten + " " + hovaten + " " + ngaysinh + gioitinh + email 
 				+ dienthoai + diachi + matkhau);
-		userService.update(new UserModel(taiKhoan.getId(),ten,hovaten,createdDate,gioitinh,email,dienthoai,diachi,matkhau,1));
+		userService.update(new UserModel(taiKhoan.getId(),ten,hovaten,createdDate,gioitinh,email,dienthoai,diachi,encryptedPassword,1));
 		
 		
 	}

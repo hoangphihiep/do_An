@@ -109,50 +109,47 @@
 					</form>
 				</div>
 			</div>
-
-					<div class="col-md-9">
+				<div class="col-md-9">
 					<c:forEach var="ks" items="${listks}">
 						<a href="<c:url value='/khachsan?id=${ks.id}'/>" class="link-khachsan">
 							<div style="display: flex; border: 1px solid #ccc; border-radius: 10px; overflow: hidden; width: 800px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
 						        <div style="width: 300px; display: flex; flex-direction: column;">
 							        <c:forEach items="${anhMap[ks.id]}" var="anh">
 								        	<c:if test="${anh.vaiTroCuaAnh == 'AnhChinh'}">
-													<c:choose>
-														<c:when
-															test="${anh.urlAnhKhachSan.substring(0, 6) == 'https:'}">
-															<c:url value="${anh.urlAnhKhachSan}" var="imgUrl"></c:url>
-														</c:when>
-														<c:otherwise>
-															<c:url value="/image?fname=${anh.urlAnhKhachSan}"
-																var="imgUrl"></c:url>
-														</c:otherwise>
-													</c:choose>
-													<img style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-top: 5px; margin-left: 5px;" src="${imgUrl}" alt="Hotel Image">
+												<c:choose>
+													<c:when
+														test="${anh.urlAnhKhachSan.substring(0, 6) == 'https:'}">
+														<c:url value="${anh.urlAnhKhachSan}" var="imgUrl"></c:url>
+													</c:when>
+													<c:otherwise>
+														<c:url value="/image?fname=${anh.urlAnhKhachSan}"
+															var="imgUrl"></c:url>
+													</c:otherwise>
+												</c:choose>
+												<img style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-top: 5px; margin-left: 5px;" src="${imgUrl}" alt="Hotel Image">
 											</c:if>
+									</c:forEach>
+									<div style="display: flex; justify-content: space-between; margin-top: 5px;">
+										<c:forEach items="${anhMap[ks.id]}" var="anh" begin="0" end="3">
+											<c:if test="${anh.vaiTroCuaAnh.startsWith('Anhphu')}">
+											<!-- Display images in two columns, so each row will have two images -->
+												<c:choose>
+													<c:when
+														test="${anh.urlAnhKhachSan.substring(0, 6) == 'https:'}">
+														<c:url value="${anh.urlAnhKhachSan}" var="imgUrl"></c:url>
+													</c:when>
+													<c:otherwise>
+														<c:url value="/image?fname=${anh.urlAnhKhachSan}"
+															var="imgUrl"></c:url>
+													</c:otherwise>
+												</c:choose>
+												<img
+													style="width: 72px; height: 60px; object-fit: cover; border-radius: 5px; flex: 1; margin-left: 10px;"
+													src="${imgUrl}" alt="Side Image">
+											</c:if> 
 										</c:forEach>
-										
-											<div style="display: flex; justify-content: space-between; margin-top: 5px;">
-									            <c:forEach items="${anhMap[ks.id]}" var="anh" begin="0" end="3">
-										            <c:if test="${anh.vaiTroCuaAnh.startsWith('Anhphu')}">
-														<!-- Display images in two columns, so each row will have two images -->
-															<c:choose>
-																<c:when
-																	test="${anh.urlAnhKhachSan.substring(0, 6) == 'https:'}">
-																	<c:url value="${anh.urlAnhKhachSan}" var="imgUrl"></c:url>
-																</c:when>
-																<c:otherwise>
-																	<c:url value="/image?fname=${anh.urlAnhKhachSan}"
-																		var="imgUrl"></c:url>
-																</c:otherwise>
-															</c:choose>
-															<img
-																style="width: 72px; height: 60px; object-fit: cover; border-radius: 5px; flex: 1; margin-left: 10px;"
-																src="${imgUrl}" alt="Side Image">
-													</c:if> 
-												</c:forEach>
-											</div>
-							        
-						         </div>
+									</div>       
+						        </div>
 							        <div style="padding: 20px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
 							            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
 							                <h2 style="margin: 0; font-size: 24px; margin-top: -10px;">${ks.ten}</h2>
@@ -187,14 +184,41 @@
 							            	<div style="font-size: 14px; color: #666; margin-top: 10px;">${ks.tenLoaiKhachSan}</div>
                                             <div style="font-size: 14px; color: #666; margin-top: 10px;">${ks.giapBien?"Có":"Không"} giáp biển </div>
                                             <div style="font-size: 13px; color: #666666">${ks.moTa}</div>
-							            </div>
-							            
-							        </div>
-							     </div> 
-							   </a> 
-							   <br>
-							</c:forEach> 
-						 </div>
+							            </div>   
+							</div>
+						</div> 
+					</a> 
+					<br>
+					</c:forEach> 
+					<div style="margin-left: -150px">
+					    <ul style="display: flex; list-style-type: none; padding: 0; justify-content: center; align-items: center;">
+					        <!-- Nút đầu tiên và nút trước -->
+					        <li style="margin: 0 5px;">
+					            <a href="?page=1" style="display: block; padding: 8px 12px; text-decoration: none; color: ${currentPage == 1 ? '#ccc' : '#333'}; border: 1px solid #ddd; border-radius: 4px;">&laquo;</a>
+					        </li>
+					        <li style="margin: 0 5px;">
+					            <a href="?page=${currentPage > 1 ? currentPage - 1 : 1}" style="display: block; padding: 8px 12px; text-decoration: none; color: ${currentPage == 1 ? '#ccc' : '#333'}; border: 1px solid #ddd; border-radius: 4px;">&lsaquo;</a>
+					        </li>
+					
+					        <!-- Các trang giữa -->
+					        <c:forEach var="i" begin="1" end="${endPage}">
+					            <li style="margin: 0 5px;">
+					                <a href="?page=${i}" style="display: block; padding: 8px 12px; text-decoration: none; color: ${currentPage == i ? '#fff' : '#333'}; border: 1px solid ${currentPage == i ? '#007bff' : '#ddd'}; border-radius: 4px; background-color: ${currentPage == i ? '#007bff' : 'transparent'};">
+					                    ${i}
+					                </a>
+					            </li>
+					        </c:forEach>
+					
+					        <!-- Nút kế tiếp và nút cuối -->
+					        <li style="margin: 0 5px;">
+					            <a href="?page=${currentPage < endPage ? currentPage + 1 : endPage}" style="display: block; padding: 8px 12px; text-decoration: none; color: ${currentPage == endPage ? '#ccc' : '#333'}; border: 1px solid #ddd; border-radius: 4px;">&rsaquo;</a>
+					        </li>
+					        <li style="margin: 0 5px;">
+					            <a href="?page=${endPage}" style="display: block; padding: 8px 12px; text-decoration: none; color: ${currentPage == endPage ? '#ccc' : '#333'}; border: 1px solid #ddd; border-radius: 4px;">&raquo;</a>
+					        </li>
+					    </ul>
+					</div>
+				</div>
 				
 			</div>
 		</div>

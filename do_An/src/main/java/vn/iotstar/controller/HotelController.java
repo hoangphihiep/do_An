@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import vn.iotstar.models.AnhKhachSanModel;
 import vn.iotstar.models.DanhGiaModel;
 import vn.iotstar.models.KhachSanModel;
@@ -40,24 +41,54 @@ public class HotelController extends HttpServlet {
 	public IUserServices userService = new UserServiceImpl();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		int id = Integer.parseInt(req.getParameter("id"));
-		KhachSanModel khachSan = khachSanService.findById(id);
+		
+		HttpSession session = req.getSession();
+		Object idKhachSanObj = session.getAttribute("idKhachSan");
+    	
+    	int idKhachSan = 0;
+        if (idKhachSanObj != null) {
+        	idKhachSan = (int) idKhachSanObj;
+        } 
+        String idKhachSanStr = req.getParameter("id");
+        if (idKhachSanStr != null) {
+            idKhachSan = Integer.parseInt(idKhachSanStr);
+            session.setAttribute("idKhachSan", idKhachSan);
+        }
+		
+		KhachSanModel khachSan = khachSanService.findById(idKhachSan);
 		
 		req.setAttribute("ks", khachSan);
 		
-		List<PhongModel> listPhong = phongService.findByIdKhachSan(id);
+		List<PhongModel> listPhong = phongService.findByIdKhachSan(idKhachSan);
 		req.setAttribute("listPhong", listPhong);
 		
 		String[] strDanhGia = {"Bình thường", "Khá ổn", "Chất lượng", "Sang trọng", "Tuyệt vời", "Xuất sắc"};
 		req.setAttribute("strDanhGia", strDanhGia);
 		
-		List<AnhKhachSanModel> listAnh = anhKhachSanService.findByIdKhachSan(id);
+		List<AnhKhachSanModel> listAnh = anhKhachSanService.findByIdKhachSan(idKhachSan);
 		req.setAttribute("listAnh", listAnh);
 		
-		List<TienIchModel> listTienIch = tienIchService.findByIdKhachSan(id);
+		List<TienIchModel> listTienIch = tienIchService.findByIdKhachSan(idKhachSan);
 		req.setAttribute("listTienIch", listTienIch);
 		
-		List<DanhGiaModel> listDanhGia = danhGiaService.findByIdKhachSan(id);
+		int currentPage = 1;
+        if (req.getParameter("page") != null) {
+            currentPage = Integer.parseInt(req.getParameter("page"));
+        }
+        
+		List<DanhGiaModel> listDanhGia = danhGiaService.findByIdKhachSan(currentPage, idKhachSan);
+		
+		List<DanhGiaModel> listDanhGia1 = danhGiaService.findByIdKhachSan(idKhachSan);
+		
+		int countKS = danhGiaService.countAllByIdKhachSan(idKhachSan);
+    	int endPage = countKS/3;
+    	if (countKS % 3 != 0) {
+    		endPage ++;
+    	}
+    	req.setAttribute("currentPage", currentPage);
+    	req.setAttribute("countKS", countKS);
+    	req.setAttribute("endPage", endPage);
+    	
 		int tuyetVoi = 0;
 		int ratTot = 0;
 		int haiLong = 0;
@@ -65,7 +96,7 @@ public class HotelController extends HttpServlet {
 		int kem = 0;
 		int count = 0;
 		int tongDiem = 0;
-		for (DanhGiaModel danhGia : listDanhGia)
+		for (DanhGiaModel danhGia : listDanhGia1)
 		{
 			if (danhGia.getDiem() == 10){
 				tuyetVoi++;

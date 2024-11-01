@@ -125,8 +125,11 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 	}
 
 	@Override
-	public List<KhachSanModel> findByIdThanhPho(int idThanhPho) {
-		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,SoDienThoai, CachTrungTam, K.MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho,T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh from KhachSan K, ThanhPho T,LoaiKhachSan L where T.Id = ? and K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id";
+	public List<KhachSanModel> findByIdThanhPho(int currentPage, int idThanhPho) {
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,SoDienThoai, CachTrungTam, K.MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho,T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+				+ "from KhachSan K, ThanhPho T,LoaiKhachSan L "
+				+ "where T.Id = ? and K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC " 
+				+ "OFFSET " + ((currentPage - 1) * 5) + " ROWS FETCH NEXT " + 5 + " ROWS ONLY";
 		List<KhachSanModel> list = new ArrayList<KhachSanModel>();
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -194,8 +197,153 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 	}
 
 	@Override
+	public List<KhachSanModel> findByIdLoaiKhachSan(int currentPage,int idLoaiKhachSan) {
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,SoDienThoai, CachTrungTam, K.MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho,T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+				+ "from KhachSan K, ThanhPho T,LoaiKhachSan L "
+				+ "where L.Id = ? and K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC "
+				+ "OFFSET " + ((currentPage - 1) * 5) + " ROWS FETCH NEXT " + 5 + " ROWS ONLY";
+		List<KhachSanModel> list = new ArrayList<KhachSanModel>();
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idLoaiKhachSan);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(new KhachSanModel(rs.getInt("Id"), 
+						rs.getString("Ten"), 
+						rs.getString("DiaChi"), 
+						rs.getString("SoDienThoai"), 
+						rs.getInt("CachTrungTam"),
+						rs.getString("MoTa"),
+						rs.getBoolean("GiapBien"),
+						rs.getInt("DanhGia"), 
+						rs.getInt("BuaAn"), 
+						rs.getInt("IdThanhPho"), 
+						rs.getString("TenThanhPho"),
+						rs.getInt("IdLoaiKhachSan"),
+						rs.getString("TenLoaiKhachSan"),
+						rs.getString("UrlHinhAnh")));
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<KhachSanModel> findAllPage(int indexp) {
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,SoDienThoai, CachTrungTam, K.MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho,T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+				+ "from KhachSan K, ThanhPho T,LoaiKhachSan L "
+				+ "where K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id "
+				+ "ORDER BY K.Id DESC OFFSET ? rows fetch next 3 rows only";
+		List<KhachSanModel> list = new ArrayList<KhachSanModel>();
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, indexp);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(new KhachSanModel(rs.getInt("Id"), 
+						rs.getString("Ten"), 
+						rs.getString("DiaChi"), 
+						rs.getString("SoDienThoai"), 
+						rs.getInt("CachTrungTam"),
+						rs.getString("MoTa"),
+						rs.getBoolean("GiapBien"),
+						rs.getInt("DanhGia"), 
+						rs.getInt("BuaAn"), 
+						rs.getInt("IdThanhPho"), 
+						rs.getString("TenThanhPho"),
+						rs.getInt("IdLoaiKhachSan"),
+						rs.getString("TenLoaiKhachSan"),
+						rs.getString("UrlHinhAnh")));
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public int countAllByIdThanhPho(int idThanhPho) {
+		String sql = "select count (*)"
+				+ "from KhachSan K, ThanhPho T,LoaiKhachSan L "
+				+ "where T.Id = ? and K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id";
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idThanhPho);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+	@Override
+	public int countAllByIdLoaiKS(int idLoaiKS) {
+		String sql = "select count (*)"
+				+ "from KhachSan K, ThanhPho T,LoaiKhachSan L "
+				+ "where L.Id = ? and K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id";
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idLoaiKS);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return 0;
+	}
+
+	@Override
+	public List<KhachSanModel> findByIdThanhPho(int idThanhPho) {
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,SoDienThoai, CachTrungTam, K.MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho,T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+				+ "from KhachSan K, ThanhPho T,LoaiKhachSan L "
+				+ "where T.Id = ? and K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC ";
+		List<KhachSanModel> list = new ArrayList<KhachSanModel>();
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idThanhPho);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(new KhachSanModel(rs.getInt("Id"), 
+						rs.getString("Ten"), 
+						rs.getString("DiaChi"), 
+						rs.getString("SoDienThoai"), 
+						rs.getInt("CachTrungTam"),
+						rs.getString("MoTa"),
+						rs.getBoolean("GiapBien"),
+						rs.getInt("DanhGia"), 
+						rs.getInt("BuaAn"), 
+						rs.getInt("IdThanhPho"), 
+						rs.getString("TenThanhPho"),
+						rs.getInt("IdLoaiKhachSan"),
+						rs.getString("TenLoaiKhachSan"),
+						rs.getString("UrlHinhAnh")));
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
 	public List<KhachSanModel> findByIdLoaiKhachSan(int idLoaiKhachSan) {
-		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,SoDienThoai, CachTrungTam, K.MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho,T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh from KhachSan K, ThanhPho T,LoaiKhachSan L where L.Id = ? and K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id";
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,SoDienThoai, CachTrungTam, K.MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho,T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+				+ "from KhachSan K, ThanhPho T,LoaiKhachSan L "
+				+ "where L.Id = ? and K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC ";
 		List<KhachSanModel> list = new ArrayList<KhachSanModel>();
 		try {
 			conn = new DBConnectionSQL().getConnection();

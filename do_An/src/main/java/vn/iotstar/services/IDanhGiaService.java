@@ -14,7 +14,11 @@ public interface IDanhGiaService {
 
 	void delete(int idDanhGia);
 	
+	List<DanhGiaModel> findByIdKhachSan(int currentPage, int idKhachSan);
+	
 	List<DanhGiaModel> findByIdKhachSan(int idKhachSan);
 	
 	List<DanhGiaModel> countUserByIdKhachSan(int idKhachSan);
+	
+	int countAllByIdKhachSan(int idKhachSan);
 }

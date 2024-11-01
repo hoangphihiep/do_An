@@ -40,8 +40,11 @@ public class DanhGiaDaoImpl extends DBConnectionSQL implements IDanhGiaDao {
 	}
 
 	@Override
-	public List<DanhGiaModel> findByIdKhachSan(int idKhachSan) {
-		String sql = "select d.Id as Id, d.Diem as Diem, d.NoiDung as NoiDung, d.IdKhachHang as IdKhachHang, d.IdKhachSan as IdKhachSan, u.Fullname as Ten from DanhGia d, Users u where d.IdKhachSan = ? and d.IdKhachHang = u.Id";
+	public List<DanhGiaModel> findByIdKhachSan(int currentPage, int idKhachSan) {
+		String sql = "select d.Id as Id, d.Diem as Diem, d.NoiDung as NoiDung, d.IdKhachHang as IdKhachHang, d.IdKhachSan as IdKhachSan, u.Fullname as Ten "
+				+ "from DanhGia d, Users u "
+				+ "where d.IdKhachSan = ? and d.IdKhachHang = u.Id ORDER BY d.Id DESC "
+				+ "OFFSET " + ((currentPage - 1) * 3) + " ROWS FETCH NEXT " + 3 + " ROWS ONLY";
 		List<DanhGiaModel> list = new ArrayList<DanhGiaModel>();
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -69,23 +72,67 @@ public class DanhGiaDaoImpl extends DBConnectionSQL implements IDanhGiaDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public static void main(String[] args) {
 
+	@Override
+	public int countAllByIdKhachSan(int idKhachSan) {
+		String sql = "select count (*)"
+				+ "from DanhGia d, Users u "
+				+ "where d.IdKhachSan = ? and d.IdKhachHang = u.Id";
 		try {
-			IDanhGiaDao userDao = new DanhGiaDaoImpl();
-
-			
-			List<DanhGiaModel> list = userDao.findByIdKhachSan(1);
-			for (DanhGiaModel user : list) {
-				System.out.println(user);
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idKhachSan);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				return rs.getInt(1);
 			}
-
 		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return 0;
+	}
 
+	@Override
+	public List<DanhGiaModel> findByIdKhachSan(int idKhachSan) {
+		String sql = "select d.Id as Id, d.Diem as Diem, d.NoiDung as NoiDung, d.IdKhachHang as IdKhachHang, d.IdKhachSan as IdKhachSan, u.Fullname as Ten "
+				+ "from DanhGia d, Users u "
+				+ "where d.IdKhachSan = ? and d.IdKhachHang = u.Id";
+		List<DanhGiaModel> list = new ArrayList<DanhGiaModel>();
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idKhachSan);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(new DanhGiaModel(
+						rs.getInt("Id"),
+						rs.getInt("Diem"),
+						rs.getString("NoiDung"),
+						rs.getInt("IdKhachHang"),
+						rs.getInt("IdKhachSan"),
+						rs.getString("Ten")));
+			}
+			return list;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		return null;
 	}
+	
+	/*
+	 * public static void main(String[] args) {
+	 * 
+	 * try { IDanhGiaDao userDao = new DanhGiaDaoImpl();
+	 * 
+	 * 
+	 * List<DanhGiaModel> list = userDao.findByIdKhachSan(1); for (DanhGiaModel user
+	 * : list) { System.out.println(user); }
+	 * 
+	 * } catch (Exception e) {
+	 * 
+	 * e.printStackTrace(); }
+	 * 
+	 * }
+	 */
 
 }

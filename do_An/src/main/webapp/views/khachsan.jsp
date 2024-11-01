@@ -525,18 +525,33 @@
 							</tr>
 						</table>
 					</c:forEach>
-					<div
-						style="display: flex; justify-content: center; margin-top: 20px;">
-						<button
-							style="margin: 0 5px; padding: 5px 10px; border: 1px solid #007bff; background-color: #fff; color: #007bff; cursor: pointer; border-radius: 5px; background-color: #007bff; color: white;">1</button>
-						<button
-							style="margin: 0 5px; padding: 5px 10px; border: 1px solid #007bff; background-color: #fff; color: #007bff; cursor: pointer; border-radius: 5px;">2</button>
-						<button
-							style="margin: 0 5px; padding: 5px 10px; border: 1px solid #007bff; background-color: #fff; color: #007bff; cursor: pointer; border-radius: 5px;">3</button>
-						<button
-							style="margin: 0 5px; padding: 5px 10px; border: 1px solid #007bff; background-color: #fff; color: #007bff; cursor: pointer; border-radius: 5px;">...</button>
-						<button
-							style="margin: 0 5px; padding: 5px 10px; border: 1px solid #007bff; background-color: #fff; color: #007bff; cursor: pointer; border-radius: 5px;">11</button>
+					<div style="margin-left: -20px; margin-top: 20px">
+					    <ul style="display: flex; list-style-type: none; padding: 0; justify-content: center; align-items: center;">
+					        <!-- Nút đầu tiên và nút trước -->
+					        <li style="margin: 0 5px;">
+					            <a href="?page=1" style="display: block; padding: 8px 12px; text-decoration: none; color: ${currentPage == 1 ? '#ccc' : '#333'}; border: 1px solid #ddd; border-radius: 4px;">&laquo;</a>
+					        </li>
+					        <li style="margin: 0 5px;">
+					            <a href="?page=${currentPage > 1 ? currentPage - 1 : 1}" style="display: block; padding: 8px 12px; text-decoration: none; color: ${currentPage == 1 ? '#ccc' : '#333'}; border: 1px solid #ddd; border-radius: 4px;">&lsaquo;</a>
+					        </li>
+					
+					        <!-- Các trang giữa -->
+					        <c:forEach var="i" begin="1" end="${endPage}">
+					            <li style="margin: 0 5px;">
+					                <a href="?page=${i}" style="display: block; padding: 8px 12px; text-decoration: none; color: ${currentPage == i ? '#fff' : '#333'}; border: 1px solid ${currentPage == i ? '#007bff' : '#ddd'}; border-radius: 4px; background-color: ${currentPage == i ? '#007bff' : 'transparent'};">
+					                    ${i}
+					                </a>
+					            </li>
+					        </c:forEach>
+					
+					        <!-- Nút kế tiếp và nút cuối -->
+					        <li style="margin: 0 5px;">
+					            <a href="?page=${currentPage < endPage ? currentPage + 1 : endPage}" style="display: block; padding: 8px 12px; text-decoration: none; color: ${currentPage == endPage ? '#ccc' : '#333'}; border: 1px solid #ddd; border-radius: 4px;">&rsaquo;</a>
+					        </li>
+					        <li style="margin: 0 5px;">
+					            <a href="?page=${endPage}" style="display: block; padding: 8px 12px; text-decoration: none; color: ${currentPage == endPage ? '#ccc' : '#333'}; border: 1px solid #ddd; border-radius: 4px;">&raquo;</a>
+					        </li>
+					    </ul>
 					</div>
 				</div>
 			</div>

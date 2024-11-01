@@ -31,13 +31,34 @@ public class KhachSanServiceImpl implements IKhachSanService {
 	}
 
 	@Override
-	public List<KhachSanModel> findByIdThanhPho(int idThanhPho) {
-		return khachSanDao.findByIdThanhPho(idThanhPho);
+	public List<KhachSanModel> findByIdThanhPho(int currentPage, int idThanhPho) {
+		return khachSanDao.findByIdThanhPho(currentPage, idThanhPho);
 	}
 
 	@Override
 	public KhachSanModel findById(int id) {
 		return khachSanDao.findById(id);
+	}
+
+	@Override
+	public List<KhachSanModel> findByIdLoaiKhachSan(int currentPage, int idLoaiKhachSan) {
+		return khachSanDao.findByIdLoaiKhachSan(currentPage, idLoaiKhachSan);
+	}
+
+	@Override
+	public int countAllByIdThanhPho(int idThanhPho) {
+		return khachSanDao.countAllByIdThanhPho(idThanhPho);
+	}
+
+	@Override
+	public int countAllByIdLoaiKS(int idLoaiKS) {
+		// TODO Auto-generated method stub
+		return khachSanDao.countAllByIdLoaiKS(idLoaiKS);
+	}
+
+	@Override
+	public List<KhachSanModel> findByIdThanhPho(int idThanhPho) {
+		return khachSanDao.findByIdThanhPho(idThanhPho);
 	}
 
 	@Override

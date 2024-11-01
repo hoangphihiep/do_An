@@ -35,14 +35,24 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
 	}
 
 	@Override
-	public List<DanhGiaModel> findByIdKhachSan(int idKhachSan) {
-		return danhGiaDao.findByIdKhachSan(idKhachSan);
+	public List<DanhGiaModel> findByIdKhachSan(int currentPage, int idKhachSan) {
+		return danhGiaDao.findByIdKhachSan(currentPage, idKhachSan);
 	}
 
 	@Override
 	public List<DanhGiaModel> countUserByIdKhachSan(int idKhachSan) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int countAllByIdKhachSan(int idKhachSan) {
+		return danhGiaDao.countAllByIdKhachSan(idKhachSan);
+	}
+
+	@Override
+	public List<DanhGiaModel> findByIdKhachSan(int idKhachSan) {
+		return danhGiaDao.findByIdKhachSan(idKhachSan);
 	}
 
 }

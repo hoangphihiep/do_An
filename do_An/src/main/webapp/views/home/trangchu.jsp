@@ -63,7 +63,7 @@
 						</div>
 						<div class="chu-goc-trai">
 							<span style="font-size: 28px; font-weight: bold;">${thanhpho.ten}</span>
-							<img src="/do_An_CNTT/Content/Images/VietNamFlag.png" alt="VietNam"
+							<img src="/do_An/Content/Images/VietNamFlag.png" alt="VietNam"
 								valign="middle" /> <br /> <span style="font-size: 16px;">
 								${thanhpho.soKhachSan} khách sạn </span>
 						</div>
@@ -113,7 +113,7 @@
                     <form action="${pageContext.request.contextPath}/home" method="post">
                         <a href="${pageContext.request.contextPath}/khachsan?id=${ks.id}">
                             <div class="div-ks">
-                                <img style="height: 220px" src="/do_An_CNTT/Content/Images/KhachSan/3.jpg" alt="Img"/>
+                                <img style="height: 220px" src="/do_An/Content/Images/KhachSan/3.jpg" alt="Img"/>
                             </div>
                             <div style="font-size: 18px; font-weight: bold; color: #0077CC">${ks.ten}</div>
                             <div style="font-size: 14px; color: #777777 ">${ks.tenThanhPho}</div>

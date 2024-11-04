@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.Properties;
 
-import org.mindrot.jbcrypt.BCrypt;
-
 import jakarta.mail.*;
 import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.internet.InternetAddress;

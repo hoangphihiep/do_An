@@ -137,19 +137,20 @@
 						style="height: 120px; background-color: #FFD257; border: 1px solid #E2AA11; padding: 10px 0 0 20px">
 						<span>Bạn muốn nghỉ tại <b>${ks.ten}</b> vào lúc nào?
 						</span>
-						<form action="${pageContext.request.contextPath}/timPhongTrong"
-							method="post">
+						<form action="${pageContext.request.contextPath}/khachsan" method="get">
 							<div class="row" style="margin-top: 20px;">
 								<div class="col-md-3">
-									<label for="ngayDen" class="form-label">Ngày nhận phòng</label>
-									<input type="date" class="form-control" id="ngayDen"
-										name="ngayDen" required>
-								</div>
-								<div class="col-md-3">
-									<label for="ngayTra" class="form-label">Ngày trả phòng</label>
-									<input type="date" class="form-control" id="ngayTra"
-										name="ngayTra" required>
-								</div>
+							        <label for="ngayDen" class="form-label">Ngày nhận phòng</label>
+							        <input type="date" class="form-control" id="ngayDen"
+							               name="ngayDen" required
+							               value="${ngayDen != null ? ngayDen : ''}">
+							    </div>
+							    <div class="col-md-3">
+							        <label for="ngayTra" class="form-label">Ngày trả phòng</label>
+							        <input type="date" class="form-control" id="ngayTra"
+							               name="ngayTra" required
+							               value="${ngayDi != null ? ngayDi : ''}">
+							    </div>
 								<div class="col-md-6 d-flex align-items-end"
 									style="margin-top: 18px">
 									<button type="submit" class="btn btn-primary w-100">Kiểm
@@ -184,7 +185,7 @@
 										</td>
 										<td>
 											<button type="button"
-												onClick="window.location='datphong.jsp'">Đặt Phòng</button>
+												onClick="window.location='datPhong?id=${phong.id}'">Đặt Phòng</button>
 										</td>
 									</tr>
 								</c:forEach>

@@ -16,5 +16,9 @@ public interface IPhongService {
 
 	List<PhongModel> findByIdKhachSan(int idKhachSan);
 	
+	PhongModel findById (int id);
+	
 	List<PhongModel> phongMinByIdKhachSan (int idKhachSan);
+	
+	void updateSLPhong (int SLPhongDat, int soPhongTrong, int SLPhongD, int IdPhong);
 }

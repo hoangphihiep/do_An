@@ -1,6 +1,7 @@
 package vn.iotstar.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -106,7 +107,9 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 
 	@Override
 	public List<PhongModel> findByIdKhachSan(int idKhachSan) {
-		String sql = "select P.Id, P.Ten, P.DienTich, P.GiaThue, P.TienNghi, P.MoTa, P.LoaiGiuong, P.SoPhongTrong, P.SoPhongDaDat, P.SucChuaToiDa, P.AnhPhong, P.IdKhachSan, K.Ten as TenKhachSan from Phong P, KhachSan K where K.Id = ? and P.IdKhachSan=K.Id";
+		String sql = "select P.Id, P.Ten, P.DienTich, P.GiaThue, P.TienNghi, P.MoTa, P.LoaiGiuong, P.SoPhongTrong, P.SoPhongDaDat, P.SucChuaToiDa, P.AnhPhong, P.IdKhachSan, K.Ten as TenKhachSan "
+				+ "from Phong P, KhachSan K "
+				+ "where K.Id = ? and P.IdKhachSan=K.Id";
 		List<PhongModel> list = new ArrayList<PhongModel>();
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -135,22 +138,7 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 		}
 		return null;
 	}
-	public static void main(String[] args) {
-
-		try {
-			IPhongDao phongDao = new PhongDaoImpl();
-			List<PhongModel> list = phongDao.phongMinByIdKhachSan(1);
-			for (PhongModel user : list) {
-				System.out.println(user);
-			}
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-
-	}
-
+	
 	@Override
 	public List<PhongModel> phongMinByIdKhachSan(int idKhachSan) {
 		String sql = "select P.IdKhachSan, MIN(P.GiaThue) AS GiaThapNhat from Phong P, KhachSan K where K.Id = ? and P.IdKhachSan=K.Id GROUP BY P.IdKhachSan";
@@ -172,5 +160,68 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 		}
 		return null;
 	}
+
+	@Override
+	public PhongModel findById(int id) {
+		String sql = "SELECT * FROM Phong WHERE Id = ? ";
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				PhongModel phong = new PhongModel();
+				phong.setId(rs.getInt("Id"));
+				phong.setIdKhachSan(rs.getInt("IdKhachSan"));
+				phong.setAnhPhong(rs.getString("AnhPhong"));
+				phong.setGiaThue(rs.getInt("GiaThue"));
+				phong.setSoPhongDaDat(rs.getInt("SoPhongDaDat"));
+				phong.setSoPhongTrong(rs.getInt("SoPhongTrong"));
+				phong.setSucChuaToiDa(rs.getInt("SucChuaToiDa"));
+				phong.setTen(rs.getString("Ten"));
+				return phong;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public void updateSLPhong(int SLPhongDat, int soPhongTrong, int SLPhongD, int IdPhong) {
+		
+		soPhongTrong = (SLPhongD - SLPhongDat) + soPhongTrong;
+		
+		String sql = "UPDATE Phong SET SoPhongTrong = ?, SoPhongDaDat = ? WHERE Id = ?";
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+
+			ps.setInt(1, soPhongTrong);
+			ps.setInt(2, SLPhongDat);
+			ps.setInt(3, IdPhong);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	public static void main(String[] args) {
+
+		try {
+			IPhongDao phongDao = new PhongDaoImpl();
+			
+			List<PhongModel> list = phongDao.phongMinByIdKhachSan(1);
+			for (PhongModel user : list) {
+				System.out.println(user);
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+	}
+
 
 }

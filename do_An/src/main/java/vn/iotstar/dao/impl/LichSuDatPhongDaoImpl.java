@@ -17,7 +17,9 @@ public class LichSuDatPhongDaoImpl extends DBConnectionSQL implements ILichSuDat
 	public ResultSet rs = null;
 	@Override
 	public List<LichSuModel> findByIdUser(int idUser) {
-		String sql = "select D.Id as idThue, P.Ten as TenPhong, P.AnhPhong as anhPhong, K.Id as idKS, K.Ten as TenKS, D.NgayDat as ngayDat, D.NgayDen as ngayDen, D.NgayTra as ngayTra, D.DichVu as dichVu, D.GhiChu as ghiChu, D.ThanhTien as thanhTien, D.DaHuy as trangThai from KhachSan K, Phong P, DatPhong D, Users U where D.IdUser = ? and U.Id = D.IdUser and D.IdPhong = P.Id and P.IdKhachSan = K.Id";
+		String sql = "select D.Id as idThue, P.Ten as TenPhong, P.AnhPhong as anhPhong, K.Id as idKS, K.Ten as TenKS, D.NgayDat as ngayDat, D.NgayDen as ngayDen, D.NgayTra as ngayTra, D.GhiChu as ghiChu, D.ThanhTien as thanhTien, D.DaHuy as trangThai "
+				+ "from KhachSan K, Phong P, DatPhong D, Users U "
+				+ "where D.IdUser = ? and U.Id = D.IdUser and D.IdPhong = P.Id and P.IdKhachSan = K.Id";
 		List<LichSuModel> list = new ArrayList<LichSuModel>();
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -33,11 +35,13 @@ public class LichSuDatPhongDaoImpl extends DBConnectionSQL implements ILichSuDat
 						rs.getDate("ngayDat"),
 						rs.getDate("ngayDen"),
 						rs.getDate("ngayTra"),
-						rs.getString("dichVu"),
 						rs.getString("ghiChu"),
 						rs.getString("thanhTien"),
 						rs.getInt("trangThai"),
-						rs.getString("anhPhong")));
+						rs.getString("anhPhong"),
+						rs.getInt("SoPhongDaDat"),
+						rs.getBoolean("ThanhToan"),
+						rs.getString("PhuongThucThanhToan")));
 			}
 			return list;
 		} catch (Exception e) {

@@ -46,6 +46,11 @@ public class HomeController extends HttpServlet {
 		List<LoaiKhachSanModel> listLoaiKS = loaiKhachSanService.findAll();
 		req.setAttribute("listloaiks", listLoaiKS);
 		
+		if (session != null) {
+			session.setAttribute("currentURL", req.getContextPath().toString() + "/home");
+		}
+		
+		
 		//danh sách khách sạn
 		String[] strDanhGia = {"Bình thường", "Khá ổn", "Chất lượng", "Sang trọng", "Tuyệt vời", "Xuất sắc"};
 		List<KhachSanModel> listKS = khachSanService.findAll();

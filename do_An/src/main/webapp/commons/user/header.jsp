@@ -71,6 +71,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                	 <input type="hidden" name="redirectURL" value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/home">
                     <button type="submit" class="btn btn-primary" style="width: 100%;">Đăng Nhập</button>
                 </div>
             </form>

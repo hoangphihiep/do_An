@@ -32,30 +32,50 @@ public class MyAccountController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
 		HttpSession session = req.getSession();
-		UserModel taiKhoan = (UserModel) session.getAttribute("account");
+		//UserModel taiKhoan = (UserModel) session.getAttribute("account");
+		UserModel taiKhoan = null;
 		if (url.contains("/myAccount/trangCaNhan")) 
 		{
-			req.setAttribute("ten", taiKhoan.getUsername());
-			req.setAttribute("hovaten", taiKhoan.getFullname());
-			req.setAttribute("ngaysinh", taiKhoan.getCreatedDate());
-			req.setAttribute("gioitinh", taiKhoan.getGender());
-			req.setAttribute("email", taiKhoan.getEmail());
-			req.setAttribute("dienthoai", taiKhoan.getPhone());
-			req.setAttribute("diaChi", taiKhoan.getDiaChi());
-			
-			String encryptedPassword = taiKhoan.getPassword();
-			String decryptedPassword = null;
-			try {
-				decryptedPassword = AESUtil.decrypt(encryptedPassword);
-			} catch (Exception e) {
-				e.printStackTrace();
+			String username = null;
+			if (session != null && session.getAttribute("account") != null) {
+				UserModel user = (UserModel) session.getAttribute("account");
+				username = user.getFullname();
+				taiKhoan = user;
+			}	
+			if (taiKhoan != null) {
+				req.setAttribute("username", username);
+				session.setAttribute("currentURL", req.getContextPath().toString() + "/myAccount/trangCaNhan");
+				req.setAttribute("ten", taiKhoan.getUsername());
+				req.setAttribute("hovaten", taiKhoan.getFullname());
+				req.setAttribute("ngaysinh", taiKhoan.getCreatedDate());
+				req.setAttribute("gioitinh", taiKhoan.getGender());
+				req.setAttribute("email", taiKhoan.getEmail());
+				req.setAttribute("dienthoai", taiKhoan.getPhone());
+				req.setAttribute("diaChi", taiKhoan.getDiaChi());
+				
+				String encryptedPassword = taiKhoan.getPassword();
+				String decryptedPassword = null;
+				try {
+					decryptedPassword = AESUtil.decrypt(encryptedPassword);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				req.setAttribute("matkhau", decryptedPassword);
+				req.getRequestDispatcher("/views/caNhan.jsp").forward(req, resp);
+			}else {
+				req.getRequestDispatcher("/views/error.jsp").forward(req, resp);
 			}
-			req.setAttribute("matkhau", decryptedPassword);
-			req.getRequestDispatcher("/views/caNhan.jsp").forward(req, resp);
-	
 		}
 		if (url.contains("/myAccount/lichSuDatPhong")) 
 		{
+			String username = null;
+			if (session != null && session.getAttribute("account") != null) {
+				UserModel user = (UserModel) session.getAttribute("account");
+				username = user.getFullname();
+				taiKhoan = user;
+			}
+			req.setAttribute("username", username);
+			session.setAttribute("currentURL", req.getContextPath().toString() + "/myAccount/lichSuDatPhong");
 			List<LichSuModel> listLichSu = lichSuService.findByIdUser(taiKhoan.getId());
 			req.setAttribute("listLichSu", listLichSu);
 			req.getRequestDispatcher("/views/lichSuDatPhong.jsp").forward(req, resp);	
@@ -90,8 +110,6 @@ public class MyAccountController extends HttpServlet {
 		}
 		System.out.println (ten + " " + hovaten + " " + ngaysinh + gioitinh + email 
 				+ dienthoai + diachi + matkhau);
-		userService.update(new UserModel(taiKhoan.getId(),ten,hovaten,createdDate,gioitinh,email,dienthoai,diachi,encryptedPassword,1));
-		
-		
+		userService.update(new UserModel(taiKhoan.getId(),ten,hovaten,createdDate,gioitinh,email,dienthoai,diachi,encryptedPassword,1));	
 	}
 }

@@ -8,22 +8,34 @@
 		<h5>Từ những khu nghỉ dưỡng thanh bình đến những căn hộ hạng sang
 			hiện đại</h5>
 		<div class="tim-kiem">
-			<form action="${pageContext.request.contextPath}/danhsachks/timkiem" method="post">
-				 <div style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 23px;">
-   					<div style="margin-right: 20px;">
-        				<div>Chọn địa điểm</div>
-        				<input type="text" style="padding-left: 20px;height: 50px;width: 250px;font-size: 18px;border: 2px solid #FEBB02;border-radius: 5px;transition: border-color 0.3s ease, box-shadow 0.3s ease;" id="a" name="tenThanhPhoTimKiem" placeholder="Nhập thành phố"/>
-    				</div>
-    				<div style="margin-right: 20px;">
-        				<div>Ngày đến</div>
-        				<input type="date" style="padding-left: 20px;height: 50px;width: 250px;font-size: 18px;border: 2px solid #FEBB02;border-radius: 5px;transition: border-color 0.3s ease, box-shadow 0.3s ease;" id="b" placeholder="Ngày đến" name="thoiGianDen"/>
-    				</div>
-    				<div style="margin-right: 20px;">
-        				<div>Ngày đi</div>
-        				<input type="date" style="padding-left: 20px;height: 50px;width: 250px;font-size: 18px;border: 2px solid #FEBB02;border-radius: 5px;transition: border-color 0.3s ease, box-shadow 0.3s ease;" id="c" placeholder="Ngày trả" name="thoiGianDi"/>
-    				</div>
-    				<button type="submit" style="height: 50px;width: 150px;font-size: 18px;background-color: #FEBB02;color: white;border: none;border-radius: 5px;cursor: pointer;transition: background-color 0.3s ease, box-shadow 0.3s ease; margin-top: 18px;">Tìm kiếm</button>
-				</div> 
+			<form action="${pageContext.request.contextPath}/danhsachks/timkiem" method="post" onsubmit="return validateForm()">
+			    <div style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 23px;">
+			        <!-- Trường nhập địa điểm -->
+			        <div style="margin-right: 20px;">
+			            <div>Chọn địa điểm</div>
+			            <input type="text" id="a" name="tenThanhPhoTimKiem" placeholder="Nhập thành phố"
+			                   style="padding-left: 20px;height: 50px;width: 250px;font-size: 18px;border: 2px solid #FEBB02;border-radius: 5px;transition: border-color 0.3s ease, box-shadow 0.3s ease;" />
+			            <span id="error-a" style="color: red; font-size: 14px; display: none;">Vui lòng nhập thành phố.</span>
+			        </div>
+			
+			        <!-- Trường nhập ngày đến -->
+			        <div style="margin-right: 20px;">
+			            <div>Ngày đến</div>
+			            <input type="date" id="b" name="thoiGianDen"
+			                   style="padding-left: 20px;height: 50px;width: 250px;font-size: 18px;border: 2px solid #FEBB02;border-radius: 5px;transition: border-color 0.3s ease, box-shadow 0.3s ease;" />
+			            <span id="error-b" style="color: red; font-size: 14px; display: none;">Vui lòng chọn ngày đến.</span>
+			        </div>
+			
+			        <!-- Trường nhập ngày đi -->
+			        <div style="margin-right: 20px;">
+			            <div>Ngày đi</div>
+			            <input type="date" id="c" name="thoiGianDi"
+			                   style="padding-left: 20px;height: 50px;width: 250px;font-size: 18px;border: 2px solid #FEBB02;border-radius: 5px;transition: border-color 0.3s ease, box-shadow 0.3s ease;" />
+			            <span id="error-c" style="color: red; font-size: 14px; display: none;">Vui lòng chọn ngày đi.</span>
+			        </div>
+			
+			        <button type="submit" style="height: 50px;width: 150px;font-size: 18px;background-color: #FEBB02;color: white;border: none;border-radius: 5px;cursor: pointer;transition: background-color 0.3s ease, box-shadow 0.3s ease; margin-top: 18px;">Tìm kiếm</button>
+			    </div>
 			</form>
 		</div>
 	</div>
@@ -126,4 +138,40 @@
         </div>
     </div>
 
-
+<script>
+	function validateForm() {
+	    // Lấy giá trị của từng trường
+	    const city = document.getElementById("a").value;
+	    const checkIn = document.getElementById("b").value;
+	    const checkOut = document.getElementById("c").value;
+	
+	    // Đặt biến kiểm tra
+	    let isValid = true;
+	
+	    // Kiểm tra và hiển thị lỗi cho trường "Chọn địa điểm"
+	    if (!city) {
+	        document.getElementById("error-a").style.display = "block";
+	        isValid = false;
+	    } else {
+	        document.getElementById("error-a").style.display = "none";
+	    }
+	
+	    // Kiểm tra và hiển thị lỗi cho trường "Ngày đến"
+	    if (!checkIn) {
+	        document.getElementById("error-b").style.display = "block";
+	        isValid = false;
+	    } else {
+	        document.getElementById("error-b").style.display = "none";
+	    }
+	
+	    // Kiểm tra và hiển thị lỗi cho trường "Ngày đi"
+	    if (!checkOut) {
+	        document.getElementById("error-c").style.display = "block";
+	        isValid = false;
+	    } else {
+	        document.getElementById("error-c").style.display = "none";
+	    }
+	
+	    return isValid;
+}
+</script>

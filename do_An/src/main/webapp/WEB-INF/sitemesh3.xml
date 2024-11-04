@@ -5,6 +5,9 @@
 	<mapping path="/danhsachks" name="user" decorator="user.jsp" />
 	<mapping path="/danhsachks/timkiem" name="user" decorator="user.jsp" />
 	<mapping path="/danhsachks/locks" name="user" decorator="user.jsp" />
+	<mapping path="/datPhong" name="user" decorator="user.jsp" />
+	<mapping path="/xacNhan" name="user" decorator="user.jsp" />
+	
 	<mapping path="/myAccount/trangCaNhan" name="user" decorator="templateCaNhan.jsp" />
 	<mapping path="/myAccount/lichSuDatPhong" name="user" decorator="templateCaNhan.jsp" />
 	<mapping path="/admin/*" name="admin" decorator="admin.jsp" />

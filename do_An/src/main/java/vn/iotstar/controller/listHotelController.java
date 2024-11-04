@@ -21,6 +21,7 @@ import vn.iotstar.models.LoaiKhachSanModel;
 import vn.iotstar.models.PhongModel;
 import vn.iotstar.models.ThanhPhoModel;
 import vn.iotstar.models.TienIchModel;
+import vn.iotstar.models.UserModel;
 import vn.iotstar.services.IAnhKhachSanService;
 import vn.iotstar.services.IKhachSanService;
 import vn.iotstar.services.ILoaiKhachSanService;
@@ -58,10 +59,16 @@ public class listHotelController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
 		if (url.contains("/danhsachks")) 
-		{
+		{			
 			HttpSession session = req.getSession();
+			String username = null;
+			if (session != null && session.getAttribute("account") != null) {
+				UserModel user = (UserModel) session.getAttribute("account");
+				username = user.getFullname();
+			}
+			req.setAttribute("username", username);
 			List<CheckboxModel> listXepHang = (List<CheckboxModel>) session.getAttribute("listXepHang");
-			
+			session.setAttribute("currentURL", req.getContextPath().toString() + "/danhsachks");
 			if (listXepHang == null)
 			{
 				listXepHang = new ArrayList<>();
@@ -149,9 +156,7 @@ public class listHotelController extends HttpServlet {
 		        } 
 		        String idThanhPhoStr = req.getParameter("id");
 		        if (idThanhPhoStr != null) {
-		            if (idThanhPhoStr != null) {
-		                idThanhPho = Integer.parseInt(idThanhPhoStr);
-		            }
+		        	idThanhPho = Integer.parseInt(idThanhPhoStr);
 		        }
 		        
 		        if (idThanhPho != 0){
@@ -227,13 +232,15 @@ public class listHotelController extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 		if (url.contains("/danhsachks/timkiem")) {
 			String diadiem = req.getParameter("tenThanhPhoTimKiem");
-			//String ngaydenStr = req.getParameter("thoiGianDen");
-			//String ngaydiStr = req.getParameter("thoiGianDi");
+			String ngaydenStr = req.getParameter("thoiGianDen");
+			String ngaydiStr = req.getParameter("thoiGianDi");
 		    HttpSession session = req.getSession();
 		    ThanhPhoModel thanhPhoTheoDiaDiem = thanhPhoService.findByName(diadiem);
 			int idThanhPho =  thanhPhoTheoDiaDiem.getId();
 			session.setAttribute("idThanhPhoTimKiem", idThanhPho);
 			
+			session.setAttribute("ngayDen", ngaydenStr);
+			session.setAttribute("ngayDi", ngaydiStr);
 	        resp.sendRedirect(req.getContextPath() + "/danhsachks");
 		}
 		else if(url.contains("/danhsachks/locks"))

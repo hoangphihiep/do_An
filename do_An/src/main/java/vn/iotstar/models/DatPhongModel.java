@@ -1,36 +1,56 @@
 package vn.iotstar.models;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 public class DatPhongModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	int id;
-    String taiKhoan;
+    int idUser;
     int idPhong;
     Date ngayDat;
     Date ngayDen;
     Date ngayTra;
-    String dichVu;
     String ghiChu;
     int thanhTien;
     boolean daHuy;
+    int soPhongDaDat;
+    boolean thanhToan;
+    String phuongThucTT;
     
-	public DatPhongModel(int id, String taiKhoan, int idPhong, Date ngayDat, Date ngayDen, Date ngayTra, String dichVu,
-			String ghiChu, int thanhTien, boolean daHuy) {
+	public DatPhongModel(int id, int idUser, int idPhong, Date ngayDat, Date ngayDen, Date ngayTra,
+			String ghiChu, int thanhTien, boolean daHuy, int soPhongDaDat, boolean thanhToan, String phuongThucTT) {
 		super();
 		this.id = id;
-		this.taiKhoan = taiKhoan;
+		this.idUser = idUser;
 		this.idPhong = idPhong;
 		this.ngayDat = ngayDat;
 		this.ngayDen = ngayDen;
 		this.ngayTra = ngayTra;
-		this.dichVu = dichVu;
 		this.ghiChu = ghiChu;
 		this.thanhTien = thanhTien;
 		this.daHuy = daHuy;
+		this.soPhongDaDat = soPhongDaDat;
+		this.thanhToan = thanhToan;
+		this.phuongThucTT = phuongThucTT;
+	}
+
+	public DatPhongModel(int idUser, int idPhong, Date ngayDat, Date ngayDen, Date ngayTra, String ghiChu,
+			int thanhTien, boolean daHuy, int soPhongDaDat, boolean thanhToan, String phuongThucTT) {
+		super();
+		this.idUser = idUser;
+		this.idPhong = idPhong;
+		this.ngayDat = ngayDat;
+		this.ngayDen = ngayDen;
+		this.ngayTra = ngayTra;
+		this.ghiChu = ghiChu;
+		this.thanhTien = thanhTien;
+		this.daHuy = daHuy;
+		this.soPhongDaDat = soPhongDaDat;
+		this.thanhToan = thanhToan;
+		this.phuongThucTT = phuongThucTT;
 	}
 
 	public int getId() {
@@ -41,12 +61,12 @@ public class DatPhongModel implements Serializable {
 		this.id = id;
 	}
 
-	public String getTaiKhoan() {
-		return taiKhoan;
+	public int getIdUser() {
+		return idUser;
 	}
 
-	public void setTaiKhoan(String taiKhoan) {
-		this.taiKhoan = taiKhoan;
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
 	}
 
 	public int getIdPhong() {
@@ -81,14 +101,6 @@ public class DatPhongModel implements Serializable {
 		this.ngayTra = ngayTra;
 	}
 
-	public String getDichVu() {
-		return dichVu;
-	}
-
-	public void setDichVu(String dichVu) {
-		this.dichVu = dichVu;
-	}
-
 	public String getGhiChu() {
 		return ghiChu;
 	}
@@ -112,6 +124,28 @@ public class DatPhongModel implements Serializable {
 	public void setDaHuy(boolean daHuy) {
 		this.daHuy = daHuy;
 	}
-    
-    
+
+	public int getSoPhongDaDat() {
+		return soPhongDaDat;
+	}
+
+	public void setSoPhongDaDat(int soPhongDaDat) {
+		this.soPhongDaDat = soPhongDaDat;
+	}
+
+	public boolean isThanhToan() {
+		return thanhToan;
+	}
+
+	public void setThanhToan(boolean thanhToan) {
+		this.thanhToan = thanhToan;
+	}
+
+	public String getPhuongThucTT() {
+		return phuongThucTT;
+	}
+
+	public void setPhuongThucTT(String phuongThucTT) {
+		this.phuongThucTT = phuongThucTT;
+	} 
 }

@@ -14,18 +14,21 @@ public class LichSuModel implements Serializable {
     Date ngayDat;
     Date ngayDen;
     Date ngayTra;
-    String dichVu;
     String ghiChu;
     String thanhTien;
     int trangThai; // 0: Đang xử lý, 1: Quá hạn, 2: Đã hủy
     String anhPhong;
+    int soPhongDaDat;
+    boolean trangThaiTT;
+    String phuongThucTT;
     
 	public LichSuModel() {
 		super();
 	}
 
 	public LichSuModel(int id, String tenPhong, int idKhachSan, String tenKhachSan, Date ngayDat, Date ngayDen,
-			Date ngayTra, String dichVu, String ghiChu, String thanhTien, int trangThai, String anhPhong) {
+			Date ngayTra, String ghiChu, String thanhTien, int trangThai, String anhPhong, int soPhongDaDat,
+			boolean trangThaiTT, String phuongThucTT) {
 		super();
 		this.id = id;
 		this.tenPhong = tenPhong;
@@ -34,12 +37,16 @@ public class LichSuModel implements Serializable {
 		this.ngayDat = ngayDat;
 		this.ngayDen = ngayDen;
 		this.ngayTra = ngayTra;
-		this.dichVu = dichVu;
 		this.ghiChu = ghiChu;
 		this.thanhTien = thanhTien;
 		this.trangThai = trangThai;
 		this.anhPhong = anhPhong;
+		this.soPhongDaDat = soPhongDaDat;
+		this.trangThaiTT = trangThaiTT;
+		this.phuongThucTT = phuongThucTT;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -97,14 +104,6 @@ public class LichSuModel implements Serializable {
 		this.ngayTra = ngayTra;
 	}
 
-	public String getDichVu() {
-		return dichVu;
-	}
-
-	public void setDichVu(String dichVu) {
-		this.dichVu = dichVu;
-	}
-
 	public String getGhiChu() {
 		return ghiChu;
 	}
@@ -137,11 +136,34 @@ public class LichSuModel implements Serializable {
 		this.anhPhong = anhPhong;
 	}
 
+	public int getSoPhongDaDat() {
+		return soPhongDaDat;
+	}
+
+	public void setSoPhongDaDat(int soPhongDaDat) {
+		this.soPhongDaDat = soPhongDaDat;
+	}
+
+	public boolean isTrangThaiTT() {
+		return trangThaiTT;
+	}
+
+	public void setTrangThaiTT(boolean trangThaiTT) {
+		this.trangThaiTT = trangThaiTT;
+	}
+
+	public String getPhuongThucTT() {
+		return phuongThucTT;
+	}
+
+	public void setPhuongThucTT(String phuongThucTT) {
+		this.phuongThucTT = phuongThucTT;
+	}
+
 	@Override
 	public String toString() {
 		return "LichSuModel [id=" + id + ", tenPhong=" + tenPhong + ", idKhachSan=" + idKhachSan + ", tenKhachSan="
-				+ tenKhachSan + ", ngayDat=" + ngayDat + ", ngayDen=" + ngayDen + ", ngayTra=" + ngayTra + ", dichVu="
-				+ dichVu + ", ghiChu=" + ghiChu + ", thanhTien=" + thanhTien + ", trangThai=" + trangThai
-				+ ", anhPhong=" + anhPhong + "]";
+				+ tenKhachSan + ", ngayDat=" + ngayDat + ", ngayDen=" + ngayDen + ", ngayTra=" + ngayTra + ", ghiChu="
+				+ ghiChu + ", thanhTien=" + thanhTien + ", trangThai=" + trangThai + ", anhPhong=" + anhPhong + "]";
 	}
 }

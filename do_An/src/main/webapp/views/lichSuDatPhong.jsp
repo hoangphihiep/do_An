@@ -41,7 +41,6 @@
 					                </div>
 					                <div style="font-size: 14px; color: #444444; margin-bottom: 5px">Ngày đặt: ${lichSu.ngayDat}</div>
 					                <div style="font-size: 14px; margin-bottom: 5px">Đặt từ <span style="color: #007AD9; font-weight: bold">${lichSu.ngayDen}</span> đến <span style="color: #8A2BE2; font-weight: bold">${lichSu.ngayTra}</span></div>
-					                <div style="font-size: 14px; color: #444444; margin-bottom: 5px">Dịch vụ: ${lichSu.dichVu}</div>
 					                <div style="font-size: 14px; margin-bottom: 5px">Tổng tiền: <span style="color: #E6004C; font-weight: bold">${lichSu.thanhTien} VND</span></div>
 					                <div style="font-size: 14px; color: #444444; margin-bottom: 5px">Ghi chú: ${lichSu.ghiChu}</div>
 					            </div>

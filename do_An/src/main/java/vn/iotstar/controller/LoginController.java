@@ -48,8 +48,6 @@ public class LoginController extends HttpServlet {
 		String password = req.getParameter("password");
 		String remember = req.getParameter("remember");
 
-		System.out.println (username);
-		System.out.println (password);
 		boolean isRememberMe = false;
 		if ("on".equals(remember)) {
 			isRememberMe = true;
@@ -66,13 +64,15 @@ public class LoginController extends HttpServlet {
 		// Xử lý bài toán login
 
 		UserModel user = service.login(username, password);
+		
 		if (user != null) {
 			HttpSession session = req.getSession(true);
 			session.setAttribute("account", user);
+			String currentURL = (String) session.getAttribute("currentURL");
 			if (isRememberMe) {
 				saveRemeberMe(resp, username);
 			}
-			resp.sendRedirect(req.getContextPath() + "/home");
+			resp.sendRedirect(currentURL);
 		} else {
 			alertMsg = "Tài khoản hoặc mật khẩu không đúng";
 			System.out.println (alertMsg);

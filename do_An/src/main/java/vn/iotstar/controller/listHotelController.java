@@ -19,20 +19,20 @@ import vn.iotstar.models.CheckboxModel;
 import vn.iotstar.models.KhachSanModel;
 import vn.iotstar.models.LoaiKhachSanModel;
 import vn.iotstar.models.PhongModel;
-import vn.iotstar.models.ThanhPhoModel;
+import vn.iotstar.models.DiaDiemModel;
 import vn.iotstar.models.TienIchModel;
 import vn.iotstar.models.UserModel;
 import vn.iotstar.services.IAnhKhachSanService;
 import vn.iotstar.services.IKhachSanService;
 import vn.iotstar.services.ILoaiKhachSanService;
 import vn.iotstar.services.IPhongService;
-import vn.iotstar.services.IThanhPhoService;
+import vn.iotstar.services.IDiaDiemService;
 import vn.iotstar.services.ITienIchService;
 import vn.iotstar.services.impl.AnhKhachSanServiceImpl;
 import vn.iotstar.services.impl.KhachSanServiceImpl;
 import vn.iotstar.services.impl.LoaiKhachSanServiceImpl;
 import vn.iotstar.services.impl.PhongServiceImpl;
-import vn.iotstar.services.impl.ThanhPhoServiceImpl;
+import vn.iotstar.services.impl.DiaDiemServiceImpl;
 import vn.iotstar.services.impl.TienIchServiceImpl;
 
 @WebServlet(urlPatterns = {"/danhsachks","/danhsachks/timkiem","/danhsachks/locks"})
@@ -40,7 +40,7 @@ public class listHotelController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	public ILoaiKhachSanService loaiKhachSanService = new LoaiKhachSanServiceImpl();
-	public IThanhPhoService thanhPhoService = new ThanhPhoServiceImpl();
+	public IDiaDiemService diaDiemService = new DiaDiemServiceImpl();
 	public IKhachSanService khachSanService = new KhachSanServiceImpl();
 	public IAnhKhachSanService anhKhachSanService = new AnhKhachSanServiceImpl();
 	public ITienIchService tienIchService = new TienIchServiceImpl();
@@ -148,25 +148,25 @@ public class listHotelController extends HttpServlet {
 	        	req.setAttribute("endPage", endPage);
 	        }
 	        else {
-	        	Object idThanhPhoObj = session.getAttribute("idThanhPhoTimKiem");
+	        	Object idDiaDiemObj = session.getAttribute("idDiaDiemTimKiem");
 	        	
-	        	int idThanhPho = 0;
-		        if (idThanhPhoObj != null) {
-		            idThanhPho = (int) idThanhPhoObj;
+	        	int idDiaDiem = 0;
+		        if (idDiaDiemObj != null) {
+		            idDiaDiem = (int) idDiaDiemObj;
 		        } 
-		        String idThanhPhoStr = req.getParameter("id");
-		        if (idThanhPhoStr != null) {
-		        	idThanhPho = Integer.parseInt(idThanhPhoStr);
+		        String idDiaDiemStr = req.getParameter("id");
+		        if (idDiaDiemStr != null) {
+		        	idDiaDiem = Integer.parseInt(idDiaDiemStr);
 		        }
 		        
-		        if (idThanhPho != 0){
+		        if (idDiaDiem != 0){
 		        	int currentPage = 1;
 		            if (req.getParameter("page") != null) {
 		                currentPage = Integer.parseInt(req.getParameter("page"));
 		            }
-		        	listKS = khachSanService.findByIdThanhPho(currentPage,idThanhPho);
-		        	List<KhachSanModel> listKS1 = khachSanService.findByIdThanhPho(idThanhPho);
-		        	int countKS = khachSanService.countAllByIdThanhPho(idThanhPho);
+		        	listKS = khachSanService.findByIdDiaDiem(currentPage,idDiaDiem);
+		        	List<KhachSanModel> listKS1 = khachSanService.findByIdDiaDiem(idDiaDiem);
+		        	int countKS = khachSanService.countAllByIdDiaDiem(idDiaDiem);
 		        	int endPage = countKS/5;
 		        	if (countKS % 5 != 0) {
 		        		endPage ++;
@@ -174,7 +174,7 @@ public class listHotelController extends HttpServlet {
 		        	req.setAttribute("currentPage", currentPage);
 		        	req.setAttribute("countKS", countKS);
 		        	req.setAttribute("endPage", endPage);
-		        	session.setAttribute("idThanhPhoTimKiem", idThanhPho);
+		        	session.setAttribute("idDiaDiemTimKiem", idDiaDiem);
 		        	//req.getSession().setAttribute("idTP", idThanhPho);
 		        	session.setAttribute("originalHotelList", listKS1);
 		        }
@@ -235,9 +235,9 @@ public class listHotelController extends HttpServlet {
 			String ngaydenStr = req.getParameter("thoiGianDen");
 			String ngaydiStr = req.getParameter("thoiGianDi");
 		    HttpSession session = req.getSession();
-		    ThanhPhoModel thanhPhoTheoDiaDiem = thanhPhoService.findByName(diadiem);
-			int idThanhPho =  thanhPhoTheoDiaDiem.getId();
-			session.setAttribute("idThanhPhoTimKiem", idThanhPho);
+		    DiaDiemModel theoDiaDiem = diaDiemService.findByName(diadiem);
+			int idDiaDiem =  theoDiaDiem.getId();
+			session.setAttribute("idDiaDiemTimKiem", idDiaDiem);
 			
 			session.setAttribute("ngayDen", ngaydenStr);
 			session.setAttribute("ngayDi", ngaydiStr);
@@ -362,12 +362,12 @@ public class listHotelController extends HttpServlet {
 			    	
 			    	
 		        } 
-		    int idThanhPho = 0;
-		    Object idThanhPhoTimKiem = session.getAttribute("idThanhPhoTimKiem");
-            if (idThanhPhoTimKiem != null) {
-                idThanhPho = (int) idThanhPhoTimKiem;
+		    int idDiaDiem = 0;
+		    Object idDiaDiemTimKiem = session.getAttribute("idDiaDiemTimKiem");
+            if (idDiaDiemTimKiem != null) {
+                idDiaDiem = (int) idDiaDiemTimKiem;
             } 
-            session.setAttribute("idThanhPhoTimKiem", idThanhPho);
+            session.setAttribute("idDiaDiemTimKiem", idDiaDiem);
             
             resp.sendRedirect(req.getContextPath() + "/danhsachks");
 

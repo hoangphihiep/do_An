@@ -1,5 +1,6 @@
 package vn.iotstar.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import vn.iotstar.models.KhachSanModel;
@@ -13,9 +14,9 @@ public interface IKhachSanService {
 
 	void delete(int idkhachsan);
 	
-	List<KhachSanModel> findByIdThanhPho(int currentPage, int idThanhPho);
+	List<KhachSanModel> findByIdDiaDiem(int currentPage, int idDiaDiem);
 	
-	List<KhachSanModel> findByIdThanhPho(int idThanhPho);
+	List<KhachSanModel> findByIdDiaDiem(int idDiaDiem);
 	
 	KhachSanModel findById(int id);
 	
@@ -23,7 +24,13 @@ public interface IKhachSanService {
 	
 	List<KhachSanModel> findByIdLoaiKhachSan(int idLoaiKhachSan);
 	
-	int countAllByIdThanhPho(int idThanhPho);
+	int countAllByIdDiaDiem(int idDiaDiem);
 	
 	int countAllByIdLoaiKS(int idLoaiKS);
+	
+	int maxId ();
+	
+	boolean register(KhachSanModel khachSan);
+	
+	KhachSanModel findByName(String tenKS);
 }

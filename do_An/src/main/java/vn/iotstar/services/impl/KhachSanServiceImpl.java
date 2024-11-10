@@ -31,8 +31,8 @@ public class KhachSanServiceImpl implements IKhachSanService {
 	}
 
 	@Override
-	public List<KhachSanModel> findByIdThanhPho(int currentPage, int idThanhPho) {
-		return khachSanDao.findByIdThanhPho(currentPage, idThanhPho);
+	public List<KhachSanModel> findByIdDiaDiem(int currentPage, int idDiaDiem) {
+		return khachSanDao.findByIdDiaDiem(currentPage, idDiaDiem);
 	}
 
 	@Override
@@ -46,8 +46,8 @@ public class KhachSanServiceImpl implements IKhachSanService {
 	}
 
 	@Override
-	public int countAllByIdThanhPho(int idThanhPho) {
-		return khachSanDao.countAllByIdThanhPho(idThanhPho);
+	public int countAllByIdDiaDiem(int idDiaDiem) {
+		return khachSanDao.countAllByIdDiaDiem(idDiaDiem);
 	}
 
 	@Override
@@ -57,13 +57,28 @@ public class KhachSanServiceImpl implements IKhachSanService {
 	}
 
 	@Override
-	public List<KhachSanModel> findByIdThanhPho(int idThanhPho) {
-		return khachSanDao.findByIdThanhPho(idThanhPho);
+	public List<KhachSanModel> findByIdDiaDiem(int idDiaDiem) {
+		return khachSanDao.findByIdDiaDiem(idDiaDiem);
 	}
 
 	@Override
 	public List<KhachSanModel> findByIdLoaiKhachSan(int idLoaiKhachSan) {
 		return khachSanDao.findByIdLoaiKhachSan(idLoaiKhachSan);
+	}
+
+	@Override
+	public int maxId() {
+		return khachSanDao.maxId();
+	}
+
+	@Override
+	public boolean register(KhachSanModel khachSan) {
+		return true;
+	}
+
+	@Override
+	public KhachSanModel findByName(String tenKS) {
+		return khachSanDao.findByName(tenKS);
 	}
 
 }

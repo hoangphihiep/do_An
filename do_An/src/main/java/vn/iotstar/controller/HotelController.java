@@ -46,6 +46,7 @@ public class HotelController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		
 		HttpSession session = req.getSession();
 		String username = null;
 		if (session != null && session.getAttribute("account") != null) {
@@ -91,7 +92,7 @@ public class HotelController extends HttpServlet {
 		}
 		
 		Object idKhachSanObj = session.getAttribute("idKhachSan");
-    	
+		System.out.println("Có vào đây");
     	int idKhachSan = 0;
         if (idKhachSanObj != null) {
         	idKhachSan = (int) idKhachSanObj;
@@ -189,6 +190,7 @@ public class HotelController extends HttpServlet {
 		req.setAttribute("listDanhGia", listDanhGia);
 		req.setAttribute("ngayDen", ngayDen);
 		req.setAttribute("ngayDi", ngayDi);
+		
 		req.getRequestDispatcher("/views/khachsan.jsp").forward(req, resp);
 	}
 

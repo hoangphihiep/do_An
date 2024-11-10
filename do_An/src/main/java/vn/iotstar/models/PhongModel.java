@@ -55,12 +55,30 @@ public class PhongModel implements Serializable {
 		this.sucChuaToiDa = sucChuaToiDa;
 		this.anhPhong = anhPhong;
 	}
+	
+	public PhongModel(String ten, int dienTich, int giaThue, String tienNghi, String moTa, int loaiGiuong,
+			int idKhachSan, int soPhongTrong, int soPhongDaDat, int sucChuaToiDa, String anhPhong) {
+		super();
+		this.ten = ten;
+		this.dienTich = dienTich;
+		this.giaThue = giaThue;
+		this.tienNghi = tienNghi;
+		this.moTa = moTa;
+		this.loaiGiuong = loaiGiuong;
+		this.idKhachSan = idKhachSan;
+		this.soPhongTrong = soPhongTrong;
+		this.soPhongDaDat = soPhongDaDat;
+		this.sucChuaToiDa = sucChuaToiDa;
+		this.anhPhong = anhPhong;
+	}
 
 	public PhongModel(int idKhachSan, int giaThue) {
 		super();
 		this.giaThue = giaThue;
 		this.idKhachSan = idKhachSan;
 	}
+	
+	
 
 	public int getId() {
 		return id;

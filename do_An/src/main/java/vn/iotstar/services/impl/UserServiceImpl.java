@@ -72,14 +72,9 @@ public class UserServiceImpl implements IUserServices {
 
 	@Override
 	public boolean register(String username, String fullname, Date createDate, String gender, String email,
-			String phone, String password, String diaChi, int RoleId) {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-				if (userDao.checkExistUsername(username)) {
-					return false;
-				}
-				userDao.insert(new UserModel(username, fullname, createDate, gender, email, phone, password, diaChi, RoleId));
-				return true;
+		String phone, String password, String diaChi, int RoleId) {
+		userDao.insert(new UserModel(username, fullname, createDate, gender, email, phone, password, diaChi, RoleId));
+		return true;
 	}
 
 	@Override

@@ -46,17 +46,17 @@
 	<h2>Tìm theo Thành phố</h2>
 	<div class="row">
 		<form action="${pageContext.request.contextPath}/home" method="post">
-			<c:forEach items="${listthanhpho}" var="thanhpho" begin="0" end="1">
-				<a href="${pageContext.request.contextPath}/danhsachks?id=${thanhpho.id}" style="display: block; text-decoration: none; color: inherit;">
+			<c:forEach items="${listdiadiem}" var="diadiem" begin="0" end="1">
+				<a href="${pageContext.request.contextPath}/danhsachks?id=${diadiem.id}" style="display: block; text-decoration: none; color: inherit;">
 					<div class="col-md-6">
 						<div class="div-zoom">
-							<img class="img-zoom" src="${thanhpho.urlHinhAnh}" alt="Img" width="1000" style="margin-right: 150px;"/>
+							<img class="img-zoom" src="${diadiem.urlHinhAnh}" alt="Img" width="1000" style="margin-right: 150px;"/>
 						</div>
 						<div class="chu-goc-trai">
-							<span style="font-size: 28px; font-weight: bold;">${thanhpho.ten}</span>
+							<span style="font-size: 28px; font-weight: bold;">${diadiem.ten}</span>
 							<img src="/do_An/Content/Images/VietNamFlag.png" alt="VietNam"
 								valign="middle" /> <br /> <span style="font-size: 16px;">
-								${thanhpho.soKhachSan} khách sạn </span>
+								${diadiem.soKhachSan} khách sạn </span>
 						</div>
 					</div>
 				</a>
@@ -67,17 +67,17 @@
 <div class="c80">
 	<div class="row">
 		<form action="${pageContext.request.contextPath}/home" method="post">
-			<c:forEach items="${listthanhpho}" var="thanhpho" begin="2" end="4">
-				<a href="${pageContext.request.contextPath}/danhsachks?id=${thanhpho.id}" style="display: block; text-decoration: none; color: inherit;">
+			<c:forEach items="${listdiadiem}" var="diadiem" begin="2" end="4">
+				<a href="${pageContext.request.contextPath}/danhsachks?id=${diadiem.id}" style="display: block; text-decoration: none; color: inherit;">
 					<div class="col-md-4">
 						<div class="div-zoom">
-							<img class="img-zoom" src="${thanhpho.urlHinhAnh}" alt="Img" width="1000" style="margin-right: 150px;"/>
+							<img class="img-zoom" src="${diadiem.urlHinhAnh}" alt="Img" width="1000" style="margin-right: 150px;"/>
 						</div>
 						<div class="chu-goc-trai">
-							<span style="font-size: 28px; font-weight: bold;">${thanhpho.ten}</span>
+							<span style="font-size: 28px; font-weight: bold;">${diadiem.ten}</span>
 							<img src="/do_An/Content/Images/VietNamFlag.png" alt="VietNam"
 								valign="middle" /> <br /> <span style="font-size: 16px;">
-								${thanhpho.soKhachSan} khách sạn </span>
+								${diadiem.soKhachSan} khách sạn </span>
 						</div>
 					</div>
 				</a>
@@ -128,7 +128,7 @@
                                 <img style="height: 220px" src="/do_An/Content/Images/KhachSan/3.jpg" alt="Img"/>
                             </div>
                             <div style="font-size: 18px; font-weight: bold; color: #0077CC">${ks.ten}</div>
-                            <div style="font-size: 14px; color: #777777 ">${ks.tenThanhPho}</div>
+                            <div style="font-size: 14px; color: #777777 ">${ks.tenDiaDiem}</div>
                             <div style="font-size: 14px; color: #777777">${ks.tenLoaiKhachSan}</div>
                             <div style="font-size: 16px; font-weight: bold; color: #003580">${ks.danhGia} &#9733; - ${strDanhGia[ks.danhGia]}</div>
                         </a>

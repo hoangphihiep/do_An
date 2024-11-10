@@ -17,7 +17,8 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 	public ResultSet rs = null;
 	@Override
 	public List<KhachSanModel> findAll() {
-		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,SoDienThoai, CachTrungTam, K.MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho,T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh from KhachSan K, ThanhPho T,LoaiKhachSan L where K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id";
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi, IdUser, CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem,T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L where K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id";
 		List<KhachSanModel> list = new ArrayList<KhachSanModel>();
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -27,14 +28,13 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 				list.add(new KhachSanModel(rs.getInt("Id"), 
 						rs.getString("Ten"), 
 						rs.getString("DiaChi"), 
-						rs.getString("SoDienThoai"), 
+						rs.getInt("IdUser"), 
 						rs.getInt("CachTrungTam"),
 						rs.getString("MoTa"),
 						rs.getBoolean("GiapBien"),
 						rs.getInt("DanhGia"), 
-						rs.getInt("BuaAn"), 
-						rs.getInt("IdThanhPho"), 
-						rs.getString("TenThanhPho"),
+						rs.getInt("IdDiaDiem"), 
+						rs.getString("TenDiaDiem"),
 						rs.getInt("IdLoaiKhachSan"),
 						rs.getString("TenLoaiKhachSan"),
 						rs.getString("UrlHinhAnh")));
@@ -48,7 +48,7 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 
 	@Override
 	public void insert(KhachSanModel khachsan) {
-		String sql = "INSERT INTO KhachSan(Ten, DiaChi, SoDienthoai, CachTrungTam, MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho, IdLoaiKhachSan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO KhachSan(Ten, DiaChi, IdUser, CachTrungTam, MoTa, GiapBien, DanhGia, IdDiaDiem, IdLoaiKhachSan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -56,14 +56,13 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 
 			ps.setString(1, khachsan.getTen());
 			ps.setString(2, khachsan.getDiaChi());
-			ps.setString(3, khachsan.getSoDienThoai());
+			ps.setInt(3, khachsan.getidUser());
 			ps.setInt(4, khachsan.getCachTrungTam());
 			ps.setString(5, khachsan.getMoTa());
 			ps.setBoolean(6, khachsan.isGiapBien());
 			ps.setInt(7, khachsan.getDanhGia());
-			ps.setInt(8, khachsan.getBuaAn());
-			ps.setInt(9, khachsan.getIdThanhPho());
-			ps.setInt(10, khachsan.getIdLoaiKhachSan());
+			ps.setInt(8, khachsan.getIdDiaDiem());
+			ps.setInt(9, khachsan.getIdLoaiKhachSan());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -73,22 +72,21 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 
 	@Override
 	public void update(KhachSanModel khachsan) {
-		String sql = "UPDATE KhachSan SET  Ten = ?, DiaChi = ?, SoDienthoai = ?, CachTrungTam = ?, MoTa = ?, GiapBien = ?, DanhGia = ?, BuaAn = ?, IdThanhPho = ?, IdLoaiKhachSan = ? WHERE Id = ?";
+		String sql = "UPDATE KhachSan SET  Ten = ?, DiaChi = ?, IdUser = ?, CachTrungTam = ?, MoTa = ?, GiapBien = ?, DanhGia = ?, IdDiaDiem = ?, IdLoaiKhachSan = ? WHERE Id = ?";
 		try {
 			conn = new DBConnectionSQL().getConnection();
 			ps = conn.prepareStatement(sql);
 
 			ps.setString(1, khachsan.getTen());
 			ps.setString(2, khachsan.getDiaChi());
-			ps.setString(3, khachsan.getSoDienThoai());
+			ps.setInt(3, khachsan.getidUser());
 			ps.setInt(4, khachsan.getCachTrungTam());
 			ps.setString(5, khachsan.getMoTa());
 			ps.setBoolean(6, khachsan.isGiapBien());
 			ps.setInt(7, khachsan.getDanhGia());
-			ps.setInt(8, khachsan.getBuaAn());
-			ps.setInt(9, khachsan.getIdThanhPho());
-			ps.setInt(10, khachsan.getIdLoaiKhachSan());
-			ps.setInt(11, khachsan.getId());
+			ps.setInt(8, khachsan.getIdDiaDiem());
+			ps.setInt(9, khachsan.getIdLoaiKhachSan());
+			ps.setInt(10, khachsan.getId());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -112,10 +110,11 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 		try {
 			IKhachSanDao khachsanDao = new KhachSanImpl();
 			//thanhphoDao.insert(new ThanhPhoModel("Đồng Nai", "Thanh phố Biên Hòa", "imgae"));
-			List<KhachSanModel> list = khachsanDao.findAll();
-			for (KhachSanModel khachsan : list) {
-				System.out.println(khachsan);
+			List<KhachSanModel> list = khachsanDao.findByIdDiaDiem(1);
+			for(KhachSanModel ks : list) {
+				System.out.println (ks.getId() + ks.getTen());
 			}
+			
 
 		} catch (Exception e) {
 
@@ -125,29 +124,28 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 	}
 
 	@Override
-	public List<KhachSanModel> findByIdThanhPho(int currentPage, int idThanhPho) {
-		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,SoDienThoai, CachTrungTam, K.MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho,T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
-				+ "from KhachSan K, ThanhPho T,LoaiKhachSan L "
-				+ "where T.Id = ? and K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC " 
+	public List<KhachSanModel> findByIdDiaDiem(int currentPage, int idDiaDiem) {
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,IdUser, CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem,T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L "
+				+ "where T.Id = ? and K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC " 
 				+ "OFFSET " + ((currentPage - 1) * 5) + " ROWS FETCH NEXT " + 5 + " ROWS ONLY";
 		List<KhachSanModel> list = new ArrayList<KhachSanModel>();
 		try {
 			conn = new DBConnectionSQL().getConnection();
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, idThanhPho);
+			ps.setInt(1, idDiaDiem);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				list.add(new KhachSanModel(rs.getInt("Id"), 
 						rs.getString("Ten"), 
 						rs.getString("DiaChi"), 
-						rs.getString("SoDienThoai"), 
+						rs.getInt("IdUser"), 
 						rs.getInt("CachTrungTam"),
 						rs.getString("MoTa"),
 						rs.getBoolean("GiapBien"),
 						rs.getInt("DanhGia"), 
-						rs.getInt("BuaAn"), 
-						rs.getInt("IdThanhPho"), 
-						rs.getString("TenThanhPho"),
+						rs.getInt("IdDiaDiem"), 
+						rs.getString("TenDiaDiem"),
 						rs.getInt("IdLoaiKhachSan"),
 						rs.getString("TenLoaiKhachSan"),
 						rs.getString("UrlHinhAnh")));
@@ -161,7 +159,9 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 
 	@Override
 	public KhachSanModel findById(int id) {
-		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,SoDienThoai, CachTrungTam, K.MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho,T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh from KhachSan K, ThanhPho T,LoaiKhachSan L where K.Id = ? and K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id";
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,IdUser, CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem,T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L "
+				+ "where K.Id = ? and K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id";
 		try {
 			conn = new DBConnectionSQL().getConnection();
 			ps = conn.prepareStatement(sql);
@@ -173,14 +173,13 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 				khachsan.setId(rs.getInt("Id"));;
 				khachsan.setTen(rs.getString("Ten"));
 				khachsan.setDiaChi(rs.getString("DiaChi"));
-				khachsan.setSoDienThoai(rs.getString("SoDienThoai"));
+				khachsan.setidUser(rs.getInt("IdUser"));
 				khachsan.setCachTrungTam(rs.getInt("CachTrungTam"));
 				khachsan.setMoTa(rs.getString("MoTa"));
 				khachsan.setGiapBien(rs.getBoolean("GiapBien"));
 				khachsan.setDanhGia(rs.getInt("DanhGia"));
-				khachsan.setBuaAn(rs.getInt("BuaAn"));
-				khachsan.setIdThanhPho(rs.getInt("IdThanhPho"));
-				khachsan.setTenThanhPho(rs.getString("TenThanhPho"));
+				khachsan.setIdDiaDiem(rs.getInt("IdDiaDiem"));
+				khachsan.setTenDiaDiem(rs.getString("TenDiaDiem"));
 				khachsan.setIdLoaiKhachSan(rs.getInt("IdLoaiKhachSan"));
 				khachsan.setTenLoaiKhachSan(rs.getString("TenLoaiKhachSan"));
 				khachsan.setUrlHinhAnhThanhPho(rs.getString("UrlHinhAnh"));
@@ -198,9 +197,9 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 
 	@Override
 	public List<KhachSanModel> findByIdLoaiKhachSan(int currentPage,int idLoaiKhachSan) {
-		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,SoDienThoai, CachTrungTam, K.MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho,T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
-				+ "from KhachSan K, ThanhPho T,LoaiKhachSan L "
-				+ "where L.Id = ? and K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC "
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi, IdUser, CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem,T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L "
+				+ "where L.Id = ? and K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC "
 				+ "OFFSET " + ((currentPage - 1) * 5) + " ROWS FETCH NEXT " + 5 + " ROWS ONLY";
 		List<KhachSanModel> list = new ArrayList<KhachSanModel>();
 		try {
@@ -209,17 +208,17 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 			ps.setInt(1, idLoaiKhachSan);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new KhachSanModel(rs.getInt("Id"), 
+				list.add(new KhachSanModel(
+						rs.getInt("Id"), 
 						rs.getString("Ten"), 
 						rs.getString("DiaChi"), 
-						rs.getString("SoDienThoai"), 
+						rs.getInt("IdUser"), 
 						rs.getInt("CachTrungTam"),
 						rs.getString("MoTa"),
 						rs.getBoolean("GiapBien"),
-						rs.getInt("DanhGia"), 
-						rs.getInt("BuaAn"), 
-						rs.getInt("IdThanhPho"), 
-						rs.getString("TenThanhPho"),
+						rs.getInt("DanhGia"),  
+						rs.getInt("IdDiaDiem"), 
+						rs.getString("TenDiaDiem"),
 						rs.getInt("IdLoaiKhachSan"),
 						rs.getString("TenLoaiKhachSan"),
 						rs.getString("UrlHinhAnh")));
@@ -233,9 +232,9 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 
 	@Override
 	public List<KhachSanModel> findAllPage(int indexp) {
-		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,SoDienThoai, CachTrungTam, K.MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho,T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
-				+ "from KhachSan K, ThanhPho T,LoaiKhachSan L "
-				+ "where K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id "
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi, IdUser, CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem,T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L "
+				+ "where K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id "
 				+ "ORDER BY K.Id DESC OFFSET ? rows fetch next 3 rows only";
 		List<KhachSanModel> list = new ArrayList<KhachSanModel>();
 		try {
@@ -244,17 +243,17 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 			ps.setInt(1, indexp);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new KhachSanModel(rs.getInt("Id"), 
+				list.add(new KhachSanModel(
+						rs.getInt("Id"), 
 						rs.getString("Ten"), 
 						rs.getString("DiaChi"), 
-						rs.getString("SoDienThoai"), 
+						rs.getInt("IdUser"), 
 						rs.getInt("CachTrungTam"),
 						rs.getString("MoTa"),
 						rs.getBoolean("GiapBien"),
-						rs.getInt("DanhGia"), 
-						rs.getInt("BuaAn"), 
-						rs.getInt("IdThanhPho"), 
-						rs.getString("TenThanhPho"),
+						rs.getInt("DanhGia"),  
+						rs.getInt("IdDiaDiem"), 
+						rs.getString("TenDiaDiem"),
 						rs.getInt("IdLoaiKhachSan"),
 						rs.getString("TenLoaiKhachSan"),
 						rs.getString("UrlHinhAnh")));
@@ -267,14 +266,14 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 	}
 
 	@Override
-	public int countAllByIdThanhPho(int idThanhPho) {
+	public int countAllByIdDiaDiem(int idDiaDiem) {
 		String sql = "select count (*)"
-				+ "from KhachSan K, ThanhPho T,LoaiKhachSan L "
-				+ "where T.Id = ? and K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id";
+				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L "
+				+ "where T.Id = ? and K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id";
 		try {
 			conn = new DBConnectionSQL().getConnection();
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, idThanhPho);
+			ps.setInt(1, idDiaDiem);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				return rs.getInt(1);
@@ -289,8 +288,8 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 	@Override
 	public int countAllByIdLoaiKS(int idLoaiKS) {
 		String sql = "select count (*)"
-				+ "from KhachSan K, ThanhPho T,LoaiKhachSan L "
-				+ "where L.Id = ? and K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id";
+				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L "
+				+ "where L.Id = ? and K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id";
 		try {
 			conn = new DBConnectionSQL().getConnection();
 			ps = conn.prepareStatement(sql);
@@ -306,28 +305,29 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 	}
 
 	@Override
-	public List<KhachSanModel> findByIdThanhPho(int idThanhPho) {
-		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,SoDienThoai, CachTrungTam, K.MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho,T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
-				+ "from KhachSan K, ThanhPho T,LoaiKhachSan L "
-				+ "where T.Id = ? and K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC ";
+	public List<KhachSanModel> findByIdDiaDiem(int idDiaDiem) {
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi, IdUser, CachTrungTam, K.MoTa, GiapBien, DanhGia, "
+				+ "IdDiaDiem,T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L "
+				+ "where T.Id = ? and K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC ";
 		List<KhachSanModel> list = new ArrayList<KhachSanModel>();
 		try {
 			conn = new DBConnectionSQL().getConnection();
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, idThanhPho);
+			ps.setInt(1, idDiaDiem);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new KhachSanModel(rs.getInt("Id"), 
+				list.add(new KhachSanModel(
+						rs.getInt("Id"), 
 						rs.getString("Ten"), 
 						rs.getString("DiaChi"), 
-						rs.getString("SoDienThoai"), 
+						rs.getInt("IdUser"), 
 						rs.getInt("CachTrungTam"),
 						rs.getString("MoTa"),
 						rs.getBoolean("GiapBien"),
-						rs.getInt("DanhGia"), 
-						rs.getInt("BuaAn"), 
-						rs.getInt("IdThanhPho"), 
-						rs.getString("TenThanhPho"),
+						rs.getInt("DanhGia"),
+						rs.getInt("IdDiaDiem"), 
+						rs.getString("TenDiaDiem"),
 						rs.getInt("IdLoaiKhachSan"),
 						rs.getString("TenLoaiKhachSan"),
 						rs.getString("UrlHinhAnh")));
@@ -341,9 +341,11 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 
 	@Override
 	public List<KhachSanModel> findByIdLoaiKhachSan(int idLoaiKhachSan) {
-		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,SoDienThoai, CachTrungTam, K.MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho,T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
-				+ "from KhachSan K, ThanhPho T,LoaiKhachSan L "
-				+ "where L.Id = ? and K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC ";
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi, IdUser, "
+				+ "CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem, "
+				+ "T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L "
+				+ "where L.Id = ? and K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC ";
 		List<KhachSanModel> list = new ArrayList<KhachSanModel>();
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -351,23 +353,77 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 			ps.setInt(1, idLoaiKhachSan);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new KhachSanModel(rs.getInt("Id"), 
+				list.add(new KhachSanModel(
+						rs.getInt("Id"), 
 						rs.getString("Ten"), 
 						rs.getString("DiaChi"), 
-						rs.getString("SoDienThoai"), 
+						rs.getInt("IdUser"), 
 						rs.getInt("CachTrungTam"),
 						rs.getString("MoTa"),
 						rs.getBoolean("GiapBien"),
-						rs.getInt("DanhGia"), 
-						rs.getInt("BuaAn"), 
-						rs.getInt("IdThanhPho"), 
-						rs.getString("TenThanhPho"),
+						rs.getInt("DanhGia"),
+						rs.getInt("IdDiaDiem"), 
+						rs.getString("TenDiaDiem"),
 						rs.getInt("IdLoaiKhachSan"),
 						rs.getString("TenLoaiKhachSan"),
 						rs.getString("UrlHinhAnh")));
 			}
 			return list;
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public int maxId() {
+		String sql = "select MAX(Id) from KhachSan";
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return 0;
+	}
+
+	@Override
+	public KhachSanModel findByName(String tenKS) {
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi, IdUser, CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem,T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L "
+				+ "where K.Ten = ? and K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id";
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, tenKS);
+			rs = ps.executeQuery();
+			while (rs.next())
+			{
+				KhachSanModel khachsan = new KhachSanModel();
+				khachsan.setId(rs.getInt("Id"));;
+				khachsan.setTen(rs.getString("Ten"));
+				khachsan.setDiaChi(rs.getString("DiaChi"));
+				khachsan.setidUser(rs.getInt("IdUser"));;
+				khachsan.setCachTrungTam(rs.getInt("CachTrungTam"));
+				khachsan.setMoTa(rs.getString("MoTa"));
+				khachsan.setGiapBien(rs.getBoolean("GiapBien"));
+				khachsan.setDanhGia(rs.getInt("DanhGia"));
+				khachsan.setIdDiaDiem(rs.getInt("IdDiaDiem"));
+				khachsan.setTenDiaDiem(rs.getString("TenDiaDiem"));
+				khachsan.setIdLoaiKhachSan(rs.getInt("IdLoaiKhachSan"));
+				khachsan.setTenLoaiKhachSan(rs.getString("TenLoaiKhachSan"));
+				khachsan.setUrlHinhAnhThanhPho(rs.getString("UrlHinhAnh"));
+				return khachsan;
+			}
+			conn.close();
+			ps.close();
+			rs.close();
+		} catch (Exception e) {
+			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return null;

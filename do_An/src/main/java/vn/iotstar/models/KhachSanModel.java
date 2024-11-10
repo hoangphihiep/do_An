@@ -9,14 +9,13 @@ public class KhachSanModel implements Serializable{
 	int id;
     String ten;
     String diaChi;
-    String soDienThoai;
+    int idUser;
     int cachTrungTam;
     String moTa;
     boolean giapBien;
     int danhGia;
-    int buaAn;
-    int idThanhPho;
-    String tenThanhPho;
+    int idDiaDiem;
+    String tenDiaDiem;
     int idLoaiKhachSan;
     String tenLoaiKhachSan;
     String urlHinhAnhThanhPho;
@@ -27,21 +26,20 @@ public class KhachSanModel implements Serializable{
 		super();
 	}
 
-	public KhachSanModel(int id, String ten, String diaChi, String soDienThoai, int cachTrungTam, String moTa,
-			boolean giapBien, int danhGia, int buaAn, int idThanhPho, String tenThanhPho, int idLoaiKhachSan,
+	public KhachSanModel(int id, String ten, String diaChi, int idUser, int cachTrungTam, String moTa,
+			boolean giapBien, int danhGia, int idDiaDiem, String tenDiaDiem, int idLoaiKhachSan,
 			String tenLoaiKhachSan, String urlHinhAnhThanhPho) {
 		super();
 		this.id = id;
 		this.ten = ten;
 		this.diaChi = diaChi;
-		this.soDienThoai = soDienThoai;
+		this.idUser = idUser;
 		this.cachTrungTam = cachTrungTam;
 		this.moTa = moTa;
 		this.giapBien = giapBien;
 		this.danhGia = danhGia;
-		this.buaAn = buaAn;
-		this.idThanhPho = idThanhPho;
-		this.tenThanhPho = tenThanhPho;
+		this.idDiaDiem = idDiaDiem;
+		this.tenDiaDiem = tenDiaDiem;
 		this.idLoaiKhachSan = idLoaiKhachSan;
 		this.tenLoaiKhachSan = tenLoaiKhachSan;
 		this.urlHinhAnhThanhPho = urlHinhAnhThanhPho;
@@ -71,12 +69,12 @@ public class KhachSanModel implements Serializable{
 		this.diaChi = diaChi;
 	}
 
-	public String getSoDienThoai() {
-		return soDienThoai;
+	public int getidUser() {
+		return idUser;
 	}
 
-	public void setSoDienThoai(String soDienThoai) {
-		this.soDienThoai = soDienThoai;
+	public void setidUser(int idUser) {
+		this.idUser = idUser;
 	}
 
 	public int getCachTrungTam() {
@@ -111,28 +109,20 @@ public class KhachSanModel implements Serializable{
 		this.danhGia = danhGia;
 	}
 
-	public int getBuaAn() {
-		return buaAn;
+	public int getIdDiaDiem() {
+		return idDiaDiem;
 	}
 
-	public void setBuaAn(int buaAn) {
-		this.buaAn = buaAn;
+	public void setIdDiaDiem(int idDiaDiem) {
+		this.idDiaDiem = idDiaDiem;
 	}
 
-	public int getIdThanhPho() {
-		return idThanhPho;
+	public String getTenDiaDiem() {
+		return tenDiaDiem;
 	}
 
-	public void setIdThanhPho(int idThanhPho) {
-		this.idThanhPho = idThanhPho;
-	}
-
-	public String getTenThanhPho() {
-		return tenThanhPho;
-	}
-
-	public void setTenThanhPho(String tenThanhPho) {
-		this.tenThanhPho = tenThanhPho;
+	public void setTenDiaDiem(String tenDiaDiem) {
+		this.tenDiaDiem = tenDiaDiem;
 	}
 
 	public int getIdLoaiKhachSan() {
@@ -161,9 +151,9 @@ public class KhachSanModel implements Serializable{
 
 	@Override
 	public String toString() {
-		return "KhachSanModel [id=" + id + ", ten=" + ten + ", diaChi=" + diaChi + ", soDienThoai=" + soDienThoai
+		return "KhachSanModel [id=" + id + ", ten=" + ten + ", diaChi=" + diaChi 
 				+ ", cachTrungTam=" + cachTrungTam + ", moTa=" + moTa + ", giapBien=" + giapBien + ", danhGia="
-				+ danhGia + ", buaAn=" + buaAn + ", idThanhPho=" + idThanhPho + ", tenThanhPho=" + tenThanhPho
+				+ danhGia + ", idThanhPho=" + idDiaDiem + ", tenThanhPho=" + tenDiaDiem
 				+ ", idLoaiKhachSan=" + idLoaiKhachSan + ", tenLoaiKhachSan=" + tenLoaiKhachSan
 				+ ", urlHinhAnhThanhPho=" + urlHinhAnhThanhPho + "]";
 	}

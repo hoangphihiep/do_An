@@ -19,6 +19,13 @@ public class TienIchModel implements Serializable{
 		IdLoaiTienNghi = idLoaiTienNghi;
 	}
 
+	public TienIchModel(String tenTienNghi, int idKhachSan, int idLoaiTienNghi) {
+		super();
+		this.tenTienNghi = tenTienNghi;
+		IdKhachSan = idKhachSan;
+		IdLoaiTienNghi = idLoaiTienNghi;
+	}
+
 	public int getId() {
 		return id;
 	}

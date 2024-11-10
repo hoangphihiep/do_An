@@ -25,9 +25,9 @@
 						</div>
 						<div
 							style="position: relative; top: -30px; left: 20px; color: white; font-size: 16px">
-							Cách ${ks.tenThanhPho} ${ks.cachTrungTam}m</div>
+							Cách ${ks.tenDiaDiem} ${ks.cachTrungTam}m</div>
 						<div style="margin: -10px 10px 0 10px">Một trong những khu
-							vực đẹp nhất ở ${ks.tenThanhPho}</div>
+							vực đẹp nhất ở ${ks.tenDiaDiem}</div>
 					</div>
 					<div
 						style="border-radius: 3px; background-color: #E9F0FA; border: 1px solid #CCE1FF; text-align: center; padding: 12px 8px 16px 8px; margin-bottom: 20px">
@@ -119,7 +119,7 @@
 								style="position: absolute; font-size: 26px; left: 10px; top: -10px">&#10026;</div>
 							<div
 								style="position: absolute; font-size: 16px; font-weight: bold; left: 40px; top: -4px">
-								Một trong những chỗ nghỉ bán chạy nhất ở ${ks.tenThanhPho} của
+								Một trong những chỗ nghỉ bán chạy nhất ở ${ks.tenDiaDiem} của
 								chúng tôi!</div>
 						</div>
 						<div>

@@ -10,6 +10,17 @@
 	
 	<mapping path="/myAccount/trangCaNhan" name="user" decorator="templateCaNhan.jsp" />
 	<mapping path="/myAccount/lichSuDatPhong" name="user" decorator="templateCaNhan.jsp" />
+	
+	<mapping path="/sheller/dangKy" name="sheller" decorator="sheller.jsp" />
+	<mapping path="/sheller/dangChoNghi/ThongTinCoBan" name="sheller" decorator="sheller.jsp" />
+	<mapping path="/sheller/dangChoNghi/tienIch" name="sheller" decorator="sheller.jsp" />
+	<mapping path="/sheller/dangChoNghi/anhKS" name="sheller" decorator="sheller.jsp" />
+	<mapping path="/sheller/dangChoNghi/phong" name="sheller" decorator="sheller.jsp" />
+	<mapping path="/sheller/thongTinCoBan" name="sheller" decorator="sheller.jsp" />
+	<mapping path="/sheller/tienIch" name="sheller" decorator="sheller.jsp" />
+	<mapping path="/sheller/anhKS" name="sheller" decorator="sheller.jsp" />
+	<mapping path="/sheller/phong" name="sheller" decorator="sheller.jsp" />
+	
 	<mapping path="/admin/*" name="admin" decorator="admin.jsp" />
 	<mapping path="/manager/*" name="manager" decorator="manager.jsp"/>
 	<mapping path="/v1/api/*" name="api" exclude = "true"/>

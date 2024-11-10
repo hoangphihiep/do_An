@@ -23,7 +23,20 @@ public class AnhKhachSanDaoImpl extends DBConnectionSQL implements IAnhKhachSanD
 
 	@Override
 	public void insert(AnhKhachSanModel anhKhachSan) {
-		// TODO Auto-generated method stub
+		String sql = "INSERT INTO AnhKhachSan(TenAnh, AnhKhachSan, IdKhachSan) VALUES (?, ?, ?)";
+
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+
+			ps.setString(1, anhKhachSan.getVaiTroCuaAnh());
+			ps.setString(2, anhKhachSan.getUrlAnhKhachSan());
+			ps.setInt(3, anhKhachSan.getIdKhachSan());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -66,7 +79,8 @@ public class AnhKhachSanDaoImpl extends DBConnectionSQL implements IAnhKhachSanD
 		try {
 			IAnhKhachSanDao anhkhachsanDao = new AnhKhachSanDaoImpl();
 			//thanhphoDao.insert(new ThanhPhoModel("Đồng Nai", "Thanh phố Biên Hòa", "imgae"));
-			List<AnhKhachSanModel> list = anhkhachsanDao.findByIdKhachSan(1);
+			anhkhachsanDao.insert(new AnhKhachSanModel("anhChinh", "123", 2));
+			List<AnhKhachSanModel> list = anhkhachsanDao.findByIdKhachSan(2);
 			for (AnhKhachSanModel khachsan : list) {
 				System.out.println(khachsan);
 			}

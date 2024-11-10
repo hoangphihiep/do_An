@@ -8,7 +8,9 @@ import java.util.List;
 
 import vn.iotstar.configs.DBConnectionSQL;
 import vn.iotstar.dao.ITienIchDao;
+import vn.iotstar.dao.IUserDao;
 import vn.iotstar.models.TienIchModel;
+import vn.iotstar.models.UserModel;
 
 public class TienIchDaoImpl extends DBConnectionSQL implements ITienIchDao{
 
@@ -22,13 +24,42 @@ public class TienIchDaoImpl extends DBConnectionSQL implements ITienIchDao{
 	}
 
 	@Override
-	public void insert(TienIchModel anhKhachSan) {
-		// TODO Auto-generated method stub
+	public void insert(TienIchModel tienIch) {
+		String sql = "INSERT INTO TienIchKhachSan(Ten, IdKhachSan, IdLoaiTienIch) VALUES (?, ?, ?)";
+
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+
+			ps.setString(1, tienIch.getTenTienNghi());
+			ps.setInt(2, tienIch.getIdKhachSan());
+			ps.setInt(3, tienIch.getIdLoaiTienNghi());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
+	
+	public static void main(String[] args) {
+		  
+		  try { ITienIchDao userDao = new TienIchDaoImpl();
+		  
+		  userDao.insert( new TienIchModel("may lanh", 2,1));
+		  
+		  List<TienIchModel> list = userDao.findByIdKhachSan(2); 
+		  for (TienIchModel user : list) {
+		  System.out.println(user); }
+		  
+		  } catch (Exception e) {
+		  
+		  e.printStackTrace(); }
+		  
+		 }
 
 	@Override
-	public void update(TienIchModel anhKhachSan) {
+	public void update(TienIchModel tienIch) {
 		// TODO Auto-generated method stub
 		
 	}

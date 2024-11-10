@@ -13,9 +13,9 @@ public interface IKhachSanDao {
 
 	void delete(int idkhachsan);
 	
-	List<KhachSanModel> findByIdThanhPho(int currentPage, int idThanhPho);
+	List<KhachSanModel> findByIdDiaDiem(int currentPage, int idDiaDiem);
 	
-	List<KhachSanModel> findByIdThanhPho(int idThanhPho);
+	List<KhachSanModel> findByIdDiaDiem(int idDiaDiem);
 	
 	KhachSanModel findById(int id);
 	
@@ -25,7 +25,11 @@ public interface IKhachSanDao {
 	
 	List<KhachSanModel> findAllPage (int indexp);
 	
-	int countAllByIdThanhPho(int idThanhPho);
+	int countAllByIdDiaDiem(int idDiaDiem);
 	
 	int countAllByIdLoaiKS(int idLoaiKS);
+	
+	int maxId ();
+	
+	KhachSanModel findByName(String tenKS);
 }

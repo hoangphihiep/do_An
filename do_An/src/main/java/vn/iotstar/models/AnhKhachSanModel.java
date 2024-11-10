@@ -19,6 +19,13 @@ public class AnhKhachSanModel implements Serializable {
 		this.idKhachSan = idKhachSan;
 	}
 
+	public AnhKhachSanModel(String vaiTroCuaAnh, String urlAnhKhachSan, int idKhachSan) {
+		super();
+		this.vaiTroCuaAnh = vaiTroCuaAnh;
+		this.urlAnhKhachSan = urlAnhKhachSan;
+		this.idKhachSan = idKhachSan;
+	}
+
 	public int getIdAnhKhachSan() {
 		return idAnhKhachSan;
 	}

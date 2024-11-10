@@ -7,9 +7,9 @@ import vn.iotstar.models.TienIchModel;
 public interface ITienIchDao {
 	List<TienIchModel> findAll();
 
-	void insert(TienIchModel anhKhachSan);
+	void insert(TienIchModel tienIch);
 
-	void update(TienIchModel anhKhachSan);
+	void update(TienIchModel tienIch);
 
 	void delete(int idTienIch);
 	

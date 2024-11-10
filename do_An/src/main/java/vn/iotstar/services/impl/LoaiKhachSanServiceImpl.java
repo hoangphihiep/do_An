@@ -35,4 +35,9 @@ public class LoaiKhachSanServiceImpl implements ILoaiKhachSanService{
 		return loaiKhachSanDao.listTenLoaiKhachSan();
 	}
 
+	@Override
+	public int findIdByNameLoaiKS(String tenLoaiKS) {
+		return loaiKhachSanDao.findIdByNameLoaiKS(tenLoaiKS);
+	}
+
 }

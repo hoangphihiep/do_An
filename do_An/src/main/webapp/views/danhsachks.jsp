@@ -180,7 +180,7 @@
 							            	
 							            </div>
 							            <div style="color: #0071c2; font-size: 16px;">
-							                <div style="font-size: 14px; color: #666; margin-top: 10px;"><span style="font-weight: bold; color: #077812">${ks.tenThanhPho}</span> - Cách trung tâm: ${ks.cachTrungTam} m</div>
+							                <div style="font-size: 14px; color: #666; margin-top: 10px;"><span style="font-weight: bold; color: #077812">${ks.tenDiaDiem}</span> - Cách trung tâm: ${ks.cachTrungTam} m</div>
 							            	<div style="font-size: 14px; color: #666; margin-top: 10px;">${ks.tenLoaiKhachSan}</div>
                                             <div style="font-size: 14px; color: #666; margin-top: 10px;">${ks.giapBien?"Có":"Không"} giáp biển </div>
                                             <div style="font-size: 13px; color: #666666">${ks.moTa}</div>

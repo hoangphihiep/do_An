@@ -18,7 +18,11 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 	public ResultSet rs = null;
 	@Override
 	public List<PhongModel> findAll() {
-		String sql = "select P.Id, P.Ten, P.DienTich, P.GiaThue, P.TienNghi, P.MoTa, P.LoaiGiuong, P.SoPhongTrong, P.SoPhongDaDat, P.SucChuaToiDa, P.AnhPhong, P.IdKhachSan, K.Ten as TenKhachSan from Phong P, KhachSan K where P.IdKhachSan=K.Id";
+		String sql = "select P.Id, P.Ten, P.DienTich, P.GiaThue, P.TienNghi, "
+				+ "P.MoTa, P.LoaiGiuong, P.SoPhongTrong, P.SoPhongDaDat, P.SucChuaToiDa, "
+				+ "P.AnhPhong, P.IdKhachSan, K.Ten as TenKhachSan "
+				+ "from Phong P, KhachSan K "
+				+ "where P.IdKhachSan=K.Id";
 		List<PhongModel> list = new ArrayList<PhongModel>();
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -50,7 +54,7 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 
 	@Override
 	public void insert(PhongModel phong) {
-		String sql = "INSERT INTO Phong(Ten, DienTich, GiaThue, TienNghi, MoTa, LoaiGiuong, IdKhachSan) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO Phong(Ten, DienTich, GiaThue, TienNghi, MoTa, LoaiGiuong, IdKhachSan, SoPhongTrong, SoPhongDaDat, SucChuaToiDa, AnhPhong) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -63,6 +67,10 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 			ps.setString(5, phong.getMoTa());
 			ps.setInt(6, phong.getLoaiGiuong());
 			ps.setInt(7, phong.getIdKhachSan());
+			ps.setInt(8, phong.getSoPhongTrong());
+			ps.setInt(9, phong.getSoPhongDaDat());
+			ps.setInt(10, phong.getSucChuaToiDa());
+			ps.setString(11, phong.getAnhPhong());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -107,7 +115,9 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 
 	@Override
 	public List<PhongModel> findByIdKhachSan(int idKhachSan) {
-		String sql = "select P.Id, P.Ten, P.DienTich, P.GiaThue, P.TienNghi, P.MoTa, P.LoaiGiuong, P.SoPhongTrong, P.SoPhongDaDat, P.SucChuaToiDa, P.AnhPhong, P.IdKhachSan, K.Ten as TenKhachSan "
+		String sql = "select P.Id, P.Ten, P.DienTich, P.GiaThue, P.TienNghi, "
+				+ "P.MoTa, P.LoaiGiuong, P.SoPhongTrong, P.SoPhongDaDat, "
+				+ "P.SucChuaToiDa, P.AnhPhong, P.IdKhachSan, K.Ten as TenKhachSan "
 				+ "from Phong P, KhachSan K "
 				+ "where K.Id = ? and P.IdKhachSan=K.Id";
 		List<PhongModel> list = new ArrayList<PhongModel>();
@@ -141,7 +151,9 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 	
 	@Override
 	public List<PhongModel> phongMinByIdKhachSan(int idKhachSan) {
-		String sql = "select P.IdKhachSan, MIN(P.GiaThue) AS GiaThapNhat from Phong P, KhachSan K where K.Id = ? and P.IdKhachSan=K.Id GROUP BY P.IdKhachSan";
+		String sql = "select P.IdKhachSan, MIN(P.GiaThue) AS GiaThapNhat "
+				+ "from Phong P, KhachSan K "
+				+ "where K.Id = ? and P.IdKhachSan=K.Id GROUP BY P.IdKhachSan";
 		List<PhongModel> list = new ArrayList<PhongModel>();
 		try {
 			conn = new DBConnectionSQL().getConnection();

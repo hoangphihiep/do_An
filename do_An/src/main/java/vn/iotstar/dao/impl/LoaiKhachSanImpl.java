@@ -9,6 +9,7 @@ import java.util.List;
 import vn.iotstar.configs.DBConnectionSQL;
 import vn.iotstar.dao.ILoaiKhachSanDao;
 import vn.iotstar.models.LoaiKhachSanModel;
+import vn.iotstar.models.PhongModel;
 
 public class LoaiKhachSanImpl extends DBConnectionSQL implements ILoaiKhachSanDao {
 
@@ -115,4 +116,23 @@ public class LoaiKhachSanImpl extends DBConnectionSQL implements ILoaiKhachSanDa
 		}
 		return null;
 	}
+
+	@Override
+	public int findIdByNameLoaiKS(String tenLoaiKS) {
+		String sql = "SELECT Id FROM LoaiKhachSan WHERE Ten = ? ";
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, tenLoaiKS);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				return rs.getInt("Id");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+
 }

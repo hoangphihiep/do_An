@@ -15,4 +15,6 @@ public interface ILoaiKhachSanDao {
 	void delete (int idloaikhachsan);
 	
 	List <LoaiKhachSanModel> listTenLoaiKhachSan();
+	
+	int findIdByNameLoaiKS (String tenLoaiKS);
 }

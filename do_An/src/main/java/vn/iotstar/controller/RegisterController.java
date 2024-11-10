@@ -52,7 +52,6 @@ public class RegisterController extends HttpServlet {
 		
 		IUserServices service = new UserServiceImpl();
 		String alertMsg1 = "";
-		System.out.println("alerMsg1" +username);
 		if (username == null || fullname == null || createdDateStr == null || gender == null || email == null || phone == null || password == null || diaChi == null){
 			alertMsg1 = "Bạn chưa điền thông tin vào đăng ký!";
 			System.out.println(alertMsg1);

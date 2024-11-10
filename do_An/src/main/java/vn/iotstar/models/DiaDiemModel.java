@@ -2,7 +2,7 @@ package vn.iotstar.models;
 
 import java.io.Serializable;
 
-public class ThanhPhoModel implements Serializable {
+public class DiaDiemModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -12,11 +12,11 @@ public class ThanhPhoModel implements Serializable {
     String urlHinhAnh;
     int soKhachSan;
 	
-    public ThanhPhoModel() {
+    public DiaDiemModel() {
 		super();
 	}
 
-	public ThanhPhoModel(int id, String ten, String moTa, String urlHinhAnh, int soKhachSan) {
+	public DiaDiemModel(int id, String ten, String moTa, String urlHinhAnh, int soKhachSan) {
 		super();
 		this.id = id;
 		this.ten = ten;
@@ -25,7 +25,7 @@ public class ThanhPhoModel implements Serializable {
 		this.soKhachSan = soKhachSan;
 	}
 
-	public ThanhPhoModel(String ten, String moTa, String urlHinhAnh) {
+	public DiaDiemModel(String ten, String moTa, String urlHinhAnh) {
 		super();
 		this.ten = ten;
 		this.moTa = moTa;

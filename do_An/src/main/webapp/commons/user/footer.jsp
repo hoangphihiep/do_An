@@ -3,7 +3,10 @@
 
 <div style="background-color: #003580; height: 140px; margin-top: 30px; margin-bottom: 30px">
     <div class="c80" style="text-align: center">
-        <button class="btn btn-primary" style="margin-top: 25px; height: 35px">Đăng chỗ nghỉ của bạn</button>
+        <a class="btn btn-primary" style="margin-top: 25px; height: 35px" 
+        href="${pageContext.request.contextPath }/sheller/link">
+    		Đăng chỗ nghỉ của bạn
+		</a>
         <hr style="border: none; height: 1px; background-color: #537BB4; margin-top: 25px; margin-bottom: 15px"/>
         <div class="row">
             <div class="col-md-3"><a href="#" style="color: #FFF; font-size: 15px">Phiên bản máy tính</a></div>

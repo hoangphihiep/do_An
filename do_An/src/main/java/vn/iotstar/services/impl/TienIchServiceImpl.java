@@ -18,9 +18,7 @@ public class TienIchServiceImpl implements ITienIchService {
 
 	@Override
 	public void insert(TienIchModel anhKhachSan) {
-		// TODO Auto-generated method stub
-		
-	}
+		tienIchDao.insert(anhKhachSan);	}
 
 	@Override
 	public void update(TienIchModel anhKhachSan) {

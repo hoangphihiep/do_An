@@ -11,20 +11,20 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.iotstar.models.KhachSanModel;
 import vn.iotstar.models.LoaiKhachSanModel;
-import vn.iotstar.models.ThanhPhoModel;
+import vn.iotstar.models.DiaDiemModel;
 import vn.iotstar.models.UserModel;
 import vn.iotstar.services.IKhachSanService;
 import vn.iotstar.services.ILoaiKhachSanService;
-import vn.iotstar.services.IThanhPhoService;
+import vn.iotstar.services.IDiaDiemService;
 import vn.iotstar.services.impl.KhachSanServiceImpl;
 import vn.iotstar.services.impl.LoaiKhachSanServiceImpl;
-import vn.iotstar.services.impl.ThanhPhoServiceImpl;
+import vn.iotstar.services.impl.DiaDiemServiceImpl;
 
 @WebServlet(urlPatterns = {"/home"})
 public class HomeController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	public IThanhPhoService thanhPhoService = new ThanhPhoServiceImpl();
+	public IDiaDiemService diaDiemService = new DiaDiemServiceImpl();
 	public ILoaiKhachSanService loaiKhachSanService = new LoaiKhachSanServiceImpl();
 	public IKhachSanService khachSanService = new KhachSanServiceImpl();
 	@Override
@@ -39,8 +39,8 @@ public class HomeController extends HttpServlet {
 		req.setAttribute("username", username);
 		
 		// danh sách thành phố 
-		List<ThanhPhoModel> list = thanhPhoService.findAll();
-		req.setAttribute("listthanhpho", list);
+		List<DiaDiemModel> list = diaDiemService.findAll();
+		req.setAttribute("listdiadiem", list);
 		
 		//danh sách loại khách sạn
 		List<LoaiKhachSanModel> listLoaiKS = loaiKhachSanService.findAll();

@@ -44,23 +44,25 @@ public class TienIchDaoImpl extends DBConnectionSQL implements ITienIchDao{
 	
 	public static void main(String[] args) {
 		  
-		  try { ITienIchDao userDao = new TienIchDaoImpl();
+		ITienIchDao userDao = new TienIchDaoImpl();
 		  
-		  userDao.insert( new TienIchModel("may lanh", 2,1));
-		  
-		  List<TienIchModel> list = userDao.findByIdKhachSan(2); 
-		  for (TienIchModel user : list) {
-		  System.out.println(user); }
-		  
-		  } catch (Exception e) {
-		  
-		  e.printStackTrace(); }
-		  
-		 }
-
+		  userDao.insert(new TienIchModel("máy giặc 1", 1, 3));
+	}
 	@Override
 	public void update(TienIchModel tienIch) {
-		// TODO Auto-generated method stub
+		String sql = "UPDATE KhachSan SET  Ten = ?, IdKhachSan = ?, IdLoaiTienIch = ? WHERE Id = ?";
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+
+			ps.setString(1, tienIch.getTenTienNghi());
+			ps.setInt(2, tienIch.getIdKhachSan());
+			ps.setInt(3, tienIch.getIdLoaiTienNghi());
+			ps.setInt(4, tienIch.getId());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -91,6 +93,20 @@ public class TienIchDaoImpl extends DBConnectionSQL implements ITienIchDao{
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public void deleteByIdKhachSan(int idKhachSan) {
+		String sql = "DELETE TienIchKhachSan WHERE IdKhachSan = ?";
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idKhachSan);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

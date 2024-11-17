@@ -18,7 +18,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import vn.iotstar.models.AnhKhachSanModel;
 import vn.iotstar.models.KhachSanModel;
-import vn.iotstar.models.PhongModel;
 import vn.iotstar.models.DiaDiemModel;
 import vn.iotstar.models.TienIchModel;
 import vn.iotstar.services.IAnhKhachSanService;
@@ -270,16 +269,16 @@ public class dangChoNghiController extends HttpServlet {
 			
 			String tienNghi = "";
 			if (!"0".equals(singleBedCount)) {
-				tienNghi = tienNghi + singleBedCount + " Giường đơn,"; 
+				tienNghi = tienNghi + singleBedCount + "Giường đơn,"; 
 			}
 			if (!"0".equals(doubleBedCount)) {
-				tienNghi = tienNghi + doubleBedCount + " Giường đôi,"; 
+				tienNghi = tienNghi + doubleBedCount + "Giường đôi,"; 
 			}
 			if (!"0".equals(kingBedCount)) {
-				tienNghi = tienNghi + kingBedCount + " Giường lớn(cỡ King),"; 
+				tienNghi = tienNghi + kingBedCount + "Giường lớn(cỡ King),"; 
 			}
 			if (!"0".equals(superkingBedCount)) {
-				tienNghi = tienNghi + superkingBedCount + " Giường cực lớn(cỡ Super-King),"; 
+				tienNghi = tienNghi + superkingBedCount + "Giường cực lớn(cỡ Super-King),"; 
 			}
 			System.out.println (tenPhong + " " + kichthuoc + " " + mota
 					+ " " + soluongnguoi + " " + singleBedCount + " " + doubleBedCount

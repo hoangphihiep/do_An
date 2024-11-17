@@ -6,170 +6,104 @@
 <head>
 <meta charset="UTF-8">
 <title>Upload Hình Ảnh</title>
-
+<!-- Include SweetAlert library -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath }/sheller/anhKS" method ="post" enctype="multipart/form-data">
-		<div style="font-family: Arial, sans-serif; width: 900px; margin: 50px auto; display: flex; gap: 20px;">
-	        <!-- Phần chính tải ảnh -->
-	        <div style="flex: 1;">
-	            <h2 style="font-size: 18px; font-weight: bold; color: #333;">Khách sạn của Quý vị trông ra sao?</h2>
-	            <p style="font-size: 14px; color: #666; margin-bottom: 20px;">
-	                Đăng tải ít nhất 5 ảnh của chỗ nghỉ. Càng đăng nhiều, Quý vị càng có cơ hội nổi bật trước khách hàng. Quý vị có thể thêm tối đa 8 tệp.
-	            </p>
-	            <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;"> 
-	            	<!-- Image Upload Placeholder for image1 -->
-			        <div style="width: 170px; height: 200px; background-color: white; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
-			            <div id="imagePreview1" style="flex: 1; display: flex; justify-content: center; align-items: center;">
-			            </div>
-			            <input type="file" id="fileInput1" name="image1" accept="image/*" style="display: none;" onchange="handleFileUpload(event, 'imagePreview1')">
-			            <button type="button" onclick="document.getElementById('fileInput1').click()" style="width: 100%; background-color: #4e9a9b; color: white; font-size: 24px; text-align: center; padding: 5px 0; border-radius: 0 0 10px 10px; cursor: pointer;">
-			                +
-			            </button>
-			        </div>
-			
-			        <!-- Image Upload Placeholder for image2 -->
-			        <div style="width: 170px; height: 200px; background-color: white; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
-			            <div id="imagePreview2" style="flex: 1; display: flex; justify-content: center; align-items: center;">
-			            </div>
-			            <input type="file" id="fileInput2" name="image2" accept="image/*" style="display: none;" onchange="handleFileUpload(event, 'imagePreview2')">
-			            <button type="button" onclick="document.getElementById('fileInput2').click()" style="width: 100%; background-color: #4e9a9b; color: white; font-size: 24px; text-align: center; padding: 5px 0; border-radius: 0 0 10px 10px; cursor: pointer;">
-			                +
-			            </button>
-			        </div>
-			        
-			        <!-- Image Upload Placeholder for image3 -->
-			        <div style="width: 170px; height: 200px; background-color: white; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
-			            <div id="imagePreview3" style="flex: 1; display: flex; justify-content: center; align-items: center;">
-			            </div>
-			            <input type="file" id="fileInput3" name="image3" accept="image/*" style="display: none;" onchange="handleFileUpload(event, 'imagePreview3')">
-			            <button type="button" onclick="document.getElementById('fileInput3').click()" style="width: 100%; background-color: #4e9a9b; color: white; font-size: 24px; text-align: center; padding: 5px 0; border-radius: 0 0 10px 10px; cursor: pointer;">
-			                +
-			            </button>
-			        </div>
-		            
-		            <!-- Image Upload Placeholder for image4 -->
-			        <div style="width: 170px; height: 200px; background-color: white; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
-			            <div id="imagePreview4" style="flex: 1; display: flex; justify-content: center; align-items: center;">
-			            </div>
-			            <input type="file" id="fileInput4" name="image4" accept="image/*" style="display: none;" onchange="handleFileUpload(event, 'imagePreview4')">
-			            <button type="button" onclick="document.getElementById('fileInput4').click()" style="width: 100%; background-color: #4e9a9b; color: white; font-size: 24px; text-align: center; padding: 5px 0; border-radius: 0 0 10px 10px; cursor: pointer;">
-			                +
-			            </button>
-			        </div>
-			        
-			        <!-- Image Upload Placeholder for image5 -->
-			        <div style="width: 170px; height: 200px; background-color: white; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
-			            <div id="imagePreview5" style="flex: 1; display: flex; justify-content: center; align-items: center;">
-			            </div>
-			            <input type="file" id="fileInput5" name="image5" accept="image/*" style="display: none;" onchange="handleFileUpload(event, 'imagePreview5')">
-			            <button type="button" onclick="document.getElementById('fileInput5').click()" style="width: 100%; background-color: #4e9a9b; color: white; font-size: 24px; text-align: center; padding: 5px 0; border-radius: 0 0 10px 10px; cursor: pointer;">
-			                +
-			            </button>
-			        </div>
-			        
-			        <!-- Image Upload Placeholder for image6 -->
-			        <div style="width: 170px; height: 200px; background-color: white; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
-			            <div id="imagePreview6" style="flex: 1; display: flex; justify-content: center; align-items: center;">
-			            </div>
-			            <input type="file" id="fileInput6" name="image6" accept="image/*" style="display: none;" onchange="handleFileUpload(event, 'imagePreview6')">
-			            <button type="button" onclick="document.getElementById('fileInput6').click()" style="width: 100%; background-color: #4e9a9b; color: white; font-size: 24px; text-align: center; padding: 5px 0; border-radius: 0 0 10px 10px; cursor: pointer;">
-			                +
-			            </button>
-			        </div>
-			        
-			        <!-- Image Upload Placeholder for image7 -->
-			        <div style="width: 170px; height: 200px; background-color: white; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
-			            <div id="imagePreview7" style="flex: 1; display: flex; justify-content: center; align-items: center;">
-			            </div>
-			            <input type="file" id="fileInput7" name="image7" accept="image/*" style="display: none;" onchange="handleFileUpload(event, 'imagePreview7')">
-			            <button type="button" onclick="document.getElementById('fileInput7').click()" style="width: 100%; background-color: #4e9a9b; color: white; font-size: 24px; text-align: center; padding: 5px 0; border-radius: 0 0 10px 10px; cursor: pointer;">
-			                +
-			            </button>
-			        </div>
-	            </div>
-	             
-	            <!-- Nút tiếp tục -->
-	            <button type="submit" style="background-color: #0071c2; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-top: 20px; font-size: 14px;">
-    				Hoàn thành
-				</button>
-	        </div>
-	        
-	        <!-- Phần hướng dẫn bên phải -->
-	        <div style="width: 250px; background-color: #f7f7f7; padding: 20px; border: 1px solid #ccc; border-radius: 4px;">
-	            <h3 style="color: #333; font-size: 15px; font-weight: bold; margin-bottom: 10px;">Nếu tôi không có ảnh chụp chuyên nghiệp thì sao?</h3>
-	            <p style="font-size: 13px; color: #666;">
-	                Khách hàng có thể sẽ thấy khó tưởng tượng ra chỗ nghỉ của Quý vị nếu không có hình ảnh. Chúng tôi có một vài mẹo cho Quý vị về cách tạo ảnh chất lượng ngay cả khi không cần chụp chuyên nghiệp.
-	            </p>
-	            <p style="font-size: 13px; color: #0071c2;">Xem cách để tạo ảnh đẹp cho chỗ nghỉ của Quý vị</p>
-	            <p style="font-size: 13px; color: #666;">
-	                Tất cả các ảnh tải lên cần phải là ảnh thật về khách sạn của Quý vị. Ảnh cần rõ ràng và không chứa bất kỳ nội dung nào không liên quan đến chỗ nghỉ.
-	            </p>
-	        </div>
-	    </div>
-	</form>
-	<script>
-		function handleFileUpload(event, previewId) {
-		    const files = event.target.files;
-		    const imagePreview = document.getElementById(previewId);
-		    imagePreview.innerHTML = ''; // Xóa ảnh cũ trước khi thêm ảnh mới
-	
-		    for (const file of files) {
-		        const reader = new FileReader();
-		        reader.onload = function(e) {
-		            const div = document.createElement('div');
-		            div.style.border = '2px solid #ccc';
-		            div.style.width = '170px'; // Kích thước khung hiển thị
-		            div.style.height = '170px';
-		            div.style.position = 'relative';
-		            
-		            const img = document.createElement('img');
-		            img.src = e.target.result;
-		            img.style.width = '150px';  // Kích thước ảnh
-		            img.style.height = '150px';
-		            img.style.objectFit = 'cover';
-		            img.style.borderRadius = '10px'; // Góc bo tròn nếu cần
-	
-		            // Tạo nút đóng
-		            const closeButton = document.createElement('span');
-		            closeButton.innerHTML = '&times;';
-		            closeButton.style.position = 'absolute';
-		            closeButton.style.top = '-10px';
-		            closeButton.style.right = '-10px';
-		            closeButton.style.backgroundColor = '#fff';
-		            closeButton.style.border = '1px solid #ccc';
-		            closeButton.style.borderRadius = '50%';
-		            closeButton.style.cursor = 'pointer';
-		            closeButton.style.padding = '2px 6px';
-		            closeButton.onclick = () => div.remove(); // Xóa ảnh khi nhấn nút đóng
-	
-		            div.appendChild(img);
-		            div.appendChild(closeButton);
-		            imagePreview.appendChild(div);
-		        };
-		        reader.readAsDataURL(file);
-		    }
-		}
-		<% if (Boolean.TRUE.equals(request.getAttribute("isSuccess"))) { %>
-		    Swal.fire({
-		        title: 'Bạn thêm đăng ký khách sạn thành công!',
-		        text: 'Bạn có muốn thêm phòng không?',
-		        icon: 'success',
-		        showCancelButton: true,
-		        confirmButtonColor: '#3085d6',
-		        cancelButtonColor: '#d33',
-		        confirmButtonText: 'Yes',
-		        cancelButtonText: 'No'
-		    }).then((result) => {
-		        if (result.isConfirmed) {
-		            // Chuyển hướng khi nhấn "Yes"
-		            window.location.href = '<%= request.getContextPath() %>/sheller/dangChoNghi/phong';
-		        } else if (result.isDismissed) {
-		            // Chuyển hướng khi nhấn "No"
-		            window.location.href = '<%= request.getContextPath() %>/sheller/home';
-		        }
-		    });
-		<% } %>
-	</script>
+    <form action="${pageContext.request.contextPath }/sheller/anhKS" method="post" enctype="multipart/form-data">
+        <div style="font-family: Arial, sans-serif; width: 900px; margin: 50px auto;">
+            <!-- Phần chính tải ảnh -->
+            <div style="text-align: center;">
+                <h2 style="font-size: 18px; font-weight: bold; color: #333;">Khách sạn của Quý vị trông ra sao?</h2>
+                <p style="font-size: 14px; color: #666; margin-bottom: 20px;">
+                    Đăng tải ít nhất 5 ảnh của chỗ nghỉ. Càng đăng nhiều, Quý vị càng có cơ hội nổi bật trước khách hàng. Quý vị có thể thêm tối đa 8 tệp.
+                </p>
+
+                <!-- Sử dụng CSS Grid để sắp xếp ảnh -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; justify-items: center;">
+                    <!-- Hàng đầu tiên chứa 1 ảnh -->
+                    <div style="grid-column: span 3;">
+                        <div style="width: 400px; height: 200px; background-color: white; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
+                            <div id="previewContainer1" style="width: 100%; height: 200px; background-color: #eee; display: flex; align-items: center; justify-content: center; border: 1px dashed #ccc; overflow: hidden;">
+                                <span id="placeholderText1" style="color: #aaa; font-size: 14px;">Chưa có ảnh</span>
+                                <img id="previewImage1" src="#" alt="Xem trước hình ảnh" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <input type="file" id="imageUpload1" name="image1" style="display: none;" accept="image/*" onchange="previewImage(event, 'previewImage1', 'placeholderText1')">
+                            <button type="button" onclick="document.getElementById('imageUpload1').click()" style="width: 100%; background-color: #4e9a9b; color: white; font-size: 24px; text-align: center; padding: 5px 0; border-radius: 0 0 10px 10px; cursor: pointer;">Upload</button>
+                        </div>
+                    </div>
+
+                    <!-- Hàng thứ hai chứa 3 ảnh -->
+                    <% for (int i = 2; i <= 4; i++) { %>
+                    <div style="width: 270px; height: 300px; background-color: white; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
+                        <div id="previewContainer<%=i%>" style="width: 100%; height: 300px; background-color: #eee; display: flex; align-items: center; justify-content: center; border: 1px dashed #ccc; overflow: hidden;">
+                            <span id="placeholderText<%=i%>" style="color: #aaa; font-size: 14px;">Chưa có ảnh</span>
+                            <img id="previewImage<%=i%>" src="#" alt="Xem trước hình ảnh" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <input type="file" id="imageUpload<%=i%>" name="image<%=i%>" style="display: none;" accept="image/*" onchange="previewImage(event, 'previewImage<%=i%>', 'placeholderText<%=i%>')">
+                        <button type="button" onclick="document.getElementById('imageUpload<%=i%>').click()" style="width: 100%; background-color: #4e9a9b; color: white; font-size: 24px; text-align: center; padding: 5px 0; border-radius: 0 0 10px 10px; cursor: pointer;">Upload</button>
+                    </div>
+                    <% } %>
+
+                    <!-- Hàng thứ ba chứa 3 ảnh -->
+                    <% for (int i = 5; i <= 7; i++) { %>
+                    <div style="width: 270px; height: 300px; background-color: white; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
+                        <div id="previewContainer<%=i%>" style="width: 100%; height: 300px; background-color: #eee; display: flex; align-items: center; justify-content: center; border: 1px dashed #ccc; overflow: hidden;">
+                            <span id="placeholderText<%=i%>" style="color: #aaa; font-size: 14px;">Chưa có ảnh</span>
+                            <img id="previewImage<%=i%>" src="#" alt="Xem trước hình ảnh" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <input type="file" id="imageUpload<%=i%>" name="image<%=i%>" style="display: none;" accept="image/*" onchange="previewImage(event, 'previewImage<%=i%>', 'placeholderText<%=i%>')">
+                        <button type="button" onclick="document.getElementById('imageUpload<%=i%>').click()" style="width: 100%; background-color: #4e9a9b; color: white; font-size: 24px; text-align: center; padding: 5px 0; border-radius: 0 0 10px 10px; cursor: pointer;">Upload</button>
+                    </div>
+                    <% } %>
+                </div>
+
+                <!-- Nút hoàn thành -->
+                <button type="submit" style="background-color: #0071c2; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-top: 20px; font-size: 14px;">
+                    Hoàn thành
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        // Function to preview images
+        function previewImage(event, previewId, placeholderId) {
+            const placeholderText = document.getElementById(placeholderId);
+            const imagePreview = document.getElementById(previewId);
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    placeholderText.style.display = 'none'; // Ẩn văn bản "Chưa có ảnh"
+                    imagePreview.src = e.target.result; // Gán đường dẫn ảnh cho img
+                    imagePreview.style.display = 'block'; // Hiển thị ảnh xem trước
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        <% if (Boolean.TRUE.equals(request.getAttribute("isSuccess"))) { %>
+            Swal.fire({
+                title: 'Bạn đăng ký khách sạn thành công!',
+                text: 'Bạn có muốn thêm phòng không?',
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Chuyển hướng khi nhấn "Yes"
+                    window.location.href = '<%= request.getContextPath() %>/sheller/dangChoNghi/phong';
+                } else if (result.isDismissed) {
+                    // Chuyển hướng khi nhấn "No"
+                    window.location.href = '<%= request.getContextPath() %>/sheller/home';
+                }
+            });
+        <% } %>
+    </script>
 </body>
 </html>

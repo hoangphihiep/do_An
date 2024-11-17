@@ -35,4 +35,9 @@ public class AnhKhachSanServiceImpl implements IAnhKhachSanService {
 		return anhKhachSanDao.findByIdKhachSan(idKhachSan);
 	}
 
+	@Override
+	public void deleteByIdKhachSan(int idKS) {
+		anhKhachSanDao.deleteByIdKhachSan(idKS);
+	}
+
 }

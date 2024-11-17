@@ -17,12 +17,12 @@ public class TienIchServiceImpl implements ITienIchService {
 	}
 
 	@Override
-	public void insert(TienIchModel anhKhachSan) {
-		tienIchDao.insert(anhKhachSan);	}
+	public void insert(TienIchModel tienIch) {
+		tienIchDao.insert(tienIch);	}
 
 	@Override
-	public void update(TienIchModel anhKhachSan) {
-		// TODO Auto-generated method stub
+	public void update(TienIchModel tienIch) {
+		tienIchDao.update(tienIch);
 		
 	}
 
@@ -35,6 +35,11 @@ public class TienIchServiceImpl implements ITienIchService {
 	@Override
 	public List<TienIchModel> findByIdKhachSan(int idKhachSan) {
 		return tienIchDao.findByIdKhachSan(idKhachSan);
+	}
+
+	@Override
+	public void deleteByIdKhachSan(int idKhachSan) {
+		tienIchDao.deleteByIdKhachSan(idKhachSan);
 	}
 
 }

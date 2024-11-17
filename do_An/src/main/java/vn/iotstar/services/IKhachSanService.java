@@ -24,6 +24,8 @@ public interface IKhachSanService {
 	
 	List<KhachSanModel> findByIdLoaiKhachSan(int idLoaiKhachSan);
 	
+	List<KhachSanModel> findByIdUser(int idUser);
+	
 	int countAllByIdDiaDiem(int idDiaDiem);
 	
 	int countAllByIdLoaiKS(int idLoaiKS);

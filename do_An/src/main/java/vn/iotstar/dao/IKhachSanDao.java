@@ -25,6 +25,8 @@ public interface IKhachSanDao {
 	
 	List<KhachSanModel> findAllPage (int indexp);
 	
+	List<KhachSanModel> findByIdUser(int idUser);
+	
 	int countAllByIdDiaDiem(int idDiaDiem);
 	
 	int countAllByIdLoaiKS(int idLoaiKS);

@@ -14,4 +14,6 @@ public interface IAnhKhachSanService {
 	void delete(int idAnhKhachSan);
 	
 	List<AnhKhachSanModel> findByIdKhachSan(int idKhachSan);
+	
+	void deleteByIdKhachSan (int idKS);
 }

@@ -8,11 +8,13 @@ public interface ITienIchService {
 	
 	List<TienIchModel> findAll();
 
-	void insert(TienIchModel anhKhachSan);
+	void insert(TienIchModel tienIch);
 
-	void update(TienIchModel anhKhachSan);
+	void update(TienIchModel tienIch);
 
 	void delete(int idTienIch);
+	
+	void deleteByIdKhachSan(int idKhachSan);
 
 	List<TienIchModel> findByIdKhachSan(int idKhachSan);
 }

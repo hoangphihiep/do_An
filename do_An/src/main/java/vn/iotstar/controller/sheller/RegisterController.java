@@ -29,6 +29,7 @@ public class RegisterController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String email = req.getParameter("email");
+		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		String repeatPassword = req.getParameter("Repassword");
 		
@@ -62,7 +63,7 @@ public class RegisterController extends HttpServlet {
 			user = (UserModel) session.getAttribute("account");
 		}
 		if (email != null && password != null) {
-			boolean isSuccess = service.register(user.getUsername(), user.getFullname(), user.getCreatedDate(), user.getGender(), email, user.getPhone(), encryptedPassword, user.getDiaChi(),2);
+			boolean isSuccess = service.register(username, user.getFullname(), user.getCreatedDate(), user.getGender(), email, user.getPhone(), encryptedPassword, user.getDiaChi(),2);
 			if (isSuccess) {
 				req.setAttribute("isSuccess", true);
 				req.setAttribute("doiTac", user.getUsername());

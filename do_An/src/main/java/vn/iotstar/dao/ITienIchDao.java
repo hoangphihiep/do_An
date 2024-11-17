@@ -13,5 +13,7 @@ public interface ITienIchDao {
 
 	void delete(int idTienIch);
 	
+	void deleteByIdKhachSan(int idKhachSan);
+	
 	List<TienIchModel> findByIdKhachSan(int idKhachSan);
 }

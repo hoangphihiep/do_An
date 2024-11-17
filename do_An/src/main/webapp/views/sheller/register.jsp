@@ -5,8 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- Thêm thư viện SweetAlert -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div style="width: 100%; max-width: 400px; padding: 20px; margin: 50px auto; background-color: white; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
@@ -16,6 +14,9 @@
         <form action="${pageContext.request.contextPath }/sheller/dangKy" method="post">
             <label for="email" style="display: block; font-size: 14px; color: #333; margin-bottom: 5px;">Địa chỉ email</label>
             <input type="email" id="email" name="email" value="${email}" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; margin-bottom: 20px;" required>
+            
+            <label for="username" style="display: block; font-size: 14px; color: #333; margin-bottom: 5px;">Tên đăng nhập</label>
+            <input type="text" id="username" name="username" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; margin-bottom: 20px;" required>
             
             <label for="password" style="display: block; font-size: 14px; color: #333; margin-bottom: 5px;">Mật khẩu</label>
             <div style="position: relative;">

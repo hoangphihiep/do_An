@@ -1,7 +1,6 @@
 package vn.iotstar.dao.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -81,7 +80,7 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 
 	@Override
 	public void update(PhongModel phong) {
-		String sql = "UPDATE Phong SET Ten=?, DienTich=?, GiaThue=?, TienNghi=?, MoTa=?, LoaiGiuong=?, IdKhachSan=? WHERE Id = ?";
+		String sql = "UPDATE Phong SET Ten=?, DienTich=?, GiaThue=?, TienNghi=?, MoTa=?, LoaiGiuong=?, IdKhachSan=?, SoPhongTrong=?, SoPhongDaDat=?, SucChuaToiDa=?, AnhPhong=? WHERE Id = ?";
 		try {
 			conn = new DBConnectionSQL().getConnection();
 			ps = conn.prepareStatement(sql);
@@ -93,7 +92,11 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 			ps.setString(5, phong.getMoTa());
 			ps.setInt(6, phong.getLoaiGiuong());
 			ps.setInt(7, phong.getIdKhachSan());
-			ps.setInt(8, phong.getId());
+			ps.setInt(8, phong.getSoPhongTrong());
+			ps.setInt(9, phong.getSoPhongDaDat());
+			ps.setInt(10, phong.getSucChuaToiDa());
+			ps.setString(11, phong.getAnhPhong());
+			ps.setInt(12, phong.getId());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -191,6 +194,9 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 				phong.setSoPhongTrong(rs.getInt("SoPhongTrong"));
 				phong.setSucChuaToiDa(rs.getInt("SucChuaToiDa"));
 				phong.setTen(rs.getString("Ten"));
+				phong.setTienNghi(rs.getString("TienNghi"));
+				phong.setMoTa(rs.getString("MoTa"));
+				phong.setDienTich(rs.getInt("DienTich"));
 				return phong;
 			}
 		} catch (Exception e) {

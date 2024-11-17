@@ -91,4 +91,18 @@ public class AnhKhachSanDaoImpl extends DBConnectionSQL implements IAnhKhachSanD
 		}
 
 	}
+
+	@Override
+	public void deleteByIdKhachSan(int idKS) {
+		String sql = "DELETE AnhKhachSan WHERE IdKhachSan = ?";
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idKS);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 }

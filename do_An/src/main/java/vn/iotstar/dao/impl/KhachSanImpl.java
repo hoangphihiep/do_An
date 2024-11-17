@@ -110,7 +110,8 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 		try {
 			IKhachSanDao khachsanDao = new KhachSanImpl();
 			//thanhphoDao.insert(new ThanhPhoModel("Đồng Nai", "Thanh phố Biên Hòa", "imgae"));
-			List<KhachSanModel> list = khachsanDao.findByIdDiaDiem(1);
+			khachsanDao.update(new KhachSanModel());
+			List<KhachSanModel> list = khachsanDao.findByIdUser(5);
 			for(KhachSanModel ks : list) {
 				System.out.println (ks.getId() + ks.getTen());
 			}
@@ -424,6 +425,42 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 			rs.close();
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<KhachSanModel> findByIdUser(int idUser) {
+		String sql = "select K.Id as Id, K.Ten as Ten, K.DiaChi as DiaChi, IdUser, "
+				+ "CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem, "
+				+ "T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L, Users U "
+				+ "where U.Id = ? and U.Id = K.IdUser and K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC ";
+		List<KhachSanModel> list = new ArrayList<KhachSanModel>();
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idUser);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(new KhachSanModel(
+						rs.getInt("Id"), 
+						rs.getString("Ten"), 
+						rs.getString("DiaChi"), 
+						rs.getInt("IdUser"), 
+						rs.getInt("CachTrungTam"),
+						rs.getString("MoTa"),
+						rs.getBoolean("GiapBien"),
+						rs.getInt("DanhGia"),
+						rs.getInt("IdDiaDiem"), 
+						rs.getString("TenDiaDiem"),
+						rs.getInt("IdLoaiKhachSan"),
+						rs.getString("TenLoaiKhachSan"),
+						rs.getString("UrlHinhAnh")));
+			}
+			return list;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

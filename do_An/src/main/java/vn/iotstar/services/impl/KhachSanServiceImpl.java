@@ -81,4 +81,9 @@ public class KhachSanServiceImpl implements IKhachSanService {
 		return khachSanDao.findByName(tenKS);
 	}
 
+	@Override
+	public List<KhachSanModel> findByIdUser(int idUser) {
+		return khachSanDao.findByIdUser(idUser);
+	}
+
 }

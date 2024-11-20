@@ -12,4 +12,10 @@ public interface IDatPhongDao {
 	List<DatPhongModel> findAll(Date ngayDen, Date ngayDi, int IdPhong);
 	
 	void insert (DatPhongModel datPhong);
+	
+	List<DatPhongModel> listPhongDaDatByIdSheller (int idSheller);
+	
+	void updateTrangThaiTT (int idDatPhong);
+	
+	void delete (int idDatPhong);
 }

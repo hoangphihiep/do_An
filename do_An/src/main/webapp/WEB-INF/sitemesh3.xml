@@ -33,6 +33,8 @@
 	<mapping path="/sheller/sua/anhKS" name="editsheller" decorator="templateKS.jsp" />
 	<mapping path="/sheller/sua/phong" name="editsheller" decorator="templateKS.jsp" />
 	
+	<mapping path="/sheller/danhSachDatPhong" name="editsheller" decorator="sheller.jsp" />
+	<mapping path="/sheller/datPhong/xacNhanTT" name="editsheller" decorator="sheller.jsp" />
 	
 	<mapping path="/admin/*" name="admin" decorator="admin.jsp" />
 	<mapping path="/manager/*" name="manager" decorator="manager.jsp"/>

@@ -48,7 +48,6 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 	}
 	
 	public List<DatPhongModel> findAll(Date ngayDen, Date ngayDi, int IdPhong) {
-		// TODO Auto-generated method stub
 		String sql = "SELECT * " +
 	             "FROM DatPhong " +
 	             "WHERE IdPhong = ? AND ((NgayDen <= ?  AND NgayTra >= ?) OR(NgayDen >= ?  AND NgayDen <= ?) OR (NgayTra >= ?  AND NgayTra <= ?) OR (NgayTra >= ?  AND NgayTra >= ? AND (NgayDen <= ? OR (NgayDen >= ? AND NgayDen <= ?))))";
@@ -136,6 +135,69 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 			ps.executeUpdate();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public List<DatPhongModel> listPhongDaDatByIdSheller(int idSheller) {
+		String sql = "SELECT dp.Id,dp.IdUser,dp.IdPhong,dp.NgayDat,dp.NgayDen,dp.NgayTra,dp.GhiChu,dp.ThanhTien,dp.DaHuy,dp.SoPhongDaDat,dp.ThanhToan,dp.PhuongThucThanhToan " +
+	             "FROM DatPhong dp, Phong p, KhachSan k, Users u " +
+	             "WHERE u.Id = ? AND u.Id = k.IdUser AND k.Id = p.IdKhachSan AND p.Id = dp.IdPhong";
+		List<DatPhongModel> list = new ArrayList<DatPhongModel>();
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idSheller);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(new DatPhongModel(
+						rs.getInt("Id"),
+						rs.getInt("IdUser"),
+						rs.getInt("IdPhong"),
+						rs.getDate("NgayDat"),
+						rs.getDate("NgayDen"),
+						rs.getDate("NgayTra"),
+						rs.getString("GhiChu"),
+						rs.getInt("ThanhTien"),
+						rs.getBoolean("DaHuy"),
+						rs.getInt("SoPhongDaDat"),
+						rs.getBoolean("ThanhToan"),
+						rs.getString("PhuongThucThanhToan")));
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public void updateTrangThaiTT(int idDatPhong) {
+		String sql = "UPDATE DatPhong SET ThanhToan = ? WHERE Id = ?";
+
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+
+			ps.setBoolean(1, true);
+			ps.setInt(2, idDatPhong);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void delete(int idDatPhong) {
+		String sql = "DELETE DatPhong WHERE Id = ?";
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idDatPhong);
+			ps.executeUpdate();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

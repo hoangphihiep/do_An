@@ -445,17 +445,14 @@ public class suaChoNghiController extends HttpServlet {
 					if (part.getSize() > 0 && part != null) {
 						String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
 			            String ext = filename.substring(filename.lastIndexOf(".") + 1);
-			            fname = System.currentTimeMillis() + "_" + i + "." + ext; // Unique filename with timestamp and index
-			           
+			            fname = System.currentTimeMillis() + "_" + i + "." + ext;
 			            part.write(uploadPath + File.separator + fname);
-			            // Optional: Log or save `fname` in the database if needed
 			            if (i == 1) {
 			                listAnhKS.add(new AnhKhachSanModel("AnhChinh", fname, idKS));
 			            }
 			            else {
 			            	listAnhKS.add(new AnhKhachSanModel("Anhphu"+i, fname, idKS));
 			            }
-			            System.out.println("Có vào đây");
 					}else {
 						String fileName = req.getParameter("image" + i + "Url");
 						String result = fileName.replace("/do_An/image?fname=", "");

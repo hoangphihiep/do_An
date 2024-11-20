@@ -2,6 +2,13 @@ package vn.iotstar.models;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
+import vn.iotstar.services.IPhongService;
+import vn.iotstar.services.IUserServices;
+import vn.iotstar.services.impl.PhongServiceImpl;
+import vn.iotstar.services.impl.UserServiceImpl;
 
 public class DatPhongModel implements Serializable {
 
@@ -19,7 +26,20 @@ public class DatPhongModel implements Serializable {
     int soPhongDaDat;
     boolean thanhToan;
     String phuongThucTT;
+    UserModel user;
+    PhongModel phong;
+    long thoiGianConLaiTT;
+    long thoiGianOConLai;
+    Date ngayHienTai = new Date(System.currentTimeMillis());
     
+    public IUserServices userService = new UserServiceImpl();
+    public IPhongService phongService = new PhongServiceImpl();
+    
+    
+	public DatPhongModel() {
+		super();
+	}
+
 	public DatPhongModel(int id, int idUser, int idPhong, Date ngayDat, Date ngayDen, Date ngayTra,
 			String ghiChu, int thanhTien, boolean daHuy, int soPhongDaDat, boolean thanhToan, String phuongThucTT) {
 		super();
@@ -35,6 +55,22 @@ public class DatPhongModel implements Serializable {
 		this.soPhongDaDat = soPhongDaDat;
 		this.thanhToan = thanhToan;
 		this.phuongThucTT = phuongThucTT;
+		
+		if (ngayHienTai.before(ngayDat)) {
+			thoiGianConLaiTT = ChronoUnit.DAYS.between(ngayDat.toLocalDate(), ngayDen.toLocalDate());
+		}
+		else {
+			thoiGianConLaiTT = ChronoUnit.DAYS.between(ngayHienTai.toLocalDate(), ngayDen.toLocalDate());
+		}
+
+		if (ngayHienTai.before(ngayDen)) {
+			thoiGianOConLai = ChronoUnit.DAYS.between(ngayDen.toLocalDate(), ngayDen.toLocalDate());
+		}
+		else {
+			thoiGianOConLai = ChronoUnit.DAYS.between(ngayHienTai.toLocalDate(), ngayDen.toLocalDate());
+		}
+		user = userService.findById(idUser);
+		phong = phongService.findById(idPhong);
 	}
 
 	public DatPhongModel(int idUser, int idPhong, Date ngayDat, Date ngayDen, Date ngayTra, String ghiChu,
@@ -147,5 +183,37 @@ public class DatPhongModel implements Serializable {
 
 	public void setPhuongThucTT(String phuongThucTT) {
 		this.phuongThucTT = phuongThucTT;
+	}
+
+	public UserModel getUser() {
+		return user;
+	}
+
+	public void setUser(UserModel user) {
+		this.user = user;
+	}
+
+	public PhongModel getPhong() {
+		return phong;
+	}
+
+	public void setPhong(PhongModel phong) {
+		this.phong = phong;
+	}
+
+	public long getThoiGianConLaiTT() {
+		return thoiGianConLaiTT;
+	}
+
+	public void setThoiGianConLaiTT(long thoiGianConLaiTT) {
+		this.thoiGianConLaiTT = thoiGianConLaiTT;
+	}
+
+	public long getThoiGianOConLai() {
+		return thoiGianOConLai;
+	}
+
+	public void setThoiGianOConLai(long thoiGianOConLai) {
+		this.thoiGianOConLai = thoiGianOConLai;
 	} 
 }

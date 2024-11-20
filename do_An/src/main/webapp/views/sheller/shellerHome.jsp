@@ -19,14 +19,14 @@
         <p>Phát triển kinh doanh bằng cách thêm các chỗ nghỉ này vào nền tảng du lịch trực tuyến lớn nhất thế giới, Booking.com.</p>
         
         
-        <table id="sample_2">
+        <table id="reservationTable" style="width: 100%; border-collapse: collapse; text-align: left;">
 	        <thead>
 	            <tr style="background-color: #f9f9f9; color: #333; font-weight: bold;">
-	                <th>STT</th>
-	                <th style="padding: 12px; border-bottom: 1px solid #eaeaea; text-align: left;">Loại khách sạn</th>
-	                <th style="padding: 12px; border-bottom: 1px solid #eaeaea; text-align: left;">Tên khách sạn</th>
-	                <th style="padding: 12px; border-bottom: 1px solid #eaeaea; text-align: left;">Địa chỉ</th>
-	                <th style="padding: 12px; border-bottom: 1px solid #eaeaea; text-align: center;">Hạng sao</th>
+	                <th style="padding: 12px; border-bottom: 1px solid #eaeaea; text-align: left; width: 50px;">STT</th>
+	                <th style="padding: 12px; border-bottom: 1px solid #eaeaea; text-align: left; width: 130px;">Loại khách sạn</th>
+	                <th style="padding: 12px; border-bottom: 1px solid #eaeaea; text-align: left; width: 130px;">Tên khách sạn</th>
+	                <th style="padding: 12px; border-bottom: 1px solid #eaeaea; text-align: left; width: 300px;">Địa chỉ</th>
+	                <th style="padding: 12px; border-bottom: 1px solid #eaeaea; text-align: center; width: 110px;">Hạng sao</th>
 	                <th style="padding: 12px; border-bottom: 1px solid #eaeaea; text-align: center;">Trạng thái</th>
 	                <th style="padding: 12px; border-bottom: 1px solid #eaeaea; text-align: center;">Xem chi tiết</th>
 	                <th style="padding: 12px; border-bottom: 1px solid #eaeaea; text-align: center;">Xóa</th>
@@ -45,7 +45,7 @@
 		                	<a href="<c:url value='/sheller/suaChoNghi/ThongTinCoBan?id=${ks.id}'/>" style="background-color: #007bff; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;">Xem chi tiết</a>
 		                </td>
 		                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #eaeaea;">
-		                    <button style="background-color: #d9534f; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;">Xóa</button>
+		                    <a href="<c:url value='/sheller/xoaChoNghi?id=${ks.id}'/>" style="background-color: #d9534f; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;">Xóa</a>
 		                </td>
 		            </tr>
 	        	</c:forEach>

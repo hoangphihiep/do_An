@@ -1,6 +1,7 @@
 package vn.iotstar.services.impl;
 
 import java.sql.Date;
+import java.util.List;
 
 import vn.iotstar.dao.IDatPhongDao;
 import vn.iotstar.dao.impl.DatPhongDaoImpl;
@@ -17,5 +18,17 @@ public class DatPhongServiceImpl implements IDatPhongService {
 	@Override
 	public void insert(DatPhongModel datPhong) {
 		datPhongDao.insert(datPhong);
+	}
+	@Override
+	public List<DatPhongModel> listPhongDaDatByIdSheller(int idSheller) {
+		return datPhongDao.listPhongDaDatByIdSheller(idSheller);
+	}
+	@Override
+	public void updateTrangThaiTT(int idDatPhong) {
+		datPhongDao.updateTrangThaiTT(idDatPhong);	
+	}
+	@Override
+	public void delete(int idDatPhong) {
+		datPhongDao.delete(idDatPhong);
 	}
 }

@@ -68,7 +68,6 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 
 	@Override
 	public UserModel findById(int id) {
-		// TODO Auto-generated method stub
 		String sql = "SELECT * FROM Users WHERE id = ? ";
 		try {
 			conn = new DBConnectionSQL().getConnection();

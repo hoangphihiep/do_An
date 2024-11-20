@@ -5,11 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/do_An/assets/frontend/layout/css/style.css" rel="stylesheet">
-
-<!-- BEGIN PAGE LEVEL STYLES -->
-<link rel="stylesheet" type="text/css" href="/do_An/assets/global/plugins/select2/select2.css"/>
-<link rel="stylesheet" type="text/css" href="/do_An/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+<!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="/do_An/Content/js/sweetalert2.min.js"></script>
 </head>
 <body>
@@ -25,27 +26,31 @@
 		</div>
 	</div>
 	
-	<script src="/do_An/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-	<script src="/do_An/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
-	<script src="/do_An/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-	<script src="/do_An/assets/frontend/layout/scripts/back-to-top1.js" type="text/javascript"></script>
-	<script src="/do_An/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-	<!-- BEGIN PAGE LEVEL PLUGINS -->
-	<script type="text/javascript" src="/do_An/assets/global/plugins/select2/select2.min.js"></script>
-	<script type="text/javascript" src="/do_An/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="/do_An/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
-	<!-- END PAGE LEVEL PLUGINS -->
-	<script src="/do_An/assets/frontend/layout/scripts/layout1.js" type="text/javascript"></script>
-	<script src="/do_An/assets/admin/layout2/scripts/demo.js" type="text/javascript"></script>
-	<script src="/do_An/assets/global/scripts/metronic1.js" type="text/javascript"></script>
-	<script src="/do_An/assets/admin/pages/scripts/table-managed.js"></script>
+	
 	<script>
-		jQuery(document).ready(function() {       
-		   	Metronic.init(); // init metronic core components
-			Layout.init(); // init current layout
-			Demo.init(); // init demo features
-		   	TableManaged.init();
-		});
-	</script>
+        $(document).ready(function() {
+            $('#reservationTable').DataTable({
+                "paging": true,        // Bật phân trang
+                "searching": true,    // Bật tìm kiếm
+                "ordering": true,     // Bật sắp xếp cột
+                "info": true,         // Hiển thị thông tin bảng
+                "lengthMenu": [5, 10, 25, 50], // Số hàng mỗi trang
+                "language": {
+                    "lengthMenu": "Hiển thị _MENU_ dòng mỗi trang",
+                    "zeroRecords": "Không tìm thấy dữ liệu",
+                    "info": "Hiển thị trang _PAGE_ của _PAGES_",
+                    "infoEmpty": "Không có dữ liệu",
+                    "infoFiltered": "(lọc từ _MAX_ dòng)",
+                    "search": "Tìm kiếm:",
+                    "paginate": {
+                        "first": "Đầu",
+                        "last": "Cuối",
+                        "next": "Tiếp",
+                        "previous": "Trước"
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

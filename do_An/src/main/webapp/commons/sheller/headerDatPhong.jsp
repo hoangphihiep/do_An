@@ -4,8 +4,8 @@
 
 <div class="header" style="background-color: #003580; padding: 20px; color: white; display: flex; align-items: center; justify-content: space-between;">
     <nav style="margin-left: 100px;">
-        <a href="/do_An/sheller/home" class="nav-link active" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Trang chủ Nhóm chỗ nghỉ</a>
-        <a href="/do_An/sheller/danhSachDatPhong" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Đặt phòng</a>
+        <a href="/do_An/sheller/home" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Trang chủ Nhóm chỗ nghỉ</a>
+        <a href="/do_An/sheller/danhSachDatPhong" class="nav-link active" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Đặt phòng</a>
         <a href="#" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Đánh giá</a>
         <a href="#" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Tài chính</a>
         <a href="#" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Chỉnh sửa đồng loạt</a>

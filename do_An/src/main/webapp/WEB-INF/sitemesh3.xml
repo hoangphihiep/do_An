@@ -35,6 +35,8 @@
 	
 	<mapping path="/sheller/danhSachDatPhong" name="editsheller" decorator="sheller.jsp" />
 	<mapping path="/sheller/datPhong/xacNhanTT" name="editsheller" decorator="sheller.jsp" />
+	<mapping path="/sheller/danhSachGiamGia" name="editsheller" decorator="sheller.jsp" />
+	<mapping path="/sheller/giamGia/add" name="editsheller" decorator="sheller.jsp" />
 	
 	<mapping path="/admin/*" name="admin" decorator="admin.jsp" />
 	<mapping path="/manager/*" name="manager" decorator="manager.jsp"/>

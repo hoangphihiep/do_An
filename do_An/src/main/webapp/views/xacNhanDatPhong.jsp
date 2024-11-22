@@ -35,5 +35,21 @@
 	        </button>
 		</form>
 	</div>
+	<script>
+        <% if (Boolean.TRUE.equals(request.getAttribute("isSuccess"))) { %>
+            Swal.fire({
+                title: 'Bạn đã đặt phòng thành công!',
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Chuyển hướng khi nhấn "Yes"
+                    window.location.href = '<%= request.getContextPath() %>/khachsan?id=${idKhachSan}';
+                }
+            });
+        <% } %>
+    </script>
 </body>
 </html>

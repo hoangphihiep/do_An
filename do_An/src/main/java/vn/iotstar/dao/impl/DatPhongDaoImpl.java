@@ -201,4 +201,86 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public List<DatPhongModel> listKhachDatPhong(int idSheller) {
+		String sql = "SELECT dp.Id, dp.IdUser, dp.IdPhong, dp.NgayDat, dp.NgayDen, dp.NgayTra, dp.GhiChu, dp.ThanhTien, dp.DaHuy, dp.SoPhongDaDat, dp.ThanhToan, dp.PhuongThucThanhToan " +
+	             "FROM DatPhong dp, Phong p, KhachSan k, Users u " +
+	             "WHERE u.Id = ? " +
+	             "AND u.Id = k.IdUser " +
+	             "AND k.Id = p.IdKhachSan " +
+	             "AND p.Id = dp.IdPhong " +
+	             "AND dp.Id IN ( " +
+	             "    SELECT MIN(dp1.Id) " +
+	             "    FROM DatPhong dp1 " +
+	             "    GROUP BY dp1.IdUser " +
+	             ")";
+		List<DatPhongModel> list = new ArrayList<DatPhongModel>();
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idSheller);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(new DatPhongModel(
+						rs.getInt("Id"),
+						rs.getInt("IdUser"),
+						rs.getInt("IdPhong"),
+						rs.getDate("NgayDat"),
+						rs.getDate("NgayDen"),
+						rs.getDate("NgayTra"),
+						rs.getString("GhiChu"),
+						rs.getInt("ThanhTien"),
+						rs.getBoolean("DaHuy"),
+						rs.getInt("SoPhongDaDat"),
+						rs.getBoolean("ThanhToan"),
+						rs.getString("PhuongThucThanhToan")));
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public int countDatPhongByIdUser(int idUser) {
+		String sql = "SELECT COUNT(IdUser) " +
+	             "FROM DatPhong " +
+	             "WHERE IdUser = ?";
+
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idUser);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return 0;
+	}
+
+	@Override
+	public int sumTienDatPhongByIdUser(int idUser, int idKS) {
+		String sql = "SELECT SUM(ThanhTien) " +
+	             "FROM DatPhong dp, Phong p, KhachSan k " +
+	             "WHERE dp.IdUser = ? AND k.Id = ? AND p.IdKhachSan = k.id AND p.Id = dp.IdPhong";
+
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idUser);
+			ps.setInt(2, idKS);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return 0;
+	}
 }

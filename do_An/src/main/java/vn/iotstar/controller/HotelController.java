@@ -59,36 +59,30 @@ public class HotelController extends HttpServlet {
 		String ngayDen = (String) session.getAttribute("ngayDen");
 		String ngayDenStr = req.getParameter("ngayDen");
 		Date ngayDen1 = null;
-		try {
+		if (ngayDen != null) {
 			ngayDen1 = Date.valueOf(ngayDen);
-		} catch (IllegalArgumentException e) {
-			return;
 		}
 		if (ngayDenStr != null) {
-			try {
-				ngayDen1 = Date.valueOf(ngayDenStr);
-			} catch (IllegalArgumentException e) {
-				return;
-			}
+			ngayDen1 = Date.valueOf(ngayDenStr);
 			ngayDen = ngayDenStr;
+		}
+		if (ngayDen == null && ngayDenStr == null) {
+			ngayDen1 = new Date(System.currentTimeMillis());
 		}
 		
 		
 		String ngayDi = (String) session.getAttribute("ngayDi");
 		String ngayDiStr = req.getParameter("ngayTra");
 		Date ngayDi1 = null;
-		try {
+		if(ngayDi != null) {
 			ngayDi1 = Date.valueOf(ngayDi);
-		} catch (IllegalArgumentException e) {
-			return;
 		}
 		if (ngayDiStr != null) {
-			try {
-				ngayDi1 = Date.valueOf(ngayDiStr);
-			} catch (IllegalArgumentException e) {
-				return;
-			}
+			ngayDi1 = Date.valueOf(ngayDiStr);
 			ngayDi = ngayDiStr;
+		}
+		if (ngayDi == null && ngayDiStr == null) {
+			ngayDi1 = new Date(System.currentTimeMillis());
 		}
 		
 		Object idKhachSanObj = session.getAttribute("idKhachSan");

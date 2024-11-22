@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <body style="font-family: Arial, sans-serif; background-color: #eaf3ff; margin: 0; padding: 0;">
@@ -31,6 +32,24 @@
 		                    <h2 style="font-size: 20px;  margin: 0 0 10px; color: #333;">Các yêu cầu đặc biệt</h2>
 		                    <textarea name="specialRequests" rows="4" placeholder="Vui lòng ghi yêu cầu vào đây" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;"></textarea>
 		
+							<label for="giamgia" style="display: block; margin-bottom: 5px;">Mã giảm giá:</label>
+			                <select name="giamgia" id="selectGiamGia" style="width: 101%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px;" onchange="updateDiscount()">
+							    <option value="0" data-phantram="0">Không áp dụng mã giảm giá</option>
+							    <c:forEach items="${listgiamgia}" var="giamgia">
+							        <c:if test="${giamgia.apDung == 'Giảm giá cho người mới' && giamgia.status == true}">
+							            <option value="${giamgia.id}" data-phantram="${giamgia.phanTramGiamGia}">${giamgia.maGiamGia} ---giảm ${giamgia.phanTramGiamGia}%</option>
+							        </c:if>
+							        <c:if test="${giamgia.apDung == 'Khách hàng thân thiết' && giamgia.status == true}">
+								        <option value="${giamgia.id}" data-phantram="${giamgia.phanTramGiamGia}">${giamgia.maGiamGia} ---giảm ${giamgia.phanTramGiamGia}%</option>
+								    </c:if>
+								    <c:if test="${giamgia.apDung == 'Số tiền lớn hơn 5.000.000 VNĐ' && giamgia.status == true}">
+								        <option value="${giamgia.id}" data-phantram="${giamgia.phanTramGiamGia}">${giamgia.maGiamGia} ---giảm ${giamgia.phanTramGiamGia}%</option>
+								    </c:if>
+								    <c:if test="${giamgia.apDung == hovaten && giamgia.status == true}">
+								        <option value="${giamgia.id}" data-phantram="${giamgia.phanTramGiamGia}">${giamgia.maGiamGia} ---giảm ${giamgia.phanTramGiamGia}%</option>
+								    </c:if>
+							    </c:forEach>
+							</select>
 			                <!-- Price Details -->
 			                <h2 style="font-size: 20px; margin-top: 20px;   color: #333">Chi tiết giá</h2>
 			                <div style="background-color: white; border-radius: 8px; margin-top: 10px; padding: 20px;">
@@ -46,8 +65,12 @@
 							</div>
 							<div style="border-top: 1px solid #ddd; padding-top: 10px; display: flex; justify-content: space-between; font-weight: bold;">
 		                        <span>Thuế và phí</span>
-		                        <span>60000 VND</span>
+		                        <span>60.000 VND</span>
 		                    </div>
+		                    <div id="giamGiaRow" style="border-top: 1px solid #ddd; padding-top: 10px; display: none; justify-content: space-between; font-weight: bold;">
+						        <span>Số tiền giảm:</span>
+						        <span id="soTienGiam">0 VND</span>
+						    </div>
 		                    <div style="border-top: 1px solid #ddd; padding-top: 10px; display: flex; justify-content: space-between; font-weight: bold;">
 							    <span>Thành tiền</span>
 							    <span id="thanhTienText">0 VND</span>
@@ -56,24 +79,41 @@
 							</div>
 		                    
 							<script>
-							    // Lấy giá phòng từ phần tử HTML (từ backend)
-							    const giaPhong = ${tienphong}; // Đảm bảo `tienphong` là một số và không có định dạng chuỗi
+							    const giaPhong = ${tienphong}; // Giá phòng
 							    const phiDichVu = 60000; // Phí dịch vụ cố định
 							
-							    // Hàm tính tổng tiền khi nhập số lượng phòng
-							    document.getElementById("slphongdat").addEventListener("input", function() {
-							        // Lấy số lượng phòng từ input
-							        const soLuongPhong = parseInt(this.value) || 0;
+							    function updateDiscount() {
+							        const soLuongPhong = parseInt(document.getElementById("slphongdat").value) || 0;
+							        const tongTienPhong = soLuongPhong * giaPhong;
+							        const tongTienCoPhi = tongTienPhong + phiDichVu;
 							
-							        // Tính tổng tiền
-							        const tongTien = soLuongPhong * giaPhong;
-							        const thanhTien = tongTien + phiDichVu;
+							        const selectGiamGia = document.getElementById("selectGiamGia");
+							        const selectedOption = selectGiamGia.options[selectGiamGia.selectedIndex];
+							        const phanTramGiamGia = parseFloat(selectedOption.getAttribute("data-phantram")) || 0;
 							
-							        // Hiển thị thành tiền vào `span` và đặt giá trị cho `input` ẩn
-							        document.getElementById("tongTien").innerText = tongTien.toLocaleString() + " VND";
+							        // Tính số tiền giảm
+							        const soTienGiam = tongTienCoPhi * (phanTramGiamGia / 100);
+							
+							        // Hiển thị số tiền giảm
+							        const giamGiaRow = document.getElementById("giamGiaRow");
+							        if (soTienGiam > 0) {
+							            giamGiaRow.style.display = "flex";
+							            document.getElementById("soTienGiam").innerText = "-" + soTienGiam.toLocaleString() + " VND";
+							        } else {
+							            giamGiaRow.style.display = "none";
+							        }
+							
+							        // Tính thành tiền sau khi giảm
+							        const thanhTien = tongTienCoPhi - soTienGiam;
+							
+							        // Cập nhật thành tiền
+							        document.getElementById("tongTien").innerText = tongTienPhong.toLocaleString() + " VND";
 							        document.getElementById("thanhTienText").innerText = thanhTien.toLocaleString() + " VND";
-							        document.getElementById("thanhTienInput").value = thanhTien; // Cập nhật giá trị cho input ẩn
-							    });
+							        document.getElementById("thanhTienInput").value = thanhTien; // Cập nhật giá trị ẩn
+							    }
+							
+							    // Lắng nghe sự thay đổi của số lượng phòng
+							    document.getElementById("slphongdat").addEventListener("input", updateDiscount);
 							</script>
 		                    
 		                    <div style="display: flex; flex-direction: column; margin-top: 10px;">

@@ -18,4 +18,10 @@ public interface IDatPhongDao {
 	void updateTrangThaiTT (int idDatPhong);
 	
 	void delete (int idDatPhong);
+	
+	List<DatPhongModel> listKhachDatPhong (int idSheller);
+	
+	int countDatPhongByIdUser (int idUser);
+	
+	int sumTienDatPhongByIdUser (int idUser, int idKS);
 }

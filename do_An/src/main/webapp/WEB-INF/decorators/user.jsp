@@ -13,6 +13,7 @@
 <link type="text/css" rel="stylesheet" href="/do_An/Content/css/font.css" />
 <link type="text/css" rel="stylesheet" href="/do_An/Content/css/carousel.css" />
 <link type="text/css" rel="stylesheet" href="/do_An/Content/css/style2.css" />
+<script src="/do_An/Content/js/sweetalert2.min.js"></script>
 
 <!--<link href="https://fonts.googleapis.com/css?family=Quicksand&amp;display=swap" rel="stylesheet"/>-->
 

@@ -138,7 +138,6 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 
 	@Override
 	public boolean checkExistEmail(String email) {
-		// TODO Auto-generated method stub
 		boolean duplicate = false;
 		String query = "select * from Users where Email = ?";
 		try {

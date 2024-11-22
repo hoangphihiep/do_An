@@ -31,4 +31,16 @@ public class DatPhongServiceImpl implements IDatPhongService {
 	public void delete(int idDatPhong) {
 		datPhongDao.delete(idDatPhong);
 	}
+	@Override
+	public List<DatPhongModel> listKhachDatPhong(int idSheller) {
+		return datPhongDao.listKhachDatPhong(idSheller);
+	}
+	@Override
+	public int countDatPhongByIdUser(int idUser) {
+		return datPhongDao.countDatPhongByIdUser(idUser);
+	}
+	@Override
+	public int sumTienDatPhongByIdUser(int idUser, int idKS) {
+		return datPhongDao.sumTienDatPhongByIdUser(idUser, idKS);
+	}
 }

@@ -79,7 +79,7 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 						rs.getDate("NgayTra"),
 						rs.getString("GhiChu"),
 						rs.getInt("ThanhTien"),
-						rs.getBoolean("DaHuy"),
+						rs.getInt("DaHuy"),
 						rs.getInt("SoPhongDaDat"),
 						rs.getBoolean("ThanhToan"),
 						rs.getString("PhuongThucThanhToan")));
@@ -127,7 +127,7 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 			ps.setDate(5, datPhong.getNgayTra());
 			ps.setString(6, datPhong.getGhiChu());
 			ps.setInt(7, datPhong.getThanhTien());
-			ps.setBoolean(8, datPhong.isDaHuy());
+			ps.setInt(8, datPhong.isDaHuy());
 			ps.setInt(9, datPhong.getSoPhongDaDat());
 			ps.setBoolean(10, datPhong.isThanhToan());
 			ps.setString(11, datPhong.getPhuongThucTT());
@@ -160,7 +160,7 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 						rs.getDate("NgayTra"),
 						rs.getString("GhiChu"),
 						rs.getInt("ThanhTien"),
-						rs.getBoolean("DaHuy"),
+						rs.getInt("DaHuy"),
 						rs.getInt("SoPhongDaDat"),
 						rs.getBoolean("ThanhToan"),
 						rs.getString("PhuongThucThanhToan")));
@@ -231,7 +231,7 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 						rs.getDate("NgayTra"),
 						rs.getString("GhiChu"),
 						rs.getInt("ThanhTien"),
-						rs.getBoolean("DaHuy"),
+						rs.getInt("DaHuy"),
 						rs.getInt("SoPhongDaDat"),
 						rs.getBoolean("ThanhToan"),
 						rs.getString("PhuongThucThanhToan")));

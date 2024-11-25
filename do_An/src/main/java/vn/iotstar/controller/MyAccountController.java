@@ -10,8 +10,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import vn.iotstar.models.AnhKhachSanModel;
-import vn.iotstar.models.CheckboxModel;
 import vn.iotstar.models.LichSuModel;
 import vn.iotstar.models.UserModel;
 import vn.iotstar.services.ILichSuDatPhongService;
@@ -69,12 +67,14 @@ public class MyAccountController extends HttpServlet {
 		if (url.contains("/myAccount/lichSuDatPhong")) 
 		{
 			String username = null;
+			UserModel user = (UserModel) session.getAttribute("account");
 			if (session != null && session.getAttribute("account") != null) {
-				UserModel user = (UserModel) session.getAttribute("account");
 				username = user.getFullname();
 				taiKhoan = user;
 			}
 			req.setAttribute("username", username);
+			session.setAttribute("idKhachHang", taiKhoan.getId());
+			System.out.println (taiKhoan.getId());
 			session.setAttribute("currentURL", req.getContextPath().toString() + "/myAccount/lichSuDatPhong");
 			List<LichSuModel> listLichSu = lichSuService.findByIdUser(taiKhoan.getId());
 			req.setAttribute("listLichSu", listLichSu);
@@ -94,6 +94,7 @@ public class MyAccountController extends HttpServlet {
 		
 		HttpSession session = req.getSession();
 		UserModel taiKhoan = (UserModel) session.getAttribute("account");
+		session.setAttribute("idUser", taiKhoan.getId());
 		
 		Date createdDate = null;
 		try {

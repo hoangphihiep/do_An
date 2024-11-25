@@ -18,7 +18,6 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 
 	@Override
 	public UserModel findByUserName(String username) {
-		// TODO Auto-generated method stub
 		String sql = "SELECT * FROM Users WHERE username = ? ";
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -47,7 +46,6 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 
 	@Override
 	public List<UserModel> findAll() {
-		// TODO Auto-generated method stub
 		String sql = "SELECT * FROM Users";
 		List<UserModel> list = new ArrayList<UserModel>();
 		try {
@@ -94,7 +92,6 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 
 	@Override
 	public void insert(UserModel user) {
-		// TODO Auto-generated method stub
 		String sql = "INSERT INTO Users(Username, Fullname, Dateofbirth, Gender, Email, Phone, Password, DiaChi, RoleId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {

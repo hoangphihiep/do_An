@@ -18,7 +18,7 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
 
 	@Override
 	public void insert(DanhGiaModel danhGia) {
-		// TODO Auto-generated method stub
+		danhGiaDao.insert(danhGia);
 		
 	}
 

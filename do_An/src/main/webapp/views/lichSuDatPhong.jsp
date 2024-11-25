@@ -1,10 +1,8 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Lịch Sử</title>
-    </head>
     <body>
         
         <div style = "margin-top: 70px;">
@@ -48,15 +46,27 @@
 					                <div style="margin: 10px 20px">
 					                    <c:choose>
 					                        <c:when test="${lichSu.trangThai == 0}">
-					                            <button type="button" class="cancel-button" onclick="huyDatPhong(${lichSu.id})" style="cursor: pointer;">
+					                        	<button style="display: flex; align-items: center; padding: 10px 20px; border: 1px solid #4CAF50; border-radius: 5px; background-color: white; color: #4CAF50; font-size: 16px; cursor: pointer; margin-left: 50px">			      
+											        Đã đặt
+											    </button>
+					                            <button type="button" class="cancel-button" onclick="huyDatPhong(${lichSu.id})" style="cursor: pointer; margin-right:15px">
 					                                Hủy Đặt
 					                            </button>
 					                        </c:when>
 					                        <c:when test="${lichSu.trangThai == 1}">
-					                            <button style="border-color: red; background-color: red !important" disabled="true">Quá Hạn</button>
+					                            <button style="display: flex; align-items: center; padding: 10px 20px; border: 1px solid #4CAF50; border-radius: 5px; background-color: white; color: #4CAF50; font-size: 16px; cursor: pointer;">
+											        Đã thanh toán
+											    </button>
+					                        	<a href="#" data-toggle="modal" data-target="#comment" data-id="${lichSu.idKhachSan}" 
+												   onclick="setModalId(${lichSu.idKhachSan})" 
+												   style="padding: 10px 20px; color: white; background-color: #28a745; border: none; border-radius: 3px; cursor: pointer; margin-bottom: 5px; margin-top: 15px; margin-right: 30px; display: inline-block; text-decoration: none;">
+												    Đánh giá
+												</a>
 					                        </c:when>
 					                        <c:when test="${lichSu.trangThai == 2}">
-					                            <button style="border-color: green; background-color: green !important" disabled="true">Đã Hủy</button>
+					                            <button style="display: flex; align-items: center; padding: 10px 20px; border: 1px solid #4CAF50; border-radius: 5px; background-color: white; color: #4CAF50; font-size: 16px; cursor: pointer; margin-top: 34px; margin-left: 21px">
+											        Quá hạn
+											    </button>
 					                        </c:when>
 					                    </c:choose>
 					                </div>
@@ -68,6 +78,58 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="comment" tabindex="-1" role="dialog" aria-labelledby="dangnhapLabel" aria-hidden="true">
+		    <div class="modal-dialog" role="document">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <h5 style="margin: 0; font-size: 18px; color: #333;">Đánh Giá</h5>
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
+		                    <span aria-hidden="true">&times;</span>
+		                </button>
+		            </div>
+		            <form action="\do_An\comment" method="post" enctype="multipart/form-data">
+		                <div class="modal-body">
+		                     <div style="margin-bottom: 15px;">
+		                     	<input type="hidden" id="modal-id" name="id" value="">
+			                    <label for="danhgia" style="display: block; margin-bottom: 5px; font-size: 14px; color: #555;">Đánh Giá</label>
+			                    <select id="danhgia" name="danhgia" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
+			                        <option value="1">1 điểm</option>
+			                        <option value="2">2 điểm</option>
+			                        <option value="3">3 điểm</option>
+			                        <option value="4">4 điểm</option>
+			                        <option value="5">5 điểm</option>
+			                        <option value="6">6 điểm</option>
+			                        <option value="7">7 điểm</option>
+			                        <option value="8">8 điểm</option>
+			                        <option value="9">9 điểm</option>
+			                        <option value="10">10 điểm</option>
+			                    </select>
+			                </div>
+			                <div style="margin-bottom: 15px;">
+			                    <label for="comment" style="display: block; margin-bottom: 5px; font-size: 14px; color: #555;">Nội Dung</label>
+			                    <textarea id="comment" name="comment" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;"></textarea>
+			                </div>
+			                <div style="margin-bottom: 15px;">
+			                    <div style="width: 270px; height: 300px; background-color: white; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
+			                        <div id="previewContainer1" style="width: 100%; height: 300px; background-color: #eee; display: flex; align-items: center; justify-content: center; border: 1px dashed #ccc; overflow: hidden;">
+			                            <span id="placeholderText1" style="color: #aaa; font-size: 14px;">Chưa có ảnh</span>
+			                            <img id="previewImage1" src="#" alt="Xem trước hình ảnh" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+			                        </div>
+			                        <input type="file" id="imageUpload1" name="image1" style="display: none;" accept="image/*" onchange="previewImage(event, 'previewImage1', 'placeholderText1')">
+			                        <button type="button" onclick="document.getElementById('imageUpload1').click()" style="width: 100%; background-color: #4e9a9b; color: white; font-size: 24px; text-align: center; padding: 5px 0; border-radius: 0 0 10px 10px; cursor: pointer;">Upload</button>
+			                    </div>
+			                </div>
+			                
+			                <button type="submit" style="width: 100%; padding: 10px; background-color: #28A745; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+			                    Gửi
+			                </button>
+		                </div>
+		         
+		            </form>
+		        </div>
+		    </div>
+		</div>
+        
         
         <script>
             // Script để hiển thị hộp thoại xác nhận
@@ -77,5 +139,28 @@
                 }
             }
         </script>
+        <script>
+	        // Function to preview images
+	        function previewImage(event, previewId, placeholderId) {
+	            const placeholderText = document.getElementById(placeholderId);
+	            const imagePreview = document.getElementById(previewId);
+	            const file = event.target.files[0];
+	
+	            if (file) {
+	                const reader = new FileReader();
+	                reader.onload = function(e) {
+	                    placeholderText.style.display = 'none'; // Ẩn văn bản "Chưa có ảnh"
+	                    imagePreview.src = e.target.result; // Gán đường dẫn ảnh cho img
+	                    imagePreview.style.display = 'block'; // Hiển thị ảnh xem trước
+	                };
+	                reader.readAsDataURL(file);
+	            }
+	        }
+    </script>
+    <script>
+	    function setModalId(id) {
+	        document.getElementById('modal-id').value = id;
+	    }
+	</script>
     </body>
 </html>

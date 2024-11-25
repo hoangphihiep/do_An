@@ -22,7 +22,7 @@ public class DatPhongModel implements Serializable {
     Date ngayTra;
     String ghiChu;
     int thanhTien;
-    boolean daHuy;
+    int daHuy;
     int soPhongDaDat;
     boolean thanhToan;
     String phuongThucTT;
@@ -41,7 +41,7 @@ public class DatPhongModel implements Serializable {
 	}
 
 	public DatPhongModel(int id, int idUser, int idPhong, Date ngayDat, Date ngayDen, Date ngayTra,
-			String ghiChu, int thanhTien, boolean daHuy, int soPhongDaDat, boolean thanhToan, String phuongThucTT) {
+			String ghiChu, int thanhTien, int daHuy, int soPhongDaDat, boolean thanhToan, String phuongThucTT) {
 		super();
 		this.id = id;
 		this.idUser = idUser;
@@ -74,7 +74,7 @@ public class DatPhongModel implements Serializable {
 	}
 
 	public DatPhongModel(int idUser, int idPhong, Date ngayDat, Date ngayDen, Date ngayTra, String ghiChu,
-			int thanhTien, boolean daHuy, int soPhongDaDat, boolean thanhToan, String phuongThucTT) {
+			int thanhTien, int daHuy, int soPhongDaDat, boolean thanhToan, String phuongThucTT) {
 		super();
 		this.idUser = idUser;
 		this.idPhong = idPhong;
@@ -153,11 +153,11 @@ public class DatPhongModel implements Serializable {
 		this.thanhTien = thanhTien;
 	}
 
-	public boolean isDaHuy() {
+	public int isDaHuy() {
 		return daHuy;
 	}
 
-	public void setDaHuy(boolean daHuy) {
+	public void setDaHuy(int daHuy) {
 		this.daHuy = daHuy;
 	}
 

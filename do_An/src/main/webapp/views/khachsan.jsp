@@ -395,8 +395,7 @@
 							</c:if>
 							<c:if test="${trungBinhCong < 6} ">
 								<div
-									style="font-size: 14px; font-weight: bold; color: #007bff; position: absolute; bottom: -20px; text-align: center; width: 100%;">Bình
-									thường</div>
+									style="font-size: 14px; font-weight: bold; color: #007bff; position: absolute; bottom: -20px; text-align: center; width: 100%;">Tạm ổn</div>
 							</c:if>
 						</div>
 
@@ -503,7 +502,14 @@
 								<td>
 									<div style="color: #007bff; margin-left: -1px; font-weight: bold;">${danhGia.diem}/ 10</div>
 									<div style="margin-top: 10px; font-size: 14px;">
-										${danhGia.noiDung} <br> <img src="https://via.placeholder.com/60" alt="Review Image">
+										${danhGia.noiDung} <br> 
+										<c:if test="${danhGia.urlHinhAnhDanhGia.substring(0,5) != 'https' }">
+											<c:url value="/image?fname=${danhGia.urlHinhAnhDanhGia}" var="imgUrl"></c:url>
+										</c:if> 
+										<c:if test="${danhGia.urlHinhAnhDanhGia.substring(0,5) == 'https' }">
+											<c:url value="${danhGia.urlHinhAnhDanhGia}" var="imgUrl"></c:url>
+										</c:if>
+										<img src="${imgUrl}" alt="Review Image">
 									</div>
 									<div
 										style="margin-top: 20px; padding: 10px; border-left: 3px solid #007bff; background-color: #f0f8ff; font-size: 14px;">

@@ -11,19 +11,38 @@ public class DanhGiaModel implements Serializable {
 	String noiDung;
 	int idKhachHang;
 	int idKhachSan;
+	String urlHinhAnhDanhGia;
 	String tenKhachHang;
 	
-	public DanhGiaModel(int id, int diem, String noiDung, int idKhachHang, int idKhachSan) {
+	
+	
+	public DanhGiaModel() {
+		super();
+	}
+
+	
+	public DanhGiaModel(int diem, String noiDung, int idKhachHang, int idKhachSan, String urlHinhAnhDanhGia) {
+		super();
+		this.diem = diem;
+		this.noiDung = noiDung;
+		this.idKhachHang = idKhachHang;
+		this.idKhachSan = idKhachSan;
+		this.urlHinhAnhDanhGia = urlHinhAnhDanhGia;
+	}
+
+
+	public DanhGiaModel(int id, int diem, String noiDung, int idKhachHang, int idKhachSan, String urlHinhAnhDanhGia) {
 		super();
 		this.id = id;
 		this.diem = diem;
 		this.noiDung = noiDung;
 		this.idKhachHang = idKhachHang;
 		this.idKhachSan = idKhachSan;
+		this.urlHinhAnhDanhGia = urlHinhAnhDanhGia;
 	}
 
 	
-	public DanhGiaModel(int id, int diem, String noiDung, int idKhachHang, int idKhachSan, String tenKhachHang) {
+	public DanhGiaModel(int id, int diem, String noiDung, int idKhachHang, int idKhachSan, String tenKhachHang, String urlHinhAnhDanhGia) {
 		super();
 		this.id = id;
 		this.diem = diem;
@@ -31,6 +50,7 @@ public class DanhGiaModel implements Serializable {
 		this.idKhachHang = idKhachHang;
 		this.idKhachSan = idKhachSan;
 		this.tenKhachHang = tenKhachHang;
+		this.urlHinhAnhDanhGia = urlHinhAnhDanhGia;
 	}
 
 
@@ -83,6 +103,16 @@ public class DanhGiaModel implements Serializable {
 	public void setTenKhachHang(String tenKhachHang) {
 		this.tenKhachHang = tenKhachHang;
 	}
+
+	public String getUrlHinhAnhDanhGia() {
+		return urlHinhAnhDanhGia;
+	}
+
+
+	public void setUrlHinhAnhDanhGia(String urlHinhAnhDanhGia) {
+		this.urlHinhAnhDanhGia = urlHinhAnhDanhGia;
+	}
+
 
 	@Override
 	public String toString() {

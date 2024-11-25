@@ -136,9 +136,8 @@ public class xacNhanController extends HttpServlet {
 		
 		giamGiaService.updateSoLanDaSuDung(giamGia.getSoLanDaSuDung() + 1, idGiamGia);
 		
-		datPhongService.insert(new DatPhongModel(idUser, idPhong, ngayDi, ngayDen, ngayDi, specialRequests, thanhTien, false, slphongdat, false, payment));
+		datPhongService.insert(new DatPhongModel(idUser, idPhong, ngayDi, ngayDen, ngayDi, specialRequests, thanhTien, 0, slphongdat, false, payment));
 		
-		System.out.println (idUser + "  " + idGiamGia);
 		giamGiaService.insertMaGiamGiaCuaKhach(idGiamGia, idUser);
 		
 		req.setAttribute("isSuccess", true);

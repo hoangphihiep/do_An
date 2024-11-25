@@ -23,8 +23,22 @@ public class DanhGiaDaoImpl extends DBConnectionSQL implements IDanhGiaDao {
 
 	@Override
 	public void insert(DanhGiaModel danhGia) {
-		// TODO Auto-generated method stub
-		
+		String sql = "INSERT INTO DanhGia(Diem, NoiDung, IdKhachHang, IdKhachSan, UrlHinhAnhDanhGia) VALUES (?, ?, ?, ?, ?)";
+
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+
+			ps.setInt(1, danhGia.getDiem());
+			ps.setString(2, danhGia.getNoiDung());
+			ps.setInt(3, danhGia.getIdKhachHang());
+			ps.setInt(4, danhGia.getIdKhachSan());
+			ps.setString(5, danhGia.getUrlHinhAnhDanhGia());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -41,7 +55,7 @@ public class DanhGiaDaoImpl extends DBConnectionSQL implements IDanhGiaDao {
 
 	@Override
 	public List<DanhGiaModel> findByIdKhachSan(int currentPage, int idKhachSan) {
-		String sql = "select d.Id as Id, d.Diem as Diem, d.NoiDung as NoiDung, d.IdKhachHang as IdKhachHang, d.IdKhachSan as IdKhachSan, u.Fullname as Ten "
+		String sql = "select d.Id as Id, d.Diem as Diem, d.NoiDung as NoiDung, d.IdKhachHang as IdKhachHang, d.IdKhachSan as IdKhachSan, u.Fullname as Ten, d.UrlHinhAnhDanhGia as HinhAnhDanhGia "
 				+ "from DanhGia d, Users u "
 				+ "where d.IdKhachSan = ? and d.IdKhachHang = u.Id ORDER BY d.Id DESC "
 				+ "OFFSET " + ((currentPage - 1) * 3) + " ROWS FETCH NEXT " + 3 + " ROWS ONLY";
@@ -58,7 +72,8 @@ public class DanhGiaDaoImpl extends DBConnectionSQL implements IDanhGiaDao {
 						rs.getString("NoiDung"),
 						rs.getInt("IdKhachHang"),
 						rs.getInt("IdKhachSan"),
-						rs.getString("Ten")));
+						rs.getString("Ten"),
+						rs.getString("HinhAnhDanhGia")));
 			}
 			return list;
 		} catch (Exception e) {
@@ -94,7 +109,7 @@ public class DanhGiaDaoImpl extends DBConnectionSQL implements IDanhGiaDao {
 
 	@Override
 	public List<DanhGiaModel> findByIdKhachSan(int idKhachSan) {
-		String sql = "select d.Id as Id, d.Diem as Diem, d.NoiDung as NoiDung, d.IdKhachHang as IdKhachHang, d.IdKhachSan as IdKhachSan, u.Fullname as Ten "
+		String sql = "select d.Id as Id, d.Diem as Diem, d.NoiDung as NoiDung, d.IdKhachHang as IdKhachHang, d.IdKhachSan as IdKhachSan, u.Fullname as Ten, d.UrlHinhAnhDanhGia as HinhAnhDanhGia "
 				+ "from DanhGia d, Users u "
 				+ "where d.IdKhachSan = ? and d.IdKhachHang = u.Id";
 		List<DanhGiaModel> list = new ArrayList<DanhGiaModel>();
@@ -110,7 +125,8 @@ public class DanhGiaDaoImpl extends DBConnectionSQL implements IDanhGiaDao {
 						rs.getString("NoiDung"),
 						rs.getInt("IdKhachHang"),
 						rs.getInt("IdKhachSan"),
-						rs.getString("Ten")));
+						rs.getString("Ten"),
+						rs.getString("HinhAnhDanhGia")));
 			}
 			return list;
 		} catch (Exception e) {
@@ -119,20 +135,16 @@ public class DanhGiaDaoImpl extends DBConnectionSQL implements IDanhGiaDao {
 		return null;
 	}
 	
-	/*
-	 * public static void main(String[] args) {
-	 * 
-	 * try { IDanhGiaDao userDao = new DanhGiaDaoImpl();
-	 * 
-	 * 
-	 * List<DanhGiaModel> list = userDao.findByIdKhachSan(1); for (DanhGiaModel user
-	 * : list) { System.out.println(user); }
-	 * 
-	 * } catch (Exception e) {
-	 * 
-	 * e.printStackTrace(); }
-	 * 
-	 * }
-	 */
+	  public static void main(String[] args) {
+	 
+			  try { 
+				  IDanhGiaDao danhGiaDao = new DanhGiaDaoImpl();
+				  danhGiaDao.insert(new DanhGiaModel(5,"khoong cos",1005,1,"image"));
+			  } catch (Exception e) {
+			  
+			  e.printStackTrace(); }
+	  
+	  }
+	 
 
 }

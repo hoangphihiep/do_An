@@ -7,7 +7,7 @@
         <a href="/do_An/sheller/home" class="nav-link active" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Trang chủ Nhóm chỗ nghỉ</a>
         <a href="/do_An/sheller/danhSachDatPhong" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Đặt phòng</a>
         <a href="#" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Đánh giá</a>
-        <a href="#" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Tài chính</a>
+        <a href="/do_An/sheller/doanhThu" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Doanh thu</a>
         <a href="/do_An/sheller/danhSachGiamGia" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Giảm giá</a>
         <a href="#" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Khuyến mãi</a>
         <a href="#" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Phân tích</a>

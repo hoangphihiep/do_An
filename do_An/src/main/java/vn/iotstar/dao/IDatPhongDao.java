@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import vn.iotstar.models.DatPhongModel;
+import vn.iotstar.models.DoanhThuModel;
 
 public interface IDatPhongDao {
 
@@ -24,4 +25,6 @@ public interface IDatPhongDao {
 	int countDatPhongByIdUser (int idUser);
 	
 	int sumTienDatPhongByIdUser (int idUser, int idKS);
+	
+	List <DoanhThuModel> findAllDoanhThu (Date ngayBatDau, Date ngayKetThuc, int idKhachSan);
 }

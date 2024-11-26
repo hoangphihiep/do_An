@@ -10,6 +10,7 @@ import java.util.List;
 import vn.iotstar.configs.DBConnectionSQL;
 import vn.iotstar.dao.IDatPhongDao;
 import vn.iotstar.models.DatPhongModel;
+import vn.iotstar.models.DoanhThuModel;
 
 public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 
@@ -282,5 +283,34 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 			e.printStackTrace();
 		}		
 		return 0;
+	}
+
+	@Override
+	public List<DoanhThuModel> findAllDoanhThu(Date ngayBatDau, Date ngayKetThuc, int idKhachSan) {
+		String sql = "SELECT dp.NgayDat, SUM(dp.ThanhTien) AS TongTien, SUM(dp.SoPhongDaDat) AS TongPhongDat " +
+	             "FROM DatPhong dp JOIN Phong p ON dp.IdPhong = p.Id JOIN KhachSan k ON p.IdKhachSan = k.Id " +
+	             "WHERE k.Id = ? "+ 
+	             "AND dp.NgayDat BETWEEN ? AND ? "+ 
+	             "GROUP BY dp.NgayDat "+
+	             "ORDER BY dp.NgayDat";
+		List<DoanhThuModel> list = new ArrayList<DoanhThuModel>();
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idKhachSan);
+			ps.setDate(2, ngayBatDau);
+			ps.setDate(3, ngayKetThuc);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(new DoanhThuModel (
+						rs.getDate("NgayDat"),
+						rs.getInt("TongTien"),
+						rs.getInt("TongPhongDat")));
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

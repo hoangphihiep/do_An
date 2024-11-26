@@ -6,6 +6,7 @@ import java.util.List;
 import vn.iotstar.dao.IDatPhongDao;
 import vn.iotstar.dao.impl.DatPhongDaoImpl;
 import vn.iotstar.models.DatPhongModel;
+import vn.iotstar.models.DoanhThuModel;
 import vn.iotstar.services.IDatPhongService;
 
 public class DatPhongServiceImpl implements IDatPhongService {
@@ -42,5 +43,9 @@ public class DatPhongServiceImpl implements IDatPhongService {
 	@Override
 	public int sumTienDatPhongByIdUser(int idUser, int idKS) {
 		return datPhongDao.sumTienDatPhongByIdUser(idUser, idKS);
+	}
+	@Override
+	public List<DoanhThuModel> findAllDoanhThu(Date ngayBatDau, Date ngayKetThuc, int idKhachSan) {
+		return datPhongDao.findAllDoanhThu(ngayBatDau, ngayKetThuc, idKhachSan);
 	}
 }

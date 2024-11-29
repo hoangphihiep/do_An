@@ -5,6 +5,36 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 150px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+</style>
 <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <!-- jQuery -->
@@ -52,5 +82,25 @@
             });
         });
     </script>
+    <script>
+	    function toggleDropdown(event) {
+	        event.preventDefault();
+	        const dropdown = document.getElementById('notificationDropdown');
+	        // Toggle visibility
+	        if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+	            dropdown.style.display = 'block';
+	        } else {
+	            dropdown.style.display = 'none';
+	        }
+	    }
+	
+	    // Đóng dropdown nếu click ra ngoài
+	    document.addEventListener('click', function(event) {
+	        const dropdown = document.getElementById('notificationDropdown');
+	        if (!event.target.closest('.dropdown')) {
+	            dropdown.style.display = 'none';
+	        }
+	    });
+	</script>
 </body>
 </html>

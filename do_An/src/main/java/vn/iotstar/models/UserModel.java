@@ -16,6 +16,7 @@ public class UserModel implements Serializable {
 	private String password;
 	private String diaChi;
 	private int idRole;
+	private boolean acitve;
 	
 
 	public UserModel() {
@@ -23,7 +24,7 @@ public class UserModel implements Serializable {
 	}
 
 	public UserModel(String username, String fullname, Date createdDate, String gender, String email, String phone,
-			String password, String diaChi, int idRole) {
+			String password, String diaChi, int idRole, boolean active) {
 		super();
 		this.username = username;
 		this.fullname = fullname;
@@ -34,10 +35,11 @@ public class UserModel implements Serializable {
 		this.password = password;
 		this.diaChi = diaChi;
 		this.idRole = idRole;
+		this.acitve = active;
 	}
 
 	public UserModel(int id, String username, String fullname, Date createdDate, String gender, String email,
-			String phone,String diaChi, String password , int idRole) {
+			String phone,String diaChi, String password , int idRole, boolean active) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -49,6 +51,7 @@ public class UserModel implements Serializable {
 		this.password = password;
 		this.diaChi = diaChi;
 		this.idRole = idRole;
+		this.acitve = active;
 	}
 
 
@@ -152,6 +155,13 @@ public class UserModel implements Serializable {
 		this.idRole = idRole;
 	}
 
+	public boolean isAcitve() {
+		return acitve;
+	}
+
+	public void setAcitve(boolean acitve) {
+		this.acitve = acitve;
+	}
 
 	@Override
 	public String toString() {

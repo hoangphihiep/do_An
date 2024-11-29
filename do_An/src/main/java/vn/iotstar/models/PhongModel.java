@@ -19,6 +19,7 @@ public class PhongModel implements Serializable {
     int soPhongDaDat;
     int sucChuaToiDa;
     String anhPhong;
+    int tienThueSauKhiGiam;
 	
     public PhongModel() {
 		super();
@@ -199,6 +200,14 @@ public class PhongModel implements Serializable {
 
 	public void setAnhPhong(String anhPhong) {
 		this.anhPhong = anhPhong;
+	}
+	
+	public int getTienThueSauKhiGiam() {
+		return tienThueSauKhiGiam;
+	}
+
+	public void setTienThueSauKhiGiam(int tienThueSauKhiGiam) {
+		this.tienThueSauKhiGiam = tienThueSauKhiGiam;
 	}
 
 	@Override

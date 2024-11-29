@@ -2,6 +2,9 @@ package vn.iotstar.models;
 
 import java.io.Serializable;
 
+import vn.iotstar.services.IUserServices;
+import vn.iotstar.services.impl.UserServiceImpl;
+
 public class KhachSanModel implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -19,7 +22,10 @@ public class KhachSanModel implements Serializable{
     int idLoaiKhachSan;
     String tenLoaiKhachSan;
     String urlHinhAnhThanhPho;
-    
+    UserModel sheller = new UserModel();
+    IUserServices userService = new UserServiceImpl();
+    int status;
+    boolean active;
     
 	
     public KhachSanModel() {
@@ -28,7 +34,7 @@ public class KhachSanModel implements Serializable{
 
 	public KhachSanModel(int id, String ten, String diaChi, int idUser, int cachTrungTam, String moTa,
 			boolean giapBien, int danhGia, int idDiaDiem, String tenDiaDiem, int idLoaiKhachSan,
-			String tenLoaiKhachSan, String urlHinhAnhThanhPho) {
+			String tenLoaiKhachSan, String urlHinhAnhThanhPho, int status, boolean active) {
 		super();
 		this.id = id;
 		this.ten = ten;
@@ -43,6 +49,30 @@ public class KhachSanModel implements Serializable{
 		this.idLoaiKhachSan = idLoaiKhachSan;
 		this.tenLoaiKhachSan = tenLoaiKhachSan;
 		this.urlHinhAnhThanhPho = urlHinhAnhThanhPho;
+		this.status = status;
+		this.active = active;
+		sheller = userService.findById(idUser);
+	}
+	
+
+	public KhachSanModel(int id, String ten, String diaChi, int idUser, int cachTrungTam, String moTa, boolean giapBien,
+			int danhGia, int idDiaDiem, String tenDiaDiem, int idLoaiKhachSan, String tenLoaiKhachSan,
+			String urlHinhAnhThanhPho) {
+		super();
+		this.id = id;
+		this.ten = ten;
+		this.diaChi = diaChi;
+		this.idUser = idUser;
+		this.cachTrungTam = cachTrungTam;
+		this.moTa = moTa;
+		this.giapBien = giapBien;
+		this.danhGia = danhGia;
+		this.idDiaDiem = idDiaDiem;
+		this.tenDiaDiem = tenDiaDiem;
+		this.idLoaiKhachSan = idLoaiKhachSan;
+		this.tenLoaiKhachSan = tenLoaiKhachSan;
+		this.urlHinhAnhThanhPho = urlHinhAnhThanhPho;
+		sheller = userService.findById(idUser);
 	}
 
 	public int getId() {
@@ -147,6 +177,30 @@ public class KhachSanModel implements Serializable{
 
 	public void setUrlHinhAnhThanhPho(String urlHinhAnhThanhPho) {
 		this.urlHinhAnhThanhPho = urlHinhAnhThanhPho;
+	}
+	
+	public UserModel getSheller() {
+		return sheller;
+	}
+
+	public void setSheller(UserModel sheller) {
+		this.sheller = sheller;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	@Override

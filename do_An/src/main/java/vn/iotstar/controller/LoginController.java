@@ -1,13 +1,6 @@
 package vn.iotstar.controller;
 
 import java.io.IOException;
-import java.security.Key;
-import java.util.Date;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -25,52 +18,41 @@ import vn.iotstar.utils.Constant;
 public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static final String SECRET_KEY = "Tuonglua8*8014725836901234567890123456";
 	// lấy toàn bộ hàm trong service
 	IUserServices service = new UserServiceImpl();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Cookie[] cookies = req.getCookies();
 		HttpSession session = req.getSession(false);
-		String action = req.getParameter("action");
-
-		if ("logout".equals(action)) {
-	            getLogOut(req, resp);
-	            return;
-	    }
-
 		if (session != null && session.getAttribute("account") != null) {
 			resp.sendRedirect(req.getContextPath() + "/waiting");
+			
 			return;
-			}
-
+		}
+		// Kiểm tra cookie nếu không có session
+		Cookie[] cookies = req.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("jwtToken")) {
-					String jwtToken = cookie.getValue();
-					if (validateJWTToken(jwtToken)) {
-						Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
-	                    Claims claims = Jwts.parserBuilder()
-	                                        .setSigningKey(key)
-	                                        .build()
-	                                        .parseClaimsJws(jwtToken)
-	                                        .getBody();
-	                    String username = claims.get("sub", String.class);
-
-	                    // Tạo session mới nếu chưa có và lưu username vào session
-	                    session = req.getSession(true);
-	                    session.setAttribute("username", username);
-	                    resp.sendRedirect(req.getContextPath() + "/waiting");
-                        return;
-                    }	
+				if (cookie.getName().equals(Constant.COOKIE_REMEMBER)) {
+					System.out.println("Tên cookie: " + cookie.getName() + ", Giá trị cookie: " + cookie.getValue());
+					// Tạo session mới và đặt thuộc tính tài khoản nếu tìm thấy cookie
+					System.out.println("Cookie nhớ đã được tìm thấy: " + cookie.getValue());
+					session = req.getSession(true);
+					String username = cookie.getValue();
+			        UserModel user = service.findByUserName(username);
+			        if (user != null) { // Kiểm tra nếu user tồn tại
+			        	session.setAttribute("account", user);
+			        	System.out.println("Đăng nhập tự động thông qua cookie");
+			        	resp.sendRedirect(req.getContextPath() + "/waiting");
+			        	
+			        	return;
+			       }
 				}
 			}
 		}
+		resp.sendRedirect(req.getContextPath() + "/home?showLoginModal=true");
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		
 		resp.setContentType("text/html");
 		resp.setCharacterEncoding("UTF-8");
 		req.setCharacterEncoding("UTF-8");
@@ -87,7 +69,6 @@ public class LoginController extends HttpServlet {
 		String alertMsg = "";
 		if (username.isEmpty() || password.isEmpty()) {
 			alertMsg = "Tài khoản hoặc mật khẩu không được rỗng";
-			System.out.println (alertMsg);
 			req.getSession().setAttribute("alert", alertMsg);
 		    resp.sendRedirect(req.getContextPath() + "/home?showLoginModal=true");
 		    return;
@@ -96,75 +77,39 @@ public class LoginController extends HttpServlet {
 		// Xử lý bài toán login
 
 		UserModel user = service.login(username, password);
-		
+		System.out.println (user.getFullname());
+		System.out.println (user.isAcitve());
+		System.out.println (username);
+		System.out.println (password);
 		if (user != null) {
-			HttpSession session = req.getSession(true);
-			session.setAttribute("account", user);
-			String jwtToken = createJWTToken(user.getUsername());			
-			if (isRememberMe) {
-				saveRememberMe(resp, jwtToken);
+			if (user.isAcitve() == false){
+				alertMsg = "Tài khoản của bạn đã bị khóa ";
+				req.getSession().setAttribute("alert", alertMsg);
+				resp.sendRedirect(req.getContextPath() + "/home?showLoginModal=true");
+				System.out.println ("Có vào chổ này 222?");
 			}
-			resp.sendRedirect(req.getContextPath() + "/waiting");
-		} else {
+			else {
+				HttpSession session = req.getSession(true);
+				session.setAttribute("account", user);
+				if (isRememberMe) {
+					saveRemeberMe(resp, username);
+				}
+				System.out.println ("Có vào chổ này 333?");
+				resp.sendRedirect(req.getContextPath() + "/waiting");
+			}
+			
+		} 
+		else {
 			alertMsg = "Tài khoản hoặc mật khẩu không đúng";
-			System.out.println (alertMsg);
 			req.getSession().setAttribute("alert", alertMsg);
 			resp.sendRedirect(req.getContextPath() + "/home?showLoginModal=true");
 		} 
 	}
-	private void saveRememberMe(HttpServletResponse response, String jwtToken) {
-        Cookie cookie = new Cookie("jwtToken", jwtToken);
-        cookie.setMaxAge(30 * 60);
-        response.addCookie(cookie);
-    }
-	private String createJWTToken(String username) {
-        long currentTimeMillis = System.currentTimeMillis();
-        Date expiryDate = new Date(currentTimeMillis + 30 * 60 * 1000); // JWT hết hạn sau 30 phút
-        Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
-
-        return Jwts.builder()
-                .claim("sub", username) // Thay thế setSubject bằng cách thêm claim "sub"
-                .claim("iat", currentTimeMillis / 1000)
-                .claim("exp", expiryDate.getTime() / 1000)      // Đặt thời gian hết hạn
-                .signWith(key)
-                .compact();
-    }
-	public boolean validateJWTToken(String jwtToken) {
-        try {
-            Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
-            Jwts.parserBuilder()          // Sử dụng parserBuilder để khởi tạo bộ phân tích
-                .setSigningKey(key)       // Đặt khóa ký
-                .build()                  // Xây dựng bộ phân tích
-                .parseClaimsJws(jwtToken); // Phân tích và xác thực token
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-	
-	private void getLogOut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    	//khi logout xoa 2 session account binh thuong va account fb
-    	HttpSession session = req.getSession();
-		session.removeAttribute("account");
-		session.removeAttribute("accountfb");
-    	
-        // Xóa JWT , fb trong cookie
-        Cookie[] cookies = req.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("jwtToken")) {
-                    cookie.setMaxAge(0);
-                    resp.addCookie(cookie);
-                    break;
-                }
-                if (cookie.getName().equals("fbToken")) {
-                    cookie.setMaxAge(0);
-                    resp.addCookie(cookie);
-                    break;
-                }
-            }
-        }
-        resp.sendRedirect(req.getContextPath() + "/home?showLoginModal=true");
-    }
+	private void saveRemeberMe(HttpServletResponse response, String username) {
+		Cookie cookie = new Cookie(Constant.COOKIE_REMEMBER, username);
+		cookie.setMaxAge(30 * 60);
+		cookie.setPath("/"); // Áp dụng cho toàn bộ ứng dụng
+		response.addCookie(cookie);
+	}
 
 }

@@ -19,6 +19,7 @@ public class GiamGiaModel implements Serializable{
 	int idUser;
 	int idKhach;
 	boolean status;
+	int idKhachHang;
 	
 	public GiamGiaModel() {
 		super();
@@ -139,6 +140,15 @@ public class GiamGiaModel implements Serializable{
 
 	public int getIdKhach() {
 		return idKhach;
+	}
+	
+
+	public int getIdKhachHang() {
+		return idKhachHang;
+	}
+
+	public void setIdKhachHang(int idKhachHang) {
+		this.idKhachHang = idKhachHang;
 	}
 
 	public void setIdKhach(int idKhach) {

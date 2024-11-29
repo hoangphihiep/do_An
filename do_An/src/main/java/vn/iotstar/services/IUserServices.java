@@ -1,10 +1,13 @@
 package vn.iotstar.services;
 
 import java.sql.Date;
+import java.util.List;
 
 import vn.iotstar.models.UserModel;
 
 public interface IUserServices {
+	
+	List<UserModel> findAll();
 	
 	UserModel findByUserName(String username);
 	
@@ -18,7 +21,7 @@ public interface IUserServices {
 	
 	void update(UserModel user);
 	
-	boolean register(String username, String fullname, Date createDate, String gender,  String email, String phone, String password, String diaChi, int RoleId);
+	boolean register(String username, String fullname, Date createDate, String gender,  String email, String phone, String password, String diaChi, int RoleId, boolean active);
 	
 	boolean checkExistEmail(String email);
 	

@@ -91,7 +91,7 @@ public class dangChoNghiController extends HttpServlet {
 			int idDiaDiem = DiaDiem.getId();
 			HttpSession session = req.getSession();
 			int idUser = (int) session.getAttribute("idUser");
-			KhachSanModel ks = new KhachSanModel(0, tenKS, diaChi, idUser, cachTT, moTa, giapBien, danhGia, idDiaDiem, tenDiaDiem, idLoaiKS, tenLoaiKS, null);
+			KhachSanModel ks = new KhachSanModel(0, tenKS, diaChi, idUser, cachTT, moTa, giapBien, danhGia, idDiaDiem, tenDiaDiem, idLoaiKS, tenLoaiKS, null,2,false);
 			
 			session.setAttribute("ks", ks);
 			resp.sendRedirect(req.getContextPath() + "/sheller/dangChoNghi/tienIch");
@@ -252,6 +252,7 @@ public class dangChoNghiController extends HttpServlet {
 				
 				
 			}
+			
 			req.setAttribute("isSuccess", true);
 			req.getRequestDispatcher("/views/sheller/dangChoNghiAnhKS.jsp").forward(req, resp);
 		}

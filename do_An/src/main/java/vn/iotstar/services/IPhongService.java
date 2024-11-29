@@ -11,6 +11,8 @@ public interface IPhongService {
 	void insert(PhongModel phong);
 
 	void update(PhongModel phong);
+	
+	void update2 (PhongModel phong);
 
 	void delete(int idPhong);
 

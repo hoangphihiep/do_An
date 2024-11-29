@@ -23,6 +23,7 @@
 	<mapping path="/sheller/anhKS" name="sheller" decorator="sheller.jsp" />
 	<mapping path="/sheller/phong" name="sheller" decorator="sheller.jsp" />
 	<mapping path="/sheller/home" name="sheller" decorator="sheller.jsp" />
+	<mapping path="/sheller/danhSachDatPhong" name="sheller" decorator="sheller.jsp" />
 	
 	<mapping path="/sheller/suaChoNghi/ThongTinCoBan" name="editsheller" decorator="templateKS.jsp" />
 	<mapping path="/sheller/suaChoNghi/tienIch" name="editsheller" decorator="templateKS.jsp" />
@@ -33,11 +34,17 @@
 	<mapping path="/sheller/sua/anhKS" name="editsheller" decorator="templateKS.jsp" />
 	<mapping path="/sheller/sua/phong" name="editsheller" decorator="templateKS.jsp" />
 	
-	<mapping path="/sheller/danhSachDatPhong" name="editsheller" decorator="sheller.jsp" />
+	
 	<mapping path="/sheller/datPhong/xacNhanTT" name="editsheller" decorator="sheller.jsp" />
 	<mapping path="/sheller/danhSachGiamGia" name="editsheller" decorator="sheller.jsp" />
 	<mapping path="/sheller/giamGia/add" name="editsheller" decorator="sheller.jsp" />
+	<mapping path="/sheller/giamGia/edit" name="editsheller" decorator="sheller.jsp" />
 	<mapping path="/sheller/doanhThu" name="editsheller" decorator="sheller.jsp" />
+	<mapping path="/sheller/danhSachKhuyenMai" name="editsheller" decorator="sheller.jsp" />
+	<mapping path="/sheller/khuyenMai/add" name="editsheller" decorator="sheller.jsp" />
+	<mapping path="/sheller/khuyenMai/edit" name="editsheller" decorator="sheller.jsp" />
+	
+	
 	
 	<mapping path="/admin/*" name="admin" decorator="admin.jsp" />
 	<mapping path="/manager/*" name="manager" decorator="manager.jsp"/>

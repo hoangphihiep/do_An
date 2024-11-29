@@ -8,32 +8,57 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="/do_An/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="/do_An/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN THEME STYLES -->
+<link href="/do_An/assets/admin/layout2/css/layout.css" rel="stylesheet" type="text/css"/>
+<link href="/do_An/assets/admin/layout2/css/themes/grey.css" rel="stylesheet" type="text/css" id="style_color"/>
 </head>
 <body>
-	Trang chủ của admin
-	<c:choose>
-		<c:when test="${sessionScope.account == null}">
-			<div class="col-sm-6">
-				<ul class="list-inline right-topbar pull-right">
-					<li><a href="\ltweb_chieut3\login">Đăng
-							nhập</a> | <a href="\ltweb_chieut3\register">Đăng
-							ký</a></li>
-					<li><i class="search fa fa-search search-button"></i></li>
-				</ul>
-			</div>
-		</c:when>
-		<c:otherwise>
-			<div class="col-sm-6">
-				<ul class="list-inline right-topbar pull-right">
-					<li><a
-						href="${pageContext.request.contextPath
-}/member/myaccount">${sessionScope.account.fullname}</a>
-						| <a href="\ltweb_chieut3\logout">Đăng
-							Xuất</a></li>
-					<li><i class="search fa fa-search search-button"></i></li>
-				</ul>
-			</div>
-		</c:otherwise>
-	</c:choose>
+	<%@ include file="/commons/sheller/navbar.jsp"%>
+	<div class="page-sidebar navbar-collapse collapse">
+		<ul class="page-sidebar-menu page-sidebar-menu-hover-submenu "
+			data-keep-expanded="false" data-auto-scroll="true"
+			data-slide-speed="200">
+			<li class="start active ">
+				<a href="index.html"> <i class="icon-home"></i> 
+					<span class="title">Tài khoản</span> 
+					<span class="selected"></span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;"> <i class="icon-basket"></i> 
+					<span class="title">Khách sạn</span> 
+					<span class="arrow "></span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;"> <i class="icon-rocket"></i> 
+					<span class="title">Đặt phòng</span> 
+					<span class="arrow "></span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;"> <i class="icon-diamond"></i> 
+					<span class="title">Chiếc khấu</span> 
+					<span class="arrow "></span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;"> <i class="icon-puzzle"></i> 
+					<span class="title">Khuyến mãi</span> 
+					<span class="arrow "></span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;"> <i class="icon-settings"></i> 
+					<span class="title">Danh mục</span> 
+					<span class="arrow "></span>
+				</a>
+			</li>
+		</ul>
+	</div>
+	
 </body>
 </html>

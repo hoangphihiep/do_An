@@ -13,7 +13,7 @@
             <c:when test="${empty username}">
                 <div class="header-right">
                     <span style="margin-right: 30px; color: white; font-weight: 500"></span>
-                    <a href="#" data-toggle="modal" data-target="#dangnhap" style="width: 95px; height: 30px; font-size: 13px !important; margin-right: 15px; color: white; background-color: #007bff; text-decoration: none; padding: 5px; text-align: center;">Đăng nhập</a>
+                    <a href="${pageContext.request.contextPath }/login" style="width: 95px; height: 30px; font-size: 13px !important; margin-right: 15px; color: white; background-color: #007bff; text-decoration: none; padding: 5px; text-align: center;">Đăng nhập</a>
                     <a href="#" data-toggle="modal" data-target="#dangky" style="width: 95px; height: 30px; font-size: 13px !important; margin-right: 20px; color: white; background-color: #28a745; text-decoration: none; padding: 5px; text-align: center;">Đăng ký</a>
                 </div>
             </c:when>

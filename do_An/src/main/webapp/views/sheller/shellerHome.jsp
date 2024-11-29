@@ -40,7 +40,15 @@
 		                <td style="padding: 12px; text-align: left; border-bottom: 1px solid #eaeaea;">${ks.ten}</td>
 		                <td style="padding: 12px; text-align: left; border-bottom: 1px solid #eaeaea;">${ks.diaChi}</td>
 		                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #eaeaea;">${ks.danhGia}</td>
-		                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #eaeaea;">Đã được duyệt</td>
+		                <c:if test="${ks.status == 1}">
+	                    	<td style="padding: 12px; color: green; text-align: center; border-bottom: 1px solid #eaeaea;">Đã được duyệt</td>
+	                    </c:if>
+		                <c:if test="${ks.status == 2}">
+	                    	<td style="padding: 12px; color: #ffa500; text-align: center; border-bottom: 1px solid #eaeaea;">Đang chờ duyệt</td>
+	                    </c:if>
+	                    <c:if test="${ks.status == 3}">
+	                    	<td style="padding: 12px; color: red; text-align: center; border-bottom: 1px solid #eaeaea;">Không được duyệt</td>
+	                    </c:if>
 		                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #eaeaea;">
 		                	<a href="<c:url value='/sheller/suaChoNghi/ThongTinCoBan?id=${ks.id}'/>" style="background-color: #007bff; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;">Xem chi tiết</a>
 		                </td>

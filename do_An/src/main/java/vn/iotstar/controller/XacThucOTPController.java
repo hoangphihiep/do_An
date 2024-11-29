@@ -16,7 +16,6 @@ public class XacThucOTPController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-			String url = req.getRequestURI();
 			req.setCharacterEncoding("UTF-8");
 			resp.setCharacterEncoding("UTF-8");
 			
@@ -45,7 +44,7 @@ public class XacThucOTPController extends HttpServlet {
 	        String alertMsg1 = "";
 	        IUserServices service = new UserServiceImpl();
 	        if (otpCode != null && otpCode.equals(sessionOtp)) {
-	        	boolean isSuccess = service.register(username, fullname, createdDate, gender, email, phone, password,diaChi,1);
+	        	boolean isSuccess = service.register(username, fullname, createdDate, gender, email, phone, password,diaChi,1,true);
 	    		if (isSuccess) {
 	    			alertMsg = "Bạn đã đăng ký thành công!";
 	    			req.getSession().setAttribute("alert", alertMsg);

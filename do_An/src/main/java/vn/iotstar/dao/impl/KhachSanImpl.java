@@ -17,7 +17,9 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 	public ResultSet rs = null;
 	@Override
 	public List<KhachSanModel> findAll() {
-		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi, IdUser, CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem,T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi, IdUser, "
+				+ "CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem,T.Ten as TenDiaDiem, "
+				+ "IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh, K.Status as Status, K.Active as Active "
 				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L where K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id";
 		List<KhachSanModel> list = new ArrayList<KhachSanModel>();
 		try {
@@ -37,7 +39,9 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 						rs.getString("TenDiaDiem"),
 						rs.getInt("IdLoaiKhachSan"),
 						rs.getString("TenLoaiKhachSan"),
-						rs.getString("UrlHinhAnh")));
+						rs.getString("UrlHinhAnh"),
+						rs.getInt("Status"),
+						rs.getBoolean("Active")));
 			}
 			return list;
 		} catch (Exception e) {
@@ -72,7 +76,7 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 
 	@Override
 	public void update(KhachSanModel khachsan) {
-		String sql = "UPDATE KhachSan SET  Ten = ?, DiaChi = ?, IdUser = ?, CachTrungTam = ?, MoTa = ?, GiapBien = ?, DanhGia = ?, IdDiaDiem = ?, IdLoaiKhachSan = ? WHERE Id = ?";
+		String sql = "UPDATE KhachSan SET  Ten = ?, DiaChi = ?, IdUser = ?, CachTrungTam = ?, MoTa = ?, GiapBien = ?, DanhGia = ?, IdDiaDiem = ?, IdLoaiKhachSan = ?, Status = ?, Active = ? WHERE Id = ?";
 		try {
 			conn = new DBConnectionSQL().getConnection();
 			ps = conn.prepareStatement(sql);
@@ -86,7 +90,9 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 			ps.setInt(7, khachsan.getDanhGia());
 			ps.setInt(8, khachsan.getIdDiaDiem());
 			ps.setInt(9, khachsan.getIdLoaiKhachSan());
-			ps.setInt(10, khachsan.getId());
+			ps.setInt(10, khachsan.getStatus());
+			ps.setBoolean(11, khachsan.isActive());
+			ps.setInt(12, khachsan.getId());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -126,7 +132,10 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 
 	@Override
 	public List<KhachSanModel> findByIdDiaDiem(int currentPage, int idDiaDiem) {
-		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,IdUser, CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem,T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi,IdUser, "
+				+ "CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem,"
+				+ "T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, "
+				+ "T.UrlHinhAnh, K.Status as Status, K.Active as Active "
 				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L "
 				+ "where T.Id = ? and K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC " 
 				+ "OFFSET " + ((currentPage - 1) * 5) + " ROWS FETCH NEXT " + 5 + " ROWS ONLY";
@@ -149,7 +158,9 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 						rs.getString("TenDiaDiem"),
 						rs.getInt("IdLoaiKhachSan"),
 						rs.getString("TenLoaiKhachSan"),
-						rs.getString("UrlHinhAnh")));
+						rs.getString("UrlHinhAnh"),
+						rs.getInt("Status"),
+						rs.getBoolean("Active")));
 			}
 			return list;
 		} catch (Exception e) {
@@ -198,7 +209,10 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 
 	@Override
 	public List<KhachSanModel> findByIdLoaiKhachSan(int currentPage,int idLoaiKhachSan) {
-		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi, IdUser, CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem,T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi, IdUser, "
+				+ "CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem,"
+				+ "T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, "
+				+ "T.UrlHinhAnh, K.Status as Status, K.Active as Active "
 				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L "
 				+ "where L.Id = ? and K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC "
 				+ "OFFSET " + ((currentPage - 1) * 5) + " ROWS FETCH NEXT " + 5 + " ROWS ONLY";
@@ -222,7 +236,9 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 						rs.getString("TenDiaDiem"),
 						rs.getInt("IdLoaiKhachSan"),
 						rs.getString("TenLoaiKhachSan"),
-						rs.getString("UrlHinhAnh")));
+						rs.getString("UrlHinhAnh"),
+						rs.getInt("Status"),
+						rs.getBoolean("Active")));
 			}
 			return list;
 		} catch (Exception e) {
@@ -233,7 +249,10 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 
 	@Override
 	public List<KhachSanModel> findAllPage(int indexp) {
-		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi, IdUser, CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem,T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi, IdUser, "
+				+ "CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem,"
+				+ "T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, "
+				+ "T.UrlHinhAnh, K.Status as Status, K.Active as Active "
 				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L "
 				+ "where K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id "
 				+ "ORDER BY K.Id DESC OFFSET ? rows fetch next 3 rows only";
@@ -257,7 +276,9 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 						rs.getString("TenDiaDiem"),
 						rs.getInt("IdLoaiKhachSan"),
 						rs.getString("TenLoaiKhachSan"),
-						rs.getString("UrlHinhAnh")));
+						rs.getString("UrlHinhAnh"),
+						rs.getInt("Status"),
+						rs.getBoolean("Active")));
 			}
 			return list;
 		} catch (Exception e) {
@@ -307,8 +328,9 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 
 	@Override
 	public List<KhachSanModel> findByIdDiaDiem(int idDiaDiem) {
-		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi, IdUser, CachTrungTam, K.MoTa, GiapBien, DanhGia, "
-				+ "IdDiaDiem,T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi, IdUser, CachTrungTam, "
+				+ "K.MoTa, GiapBien, DanhGia, K.Status as Status, K.Active as Active, "
+				+ "K.IdDiaDiem as IdDiaDiem,T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
 				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L "
 				+ "where T.Id = ? and K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC ";
 		List<KhachSanModel> list = new ArrayList<KhachSanModel>();
@@ -331,7 +353,9 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 						rs.getString("TenDiaDiem"),
 						rs.getInt("IdLoaiKhachSan"),
 						rs.getString("TenLoaiKhachSan"),
-						rs.getString("UrlHinhAnh")));
+						rs.getString("UrlHinhAnh"),
+						rs.getInt("Status"),
+						rs.getBoolean("Active")));
 			}
 			return list;
 		} catch (Exception e) {
@@ -344,7 +368,8 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 	public List<KhachSanModel> findByIdLoaiKhachSan(int idLoaiKhachSan) {
 		String sql = "select K.Id as Id, K.Ten as Ten, DiaChi, IdUser, "
 				+ "CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem, "
-				+ "T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+				+ "T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, "
+				+ "T.UrlHinhAnh, K.Status as Status, K.Active as Active "
 				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L "
 				+ "where L.Id = ? and K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC ";
 		List<KhachSanModel> list = new ArrayList<KhachSanModel>();
@@ -367,7 +392,9 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 						rs.getString("TenDiaDiem"),
 						rs.getInt("IdLoaiKhachSan"),
 						rs.getString("TenLoaiKhachSan"),
-						rs.getString("UrlHinhAnh")));
+						rs.getString("UrlHinhAnh"),
+						rs.getInt("Status"),
+						rs.getBoolean("Active")));
 			}
 			return list;
 		} catch (Exception e) {
@@ -434,7 +461,8 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 	public List<KhachSanModel> findByIdUser(int idUser) {
 		String sql = "select K.Id as Id, K.Ten as Ten, K.DiaChi as DiaChi, IdUser, "
 				+ "CachTrungTam, K.MoTa, GiapBien, DanhGia, IdDiaDiem, "
-				+ "T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh "
+				+ "T.Ten as TenDiaDiem, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, "
+				+ "T.UrlHinhAnh, K.Status as Status, K.Active as Active "
 				+ "from KhachSan K, DiaDiem T,LoaiKhachSan L, Users U "
 				+ "where U.Id = ? and U.Id = K.IdUser and K.IdDiaDiem = T.Id and K.IdLoaiKhachSan = L.Id ORDER BY K.Id DESC ";
 		List<KhachSanModel> list = new ArrayList<KhachSanModel>();
@@ -457,7 +485,9 @@ public class KhachSanImpl extends DBConnectionSQL implements IKhachSanDao {
 						rs.getString("TenDiaDiem"),
 						rs.getInt("IdLoaiKhachSan"),
 						rs.getString("TenLoaiKhachSan"),
-						rs.getString("UrlHinhAnh")));
+						rs.getString("UrlHinhAnh"),
+						rs.getInt("Status"),
+						rs.getBoolean("Active")));
 			}
 			return list;
 		} catch (Exception e) {

@@ -14,8 +14,7 @@
 		<div class="row">
 			
 			<div class="col-md-3">
-				<div
-					style="border: 1px solid #c0c0c0; border-radius: 5px; margin-top: 20px">
+				<div style="border: 1px solid #c0c0c0; border-radius: 5px; margin-top: 1px">
 					<form id="filterForm" method="post" action="${pageContext.request.contextPath}/danhsachks/locks">
 					    <div style="padding: 10px 0 8px 20px">
 					        <span style="font-size: 16px; font-weight: bold">Chọn lọc theo</span>
@@ -111,28 +110,12 @@
 			</div>
 				<div class="col-md-9">
 					<c:forEach var="ks" items="${listks}">
-						<a href="<c:url value='/khachsan?id=${ks.id}'/>" class="link-khachsan">
-							<div style="display: flex; border: 1px solid #ccc; border-radius: 10px; overflow: hidden; width: 800px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-						        <div style="width: 300px; display: flex; flex-direction: column;">
-							        <c:forEach items="${anhMap[ks.id]}" var="anh">
-								        	<c:if test="${anh.vaiTroCuaAnh == 'AnhChinh'}">
-												<c:choose>
-													<c:when
-														test="${anh.urlAnhKhachSan.substring(0, 6) == 'https:'}">
-														<c:url value="${anh.urlAnhKhachSan}" var="imgUrl"></c:url>
-													</c:when>
-													<c:otherwise>
-														<c:url value="/image?fname=${anh.urlAnhKhachSan}"
-															var="imgUrl"></c:url>
-													</c:otherwise>
-												</c:choose>
-												<img style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-top: 5px; margin-left: 5px;" src="${imgUrl}" alt="Hotel Image">
-											</c:if>
-									</c:forEach>
-									<div style="display: flex; justify-content: space-between; margin-top: 5px;">
-										<c:forEach items="${anhMap[ks.id]}" var="anh" begin="0" end="3">
-											<c:if test="${anh.vaiTroCuaAnh.startsWith('Anhphu')}">
-											<!-- Display images in two columns, so each row will have two images -->
+						<c:if test="${ks.status == 1}">
+							
+								<div style="display: flex; border: 1px solid #ccc; border-radius: 10px; overflow: hidden; width: 800px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+									<div style="width: 300px; display: flex; flex-direction: column;">
+										<c:forEach items="${anhMap[ks.id]}" var="anh">
+											<c:if test="${anh.vaiTroCuaAnh == 'AnhChinh'}">
 												<c:choose>
 													<c:when
 														test="${anh.urlAnhKhachSan.substring(0, 6) == 'https:'}">
@@ -144,50 +127,85 @@
 													</c:otherwise>
 												</c:choose>
 												<img
-													style="width: 72px; height: 60px; object-fit: cover; border-radius: 5px; flex: 1; margin-left: 10px;"
-													src="${imgUrl}" alt="Side Image">
-											</c:if> 
+													style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-top: 5px; margin-left: 5px;"
+													src="${imgUrl}" alt="Hotel Image">
+											</c:if>
 										</c:forEach>
-									</div>       
-						        </div>
-							        <div style="padding: 20px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
-							            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-							                <h2 style="margin: 0; font-size: 24px; margin-top: -10px;">${ks.ten}</h2>
-							                <div id="star-rating-${ks.id}" style="display: flex; align-items: center; gap: 5px;">
-							                     
-							                </div>
-							            </div>
-							            <div style="text-align: right;">
-							                <div style="text-decoration: line-through; color: #999; font-size: 14px;"></div>
-							                <c:forEach items="${phongMap[ks.id]}" var="phong" >
-							                	<div style="color: red; font-size: 24px; font-weight: bold;">${phong.giaThue} VNĐ</div>
-							            	</c:forEach>
-							            </div>
-							            <div style="font-size: 14px; color: #666; margin-top: -30px;">${ks.diaChi}</div>
-							            <div style="margin-top: 20px;">
-							            	<div style="font-size: 14px; color: #666; margin-top: -10px;">Cơ sở lưu trú này có: </div>
-							            	<c:forEach items="${tienIchMap[ks.id]}" var="tienIch" >
-								                <c:if test="${tienIch.idLoaiTienNghi == 5}">
-									                <span style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
-							            		</c:if>
-							            		<c:if test="${tienIch.idLoaiTienNghi == 7}">
-									                <span style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
-							            		</c:if>
-							            		<c:if test="${tienIch.idLoaiTienNghi == 8}">
-									                <span style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
-							            		</c:if>
-							            	</c:forEach>
-							            	
-							            </div>
-							            <div style="color: #0071c2; font-size: 16px;">
-							                <div style="font-size: 14px; color: #666; margin-top: 10px;"><span style="font-weight: bold; color: #077812">${ks.tenDiaDiem}</span> - Cách trung tâm: ${ks.cachTrungTam} m</div>
-							            	<div style="font-size: 14px; color: #666; margin-top: 10px;">${ks.tenLoaiKhachSan}</div>
-                                            <div style="font-size: 14px; color: #666; margin-top: 10px;">${ks.giapBien?"Có":"Không"} giáp biển </div>
-                                            <div style="font-size: 13px; color: #666666">${ks.moTa}</div>
-							            </div>   
-							</div>
-						</div> 
-					</a> 
+										<div style="display: flex; justify-content: space-between; margin-top: 5px;">
+											<c:forEach items="${anhMap[ks.id]}" var="anh" begin="0"
+												end="3">
+												<c:if test="${anh.vaiTroCuaAnh.startsWith('Anhphu')}">
+													<!-- Display images in two columns, so each row will have two images -->
+													<c:choose>
+														<c:when
+															test="${anh.urlAnhKhachSan.substring(0, 6) == 'https:'}">
+															<c:url value="${anh.urlAnhKhachSan}" var="imgUrl"></c:url>
+														</c:when>
+														<c:otherwise>
+															<c:url value="/image?fname=${anh.urlAnhKhachSan}"
+																var="imgUrl"></c:url>
+														</c:otherwise>
+													</c:choose>
+													<img
+														style="width: 72px; height: 60px; object-fit: cover; border-radius: 5px; flex: 1; margin-left: 10px;"
+														src="${imgUrl}" alt="Side Image">
+												</c:if>
+											</c:forEach>
+										</div>
+									</div>
+									<div style="padding: 20px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+										<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+											<a href="${pageContext.request.contextPath}/khachsan?id=${ks.id}" class="link-khachsan" style="display: inline-block; text-decoration: none;"> 
+											    <h2 style="margin: 0; font-size: 24px; margin-top: -10px;">${ks.ten}</h2>
+											</a>	
+												<div id="star-rating-${ks.id}"
+													style="display: flex; align-items: center; gap: 5px;">
+		
+												</div>											
+										</div>
+										<div style="text-align: right;">
+											<div
+												style="text-decoration: line-through; color: #999; font-size: 14px;"></div>
+											<c:forEach items="${phongMap[ks.id]}" var="phong">
+												<div style="color: red; font-size: 24px; font-weight: bold;">${phong.giaThue}
+													VNĐ</div>
+											</c:forEach>
+										</div>
+										<div style="font-size: 14px; color: #666; margin-top: -30px;">${ks.diaChi}</div>
+										<div style="margin-top: 20px;">
+											<div style="font-size: 14px; color: #666; margin-top: -10px;">Cơ
+												sở lưu trú này có:</div>
+											<c:forEach items="${tienIchMap[ks.id]}" var="tienIch">
+												<c:if test="${tienIch.idLoaiTienNghi == 5}">
+													<span
+														style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
+												</c:if>
+												<c:if test="${tienIch.idLoaiTienNghi == 7}">
+													<span
+														style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
+												</c:if>
+												<c:if test="${tienIch.idLoaiTienNghi == 8}">
+													<span
+														style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
+												</c:if>
+											</c:forEach>
+	
+										</div>
+										<div style="color: #0071c2; font-size: 16px;">
+											<div style="font-size: 14px; color: #666; margin-top: 10px;">
+												<span style="font-weight: bold; color: #077812">${ks.tenDiaDiem}</span>
+												- Cách trung tâm: ${ks.cachTrungTam} m
+											</div>
+											<div style="font-size: 14px; color: #666; margin-top: 10px;">${ks.tenLoaiKhachSan}</div>
+											<div style="font-size: 14px; color: #666; margin-top: 10px;">${ks.giapBien?"Có":"Không"}
+												giáp biển</div>
+											<div style="font-size: 13px; color: #666666">${ks.moTa}</div>
+										</div>
+									</div>
+								</div>
+							
+					</c:if>
+						
 					<br>
 					</c:forEach> 
 					<div style="margin-left: -150px">

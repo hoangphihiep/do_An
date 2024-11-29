@@ -1,6 +1,7 @@
 package vn.iotstar.services.impl;
 
 import java.sql.Date;
+import java.util.List;
 
 import vn.iotstar.dao.IUserDao;
 import vn.iotstar.dao.impl.UserDaoImpl;
@@ -14,13 +15,11 @@ public class UserServiceImpl implements IUserServices {
 
 	@Override
 	public UserModel findByUserName(String username) {
-		// TODO Auto-generated method stub
 		return userDao.findByUserName(username);
 	}
 
 	@Override
 	public UserModel login(String username, String password) {
-		// TODO Auto-generated method stub
 		UserModel user = this.findByUserName(username);
 		String encryptedPassword = user.getPassword();
 		String decryptedPassword = null;
@@ -37,25 +36,21 @@ public class UserServiceImpl implements IUserServices {
 
 	@Override
 	public void insert(UserModel user) {
-		// TODO Auto-generated method stub
 		userDao.insert(user);
 	}
 	
 	@Override
 	public boolean checkExistEmail(String email) {
-		// TODO Auto-generated method stub
 		return userDao.checkExistEmail(email);
 	}
 
 	@Override
 	public boolean checkExistUsername(String username) {
-		// TODO Auto-generated method stub
 		return userDao.checkExistUsername(username);
 	}
 
 	@Override
 	public boolean checkExistPhone(String phone) {
-		// TODO Auto-generated method stub
 		return userDao.checkExistPhone(phone);
 	}
 
@@ -72,8 +67,8 @@ public class UserServiceImpl implements IUserServices {
 
 	@Override
 	public boolean register(String username, String fullname, Date createDate, String gender, String email,
-		String phone, String password, String diaChi, int RoleId) {
-		userDao.insert(new UserModel(username, fullname, createDate, gender, email, phone, password, diaChi, RoleId));
+		String phone, String password, String diaChi, int RoleId, boolean active) {
+		userDao.insert(new UserModel(username, fullname, createDate, gender, email, phone, password, diaChi, RoleId, active));
 		return true;
 	}
 
@@ -90,5 +85,10 @@ public class UserServiceImpl implements IUserServices {
 	@Override
 	public UserModel findByUsernameOrEmail(String Email) {
 		return userDao.findByUsernameOrEmail(Email);
+	}
+
+	@Override
+	public List<UserModel> findAll() {
+		return userDao.findAll();
 	}
 }

@@ -1,6 +1,5 @@
 package vn.iotstar.services;
 
-import java.sql.Date;
 import java.util.List;
 
 import vn.iotstar.models.KhachSanModel;

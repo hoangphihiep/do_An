@@ -6,9 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body style="font-family: Arial, sans-serif; background-color: #f0f8ff; margin: 0; padding: 20px;">
+<body style="font-family: Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 0;">
 	
-	<%@ include file="/commons/sheller/headerGiamGia.jsp"%>
+	<%@ include file="/commons/sheller/headerDoanhThu.jsp"%>
     <!-- Header -->
     <div style="padding: 20px; background-color: #e9f5ff; border: 1px solid #d1e7f5; border-radius: 8px;">
         <h2 style="margin: 0; color: #007bff;">Thống kê doanh thu</h2>

@@ -50,4 +50,9 @@ public class PhongServiceImpl implements IPhongService {
 		phongDao.updateSLPhong(SLPhongDat, soPhongTrong, SLPhongD, IdPhong);
 	}
 
+	@Override
+	public void update2(PhongModel phong) {
+		phongDao.update2(phong);
+	}
+
 }

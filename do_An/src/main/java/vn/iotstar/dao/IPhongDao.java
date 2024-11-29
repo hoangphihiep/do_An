@@ -15,6 +15,8 @@ public interface IPhongDao {
 
 	void delete(int idPhong);
 	
+	void update2 (PhongModel phong);
+	
 	void updateSLPhong (int SLPhongDat, int soPhongTrong, int SLPhongD,  int IdPhong);
 	
 	List<PhongModel> findByIdKhachSan(int idKhachSan);

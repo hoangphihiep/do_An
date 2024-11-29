@@ -63,7 +63,7 @@ public class RegisterController extends HttpServlet {
 			user = (UserModel) session.getAttribute("account");
 		}
 		if (email != null && password != null) {
-			boolean isSuccess = service.register(username, user.getFullname(), user.getCreatedDate(), user.getGender(), email, user.getPhone(), encryptedPassword, user.getDiaChi(),2);
+			boolean isSuccess = service.register(username, user.getFullname(), user.getCreatedDate(), user.getGender(), email, user.getPhone(), encryptedPassword, user.getDiaChi(),2,true);
 			if (isSuccess) {
 				req.setAttribute("isSuccess", true);
 				req.setAttribute("doiTac", user.getUsername());

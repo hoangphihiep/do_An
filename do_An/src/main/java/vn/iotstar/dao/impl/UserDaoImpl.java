@@ -36,6 +36,7 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 				user.setPassword(rs.getString("Password"));
 				user.setDiaChi(rs.getString("DiaChi"));
 				user.setIdRole(rs.getInt("RoleId"));
+				user.setAcitve(rs.getBoolean("Active"));
 				return user;
 			}
 		} catch (Exception e) {
@@ -55,7 +56,7 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 			while (rs.next()) {
 
 				list.add(new UserModel(rs.getInt("Id"), rs.getString("Username"), rs.getString("Fullname"), rs.getDate("Dateofbirth"), rs.getString("Gender"), rs.getString("Email"),rs.getString("Phone"),
-						rs.getString("Password"), rs.getString("DiaChi"), rs.getInt("RoleId")));
+						rs.getString("Password"), rs.getString("DiaChi"), rs.getInt("RoleId"), rs.getBoolean("Active")));
 			}
 			return list;
 		} catch (Exception e) {
@@ -82,6 +83,9 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 				user.setEmail(rs.getString("Email"));
 				user.setPhone(rs.getString("Phone"));
 				user.setPassword(rs.getString("Password"));
+				user.setDiaChi(rs.getString("DiaChi"));
+				user.setIdRole(rs.getInt("RoleId"));
+				user.setAcitve(rs.getBoolean("Active"));
 				return user;
 			}
 		} catch (Exception e) {
@@ -119,9 +123,6 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 	  public static void main(String[] args) {
 	  
 	  try { IUserDao userDao = new UserDaoImpl();
-	  
-	  userDao.update( new UserModel(4,"hiep12", "HoangPhiHiep", null , "Nam",
-	  "khanh1@gmail.com", "07242841241", "123", "Thu duc", 1));
 	  
 	  List<UserModel> list = userDao.findAll(); for (UserModel user : list) {
 	  System.out.println(user); }
@@ -227,7 +228,7 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 
 	@Override
 	public void update(UserModel user) {
-		String sql = "UPDATE Users SET Username = ?, Fullname = ?, Dateofbirth = ?, Gender = ?, Email = ?, Phone = ?, Password = ?, DiaChi = ?, RoleId = ? WHERE Id = ?";
+		String sql = "UPDATE Users SET Username = ?, Fullname = ?, Dateofbirth = ?, Gender = ?, Email = ?, Phone = ?, Password = ?, DiaChi = ?, RoleId = ?, Active = ? WHERE Id = ?";
 
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -242,7 +243,8 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 			ps.setString(7, user.getPassword());
 			ps.setString(8, user.getDiaChi());
 			ps.setInt(9, user.getIdRole());
-			ps.setInt(10, user.getId());
+			ps.setBoolean(10, user.isAcitve());
+			ps.setInt(11, user.getId());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

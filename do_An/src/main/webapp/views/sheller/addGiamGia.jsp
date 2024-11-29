@@ -8,11 +8,11 @@
 </head>
 <body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9;">
     <!-- Content -->
-    <%@ include file="/commons/sheller/headerGiamGia.jsp"%>
+    <%@ include file="/commons/sheller/headerKhuyenMai.jsp"%>
     <div style="padding: 20px;">
         <!-- Tạo mã giảm giá -->
         <section style=" margin: 30px auto; max-width: 500px; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-            <h2 style="color: #007BFF; margin-bottom: 15px;">Tạo mã giảm giá</h2>
+            <h2 style="color: #007BFF; margin-bottom: 15px;">Tạo giảm giá</h2>
             <form action="${pageContext.request.contextPath}/sheller/giamGia/insert" method="post">
                 <label for="discount-code" style="display: block; margin-bottom: 5px;">Mã giảm giá:</label>
                 <input type="text" id="discount-code" name="discount-code" placeholder="Nhập mã giảm giá" 

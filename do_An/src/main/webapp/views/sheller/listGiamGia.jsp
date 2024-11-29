@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9;">
+<body style="font-family: Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 0;">
     
     <%@ include file="/commons/sheller/headerGiamGia.jsp"%>
     <!-- Content -->
@@ -39,7 +39,21 @@
 		                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">${giamgia.ngayKetThuc}</td>
 		                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">${giamgia.soLuongMa}</td>
 		                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">${giamgia.soLanDaSuDung}</td>
-		                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">${giamgia.apDung}</td>
+		                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">
+								    <c:choose>
+								        <c:when test="${giamgia.idKhachHang != 0}">
+								            <c:forEach items="${listKhachDP}" var="khachdp">
+								                <c:if test="${khachdp.user.id == giamgia.idKhachHang}">
+								                    ${khachdp.user.fullname}
+								                </c:if>
+								            </c:forEach>
+								        </c:when>
+								        <c:otherwise>
+								            ${giamgia.apDung}
+								        </c:otherwise>
+								    </c:choose>
+								</td>
+		                        
 		                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">
 		                            <a href="<c:url value='/sheller/giamGia/edit?id=${giamgia.id}'/>" style="background-color: #28A745; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; text-align: center; display: inline-block; text-decoration: none;">Chỉnh sửa</a>
 		                            <a href="<c:url value='/sheller/giamGia/delete?id=${giamgia.id}'/>" style="background-color: #DC3545; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; text-align: center; display: inline-block; text-decoration: none;">Xóa</a>

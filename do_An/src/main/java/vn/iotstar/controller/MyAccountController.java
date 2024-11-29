@@ -111,6 +111,6 @@ public class MyAccountController extends HttpServlet {
 		}
 		System.out.println (ten + " " + hovaten + " " + ngaysinh + gioitinh + email 
 				+ dienthoai + diachi + matkhau);
-		userService.update(new UserModel(taiKhoan.getId(),ten,hovaten,createdDate,gioitinh,email,dienthoai,diachi,encryptedPassword,1));	
+		userService.update(new UserModel(taiKhoan.getId(),ten,hovaten,createdDate,gioitinh,email,dienthoai,diachi,encryptedPassword,1,true));	
 	}
 }

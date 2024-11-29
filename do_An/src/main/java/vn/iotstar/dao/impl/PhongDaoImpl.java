@@ -241,5 +241,31 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 
 	}
 
+	@Override
+	public void update2(PhongModel phong) {
+		String sql = "UPDATE Phong SET Ten=?, DienTich=?, GiaThue=?, TienNghi=?, MoTa=?, LoaiGiuong=?, IdKhachSan=?, SoPhongTrong=?, SoPhongDaDat=?, SucChuaToiDa=?, AnhPhong=?, TienThueSauKhiGiam=? WHERE Id = ?";
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+
+			ps.setString(1, phong.getTen());
+			ps.setInt(2, phong.getDienTich());
+			ps.setInt(3, phong.getGiaThue());
+			ps.setString(4, phong.getTienNghi());
+			ps.setString(5, phong.getMoTa());
+			ps.setInt(6, phong.getLoaiGiuong());
+			ps.setInt(7, phong.getIdKhachSan());
+			ps.setInt(8, phong.getSoPhongTrong());
+			ps.setInt(9, phong.getSoPhongDaDat());
+			ps.setInt(10, phong.getSucChuaToiDa());
+			ps.setString(11, phong.getAnhPhong());
+			ps.setInt(12, phong.getTienThueSauKhiGiam());
+			ps.setInt(13, phong.getId());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 
 }

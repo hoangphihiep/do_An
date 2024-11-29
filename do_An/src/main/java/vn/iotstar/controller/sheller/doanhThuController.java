@@ -28,10 +28,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.iotstar.models.DoanhThuModel;
 import vn.iotstar.models.KhachSanModel;
+import vn.iotstar.models.ThongBaoModel;
+import vn.iotstar.models.UserModel;
 import vn.iotstar.services.IDatPhongService;
 import vn.iotstar.services.IKhachSanService;
+import vn.iotstar.services.IThongBaoService;
 import vn.iotstar.services.impl.DatPhongServiceImpl;
 import vn.iotstar.services.impl.KhachSanServiceImpl;
+import vn.iotstar.services.impl.ThongBaoServiceImpl;
 
 @WebServlet(urlPatterns = {"/sheller/doanhThu"})
 public class doanhThuController extends HttpServlet {
@@ -39,12 +43,23 @@ public class doanhThuController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	IKhachSanService khachSanService = new KhachSanServiceImpl();
 	IDatPhongService datPhongService = new DatPhongServiceImpl();
+	public IThongBaoService thongBaoService = new ThongBaoServiceImpl();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
-		int idUser = (int) session.getAttribute("idUser");
+		UserModel user = null;
+		if (session != null && session.getAttribute("account") != null) {
+			user = (UserModel) session.getAttribute("account");
+		}
+		session.setAttribute("account", user);
+		int idUser = user.getId();
 		List<KhachSanModel> listKS = khachSanService.findByIdUser(idUser);
+		List<ThongBaoModel> listThongBao = thongBaoService.listFindByIdUser(user.getId());
+		int soLuongThongBao = listThongBao.size();
+		req.setAttribute("slthongbao", soLuongThongBao);
+		req.setAttribute("listthongbao", listThongBao);
+		req.setAttribute("username", user.getFullname());
 		req.setAttribute("listKS", listKS);
 		req.getRequestDispatcher("/views/sheller/doanhThu.jsp").forward(req, resp);
 	}

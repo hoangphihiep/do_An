@@ -120,7 +120,7 @@ public class BookingController extends HttpServlet {
 		req.setAttribute("anhhong", Phong.getAnhPhong());
 		req.setAttribute("slkhach", Phong.getSucChuaToiDa());
 		req.setAttribute("sophongtrong", Phong.getSoPhongTrong());
-		req.setAttribute("tienphong", Phong.getGiaThue());
+		req.setAttribute("tienphong", Phong.getTienThueSauKhiGiam());
 		if (user != null) {
 			req.setAttribute("hovaten", user.getFullname());
 			req.setAttribute("sodt", user.getPhone());

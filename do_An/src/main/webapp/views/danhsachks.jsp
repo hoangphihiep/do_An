@@ -163,34 +163,50 @@
 		
 												</div>											
 										</div>
-										<div style="text-align: right;">
-											<div
-												style="text-decoration: line-through; color: #999; font-size: 14px;"></div>
-											<c:forEach items="${phongMap[ks.id]}" var="phong">
-												<div style="color: red; font-size: 24px; font-weight: bold;">${phong.giaThue}
-													VNĐ</div>
-											</c:forEach>
-										</div>
-										<div style="font-size: 14px; color: #666; margin-top: -30px;">${ks.diaChi}</div>
-										<div style="margin-top: 20px;">
-											<div style="font-size: 14px; color: #666; margin-top: -10px;">Cơ
-												sở lưu trú này có:</div>
-											<c:forEach items="${tienIchMap[ks.id]}" var="tienIch">
-												<c:if test="${tienIch.idLoaiTienNghi == 5}">
-													<span
-														style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
+										<div style="font-size: 14px; color: #666; margin-top: -10px;">${ks.diaChi}</div>
+											<div style="text-align: right;">
+												<div style="text-decoration: line-through; color: #999; font-size: 14px;"></div>
+													<c:forEach items="${phongMap[ks.id]}" var="phong">
+														<c:if test="${phong.giaThue > phong.tienThueSauKhiGiam}">
+															<div style="margin: 10px 0;">
+		            											<span style="font-size: 14px; text-decoration: line-through; color: #999;">${phong.giaThue} VND</span> </div>
+															<div style="color: red; font-size: 24px; font-weight: bold;">${phong.tienThueSauKhiGiam}
+																VNĐ
+															</div>
+														</c:if>
+														<c:if test="${phong.giaThue == phong.tienThueSauKhiGiam}">
+															<div style="color: red; font-size: 24px; font-weight: bold;">${phong.giaThue} VNĐ
+															</div>
+														</c:if>
+													</c:forEach>
+											</div>
+											<div style="margin-top: -60px;">
+												<c:if test="${!empty khyenMaiMap[ks.id]}">
+													<div style="font-size: 14px; color: #666; margin-top: -10px;">Ưu đãi:</div>
+													<c:forEach items="${khyenMaiMap[ks.id]}" var="khuyenMai">
+														<span style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${khuyenMai.ten}</span>
+													</c:forEach>
 												</c:if>
-												<c:if test="${tienIch.idLoaiTienNghi == 7}">
-													<span
-														style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
-												</c:if>
-												<c:if test="${tienIch.idLoaiTienNghi == 8}">
-													<span
-														style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
-												</c:if>
-											</c:forEach>
-	
-										</div>
+											</div>
+											<div style="margin-top: 20px;">
+												<div style="font-size: 14px; color: #666; margin-top: -10px;">Cơ
+													sở lưu trú này có:</div>
+												<c:forEach items="${tienIchMap[ks.id]}" var="tienIch">
+													<c:if test="${tienIch.idLoaiTienNghi == 5}">
+														<span
+															style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
+													</c:if>
+													<c:if test="${tienIch.idLoaiTienNghi == 7}">
+														<span
+															style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
+													</c:if>
+													<c:if test="${tienIch.idLoaiTienNghi == 8}">
+														<span
+															style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
+													</c:if>
+												</c:forEach>
+		
+											</div>
 										<div style="color: #0071c2; font-size: 16px;">
 											<div style="font-size: 14px; color: #666; margin-top: 10px;">
 												<span style="font-weight: bold; color: #077812">${ks.tenDiaDiem}</span>

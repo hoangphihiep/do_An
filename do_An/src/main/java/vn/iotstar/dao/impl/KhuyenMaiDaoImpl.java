@@ -28,7 +28,11 @@ public class KhuyenMaiDaoImpl extends DBConnectionSQL implements IKhuyenMaiDao {
 			ps.setInt(3, khuyenMai.getGiaTriGiam());
 			ps.setDate(4, khuyenMai.getThoiGianBatDau());
 			ps.setDate(5, khuyenMai.getThoiGianKetThuc());
-			ps.setInt(6, khuyenMai.getIdPhong());
+			if (khuyenMai.getIdPhong() == null) {
+		        ps.setNull(6, java.sql.Types.INTEGER); // Gán null cho cột idPhong
+		    } else {
+		        ps.setInt(6, khuyenMai.getIdPhong()); // Gán giá trị nếu không null
+		    }
 			ps.setInt(7, khuyenMai.getIdKS());
 			ps.setInt(8, khuyenMai.getStatus());
 			ps.executeUpdate();
@@ -214,5 +218,33 @@ public class KhuyenMaiDaoImpl extends DBConnectionSQL implements IKhuyenMaiDao {
 		return null;
 	}
 
-
+	@Override
+	public List<KhuyenMaiModel> findByIdKhachSan(int idKhachSan) {
+		String sql = "SELECT * "
+				+ "FROM KhuyenMai WHERE KhuyenMai.IdKhachSan = ?";
+		List<KhuyenMaiModel> list = new ArrayList<KhuyenMaiModel>();
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idKhachSan);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(new KhuyenMaiModel(
+						rs.getInt("id"),
+						rs.getString("name"),
+						rs.getString("moTa"),
+						rs.getInt("giaTriGiam"),
+						rs.getDate("thoiGianBatDau"),
+						rs.getDate("thoiGianKetThuc"),
+						rs.getInt("idPhong"),
+						rs.getInt("idKhachSan"),
+						rs.getInt("status")
+						));
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

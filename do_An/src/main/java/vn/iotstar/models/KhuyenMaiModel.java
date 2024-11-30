@@ -57,17 +57,6 @@ public class KhuyenMaiModel implements Serializable {
 		this.idKS = idKS;
 		this.status = status;
 	}
-	public KhuyenMaiModel(String ten, String moTa, int giaTriGiam, Date thoiGianBatDau, Date thoiGianKetThuc, int idKS,
-			int status) {
-		super();
-		this.ten = ten;
-		this.moTa = moTa;
-		this.giaTriGiam = giaTriGiam;
-		this.thoiGianBatDau = thoiGianBatDau;
-		this.thoiGianKetThuc = thoiGianKetThuc;
-		this.idKS = idKS;
-		this.status = status;
-	}
 	public int getId() {
 		return id;
 	}

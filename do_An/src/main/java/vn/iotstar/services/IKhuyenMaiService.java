@@ -19,4 +19,6 @@ public interface IKhuyenMaiService {
 	KhuyenMaiModel findById (int idKhuyenMai);
 	
 	List<KhuyenMaiModel> findAll ();
+	
+	List<KhuyenMaiModel> findByIdKhachSan (int idKhachSan);
 }

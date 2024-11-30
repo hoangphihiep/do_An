@@ -41,7 +41,8 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 						rs.getInt("SoPhongTrong"),
 						rs.getInt("SoPhongDaDat"),
 						rs.getInt("SucChuaToiDa"),
-						rs.getString("AnhPhong")
+						rs.getString("AnhPhong"),
+						rs.getInt("TienThueSauKhiGiam")
 						));
 			}
 			return list;
@@ -120,7 +121,7 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 	public List<PhongModel> findByIdKhachSan(int idKhachSan) {
 		String sql = "select P.Id, P.Ten, P.DienTich, P.GiaThue, P.TienNghi, "
 				+ "P.MoTa, P.LoaiGiuong, P.SoPhongTrong, P.SoPhongDaDat, "
-				+ "P.SucChuaToiDa, P.AnhPhong, P.IdKhachSan, K.Ten as TenKhachSan "
+				+ "P.SucChuaToiDa, P.AnhPhong, P.TienThueSauKhiGiam, P.IdKhachSan, K.Ten as TenKhachSan "
 				+ "from Phong P, KhachSan K "
 				+ "where K.Id = ? and P.IdKhachSan=K.Id";
 		List<PhongModel> list = new ArrayList<PhongModel>();
@@ -143,7 +144,8 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 						rs.getInt("SoPhongTrong"),
 						rs.getInt("SoPhongDaDat"),
 						rs.getInt("SucChuaToiDa"),
-						rs.getString("AnhPhong")));
+						rs.getString("AnhPhong"),
+						rs.getInt("TienThueSauKhiGiam")));
 			}
 			return list;
 		} catch (Exception e) {
@@ -154,7 +156,7 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 	
 	@Override
 	public List<PhongModel> phongMinByIdKhachSan(int idKhachSan) {
-		String sql = "select P.IdKhachSan, MIN(P.GiaThue) AS GiaThapNhat "
+		String sql = "select P.IdKhachSan, MIN(P.TienThueSauKhiGiam) AS GiaThapNhat, MIN(P.GiaThue) AS GiaThue "
 				+ "from Phong P, KhachSan K "
 				+ "where K.Id = ? and P.IdKhachSan=K.Id GROUP BY P.IdKhachSan";
 		List<PhongModel> list = new ArrayList<PhongModel>();
@@ -166,7 +168,8 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 			while (rs.next()) {
 				list.add(new PhongModel(
 						rs.getInt("IdKhachSan"),
-						rs.getInt("GiaThapNhat")
+						rs.getInt("GiaThapNhat"),
+						rs.getInt("GiaThue")
 						));
 			}
 			return list;
@@ -197,6 +200,7 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 				phong.setTienNghi(rs.getString("TienNghi"));
 				phong.setMoTa(rs.getString("MoTa"));
 				phong.setDienTich(rs.getInt("DienTich"));
+				phong.setTienThueSauKhiGiam(rs.getInt("TienThueSauKhiGiam"));
 				return phong;
 			}
 		} catch (Exception e) {

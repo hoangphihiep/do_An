@@ -141,7 +141,7 @@ public class khuyenMaiController extends HttpServlet {
 				}
 			}
 			
-			if (idPhongStr != null || idPhongStr.length() > 0) {
+			if (idPhongStr.length() > 0) {
 				idPhong = Integer.parseInt(idPhongStr);
 				System.out.println ("idPhongStr: " + idPhongStr.length());
 				khuyenMaiService.insert(new KhuyenMaiModel(tenKhuyenMai,moTa,phanTramGiamGia,ngayBatDau,ngayKetThuc,idPhong,idKS,2));

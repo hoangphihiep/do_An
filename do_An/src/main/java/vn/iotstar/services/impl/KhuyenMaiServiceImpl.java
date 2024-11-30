@@ -45,4 +45,9 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
 		return khuyenMaiDao.findAll();
 	}
 
+	@Override
+	public List<KhuyenMaiModel> findByIdKhachSan(int idKhachSan) {
+		return khuyenMaiDao.findByIdKhachSan(idKhachSan);
+	}
+
 }

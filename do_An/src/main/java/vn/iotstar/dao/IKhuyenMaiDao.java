@@ -21,4 +21,6 @@ public interface IKhuyenMaiDao {
 	KhuyenMaiModel findById (int idKhuyenMai);
 	
 	List<KhuyenMaiModel> findAll ();
+	
+	List<KhuyenMaiModel> findByIdKhachSan (int idKhachSan);
 }

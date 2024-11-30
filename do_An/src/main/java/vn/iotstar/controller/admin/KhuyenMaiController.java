@@ -45,25 +45,7 @@ public class KhuyenMaiController extends HttpServlet {
 		session.setAttribute("account", user);
 		if (url.contains("/admin/listKhuyenMai")) {
 			List<KhuyenMaiModel> listKhuyenMai = khuyenMaiService.findAll();
-			for (KhuyenMaiModel khuyenMai : listKhuyenMai) {
-				if (khuyenMai.getStatus() == 1) {
-					if (khuyenMai.getIdPhong() == 0) {
-						List<PhongModel> listPhong = phongService.findByIdKhachSan(khuyenMai.getIdKS());
-						for (PhongModel phong : listPhong) {
-							int tienSauKhiGiam = (phong.getGiaThue() * (100 - khuyenMai.getGiaTriGiam()))/100;
-							phong.setTienThueSauKhiGiam(tienSauKhiGiam);
-							phongService.update2(phong);
-						}
-					}
-					else {
-						PhongModel phong = phongService.findById(khuyenMai.getIdPhong());
-						int tienSauKhiGiam = (phong.getGiaThue() * (100 - khuyenMai.getGiaTriGiam()))/100;
-						phong.setTienThueSauKhiGiam(tienSauKhiGiam);
-						phongService.update2(phong);
-					}
-					
-				}
-			}
+			
 			req.setAttribute("listkhuyenmai", listKhuyenMai);
 			req.setAttribute("username", user.getFullname());
 			req.getRequestDispatcher("/views/admin/listKhuyenMai.jsp").forward(req, resp);

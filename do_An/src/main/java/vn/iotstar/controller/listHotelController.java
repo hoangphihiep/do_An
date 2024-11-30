@@ -17,6 +17,7 @@ import vn.iotstar.models.AnhKhachSanModel;
 import vn.iotstar.models.BuaAnModel;
 import vn.iotstar.models.CheckboxModel;
 import vn.iotstar.models.KhachSanModel;
+import vn.iotstar.models.KhuyenMaiModel;
 import vn.iotstar.models.LoaiKhachSanModel;
 import vn.iotstar.models.PhongModel;
 import vn.iotstar.models.DiaDiemModel;
@@ -24,12 +25,14 @@ import vn.iotstar.models.TienIchModel;
 import vn.iotstar.models.UserModel;
 import vn.iotstar.services.IAnhKhachSanService;
 import vn.iotstar.services.IKhachSanService;
+import vn.iotstar.services.IKhuyenMaiService;
 import vn.iotstar.services.ILoaiKhachSanService;
 import vn.iotstar.services.IPhongService;
 import vn.iotstar.services.IDiaDiemService;
 import vn.iotstar.services.ITienIchService;
 import vn.iotstar.services.impl.AnhKhachSanServiceImpl;
 import vn.iotstar.services.impl.KhachSanServiceImpl;
+import vn.iotstar.services.impl.KhuyenMaiServiceImpl;
 import vn.iotstar.services.impl.LoaiKhachSanServiceImpl;
 import vn.iotstar.services.impl.PhongServiceImpl;
 import vn.iotstar.services.impl.DiaDiemServiceImpl;
@@ -45,6 +48,7 @@ public class listHotelController extends HttpServlet {
 	public IAnhKhachSanService anhKhachSanService = new AnhKhachSanServiceImpl();
 	public ITienIchService tienIchService = new TienIchServiceImpl();
 	public IPhongService phongService = new PhongServiceImpl();
+	public IKhuyenMaiService khuyenMaiService = new KhuyenMaiServiceImpl();
 	ArrayList<CheckboxModel> listXepHang = new ArrayList<CheckboxModel>();
 	ArrayList<CheckboxModel> listLoaiKhachSan = new ArrayList<CheckboxModel>();
 	ArrayList<CheckboxModel> listBuaAn = new ArrayList<CheckboxModel>();
@@ -53,6 +57,7 @@ public class listHotelController extends HttpServlet {
 	Map<Integer, List<AnhKhachSanModel>> anhMap = new HashMap<>();
     Map<Integer, List<TienIchModel>> tienIchMap = new HashMap<>();
     Map<Integer, List<PhongModel>> phongMap = new HashMap<>();
+    Map<Integer, List<KhuyenMaiModel>> khyenMaiMap = new HashMap<>();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String url = req.getRequestURI();
@@ -213,11 +218,15 @@ public class listHotelController extends HttpServlet {
 	            
 	            List<PhongModel> listPhong = phongService.phongMinByIdKhachSan(khachSan.getId());
 	            phongMap.put(khachSan.getId(), listPhong);
+	            
+	            List<KhuyenMaiModel> listKhuyenMai = khuyenMaiService.findByIdKhachSan(khachSan.getId());
+	            khyenMaiMap.put(khachSan.getId(), listKhuyenMai);
 	        }
-	        
+	  
 	        req.setAttribute("anhMap", anhMap);
 	        req.setAttribute("tienIchMap", tienIchMap);
 	        req.setAttribute("phongMap", phongMap);
+	        req.setAttribute("khyenMaiMap", khyenMaiMap);
 	        session.setAttribute("tienThueMoiKS", phongMap);
 	        String[] strDanhGia = {"Bình thường", "Khá ổn", "Chất lượng", "Sang trọng", "Tuyệt vời", "Xuất sắc"};
 	        req.setAttribute("strDanhGia", strDanhGia);

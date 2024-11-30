@@ -26,53 +26,50 @@
             <tbody>
             	<c:forEach items="${listkhachsan}" var="khachsan" varStatus="STT">
             		<tr style="border-bottom: 1px solid #ddd;">
-	                    <td style="padding: 10px;">${STT.index+1}</td>
-	                    <td style="padding: 10px;">
-	                    	<a href="<c:url value='/admin/chiTietKS/thongTinKhachSan?id=${khachsan.id}'/>" 
-								  style="display: inline-block; text-decoration: none;">
-								  ${khachsan.ten}
-							</a>	
-	                    </td>
-	                    <td style="padding: 10px;">${khachsan.diaChi}</td>
-	                    <td style="padding: 10px;">${khachsan.sheller.fullname}</td>
-	                    <c:if test="${khachsan.status == 1}">
-	                    	<td style="padding: 10px; color: green;">Đã được duyệt</td>
-	                    </c:if>
-	                    <c:if test="${khachsan.status == 2}">
-	                    	<td style="padding: 10px; color: yellow;">Đang chờ duyệt</td>
-	                    </c:if>
-	                    <c:if test="${khachsan.status == 3}">
-	                    	<td style="padding: 10px; color: red;">Không được duyệt</td>
-	                    </c:if>
-	                    <td style="padding: 10px;">
-	                    	<c:if test="${khachsan.active == true}">
-	                    		<span style="background-color: #17a2b8; color: white; padding: 5px 10px; border-radius: 4px;">Hoạt động</span>
-	                    	</c:if>
-	                    	<c:if test="${khachsan.active == false}">
-	                    		<span style="background-color: #007bff; color: white; padding: 5px 10px; border-radius: 4px;">Không hoạt động</span>
-	                    	</c:if>
-	                    </td>
-	                    <td style="padding: 10px;">
-	                    	<c:if test="${khachsan.status == 2}">
-	                    		<a href="<c:url value='/admin/khachSan/duyet?id=${khachsan.id}'/>" 
-								   style="background-color: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; display: inline-block; text-decoration: none;">
-								   Chấp nhận
-								</a>
-	                    	</c:if>
-	                    	<c:if test="${khachsan.status == 3}">
-	                    		<a href="<c:url value='/admin/khachSan/duyet?id=${khachsan.id}'/>" 
-								   style="background-color: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; display: inline-block; text-decoration: none;">
-								   Chấp nhận
-								</a>
-	                    	</c:if>
-	                    	<c:if test="${khachsan.status == 1 || khachsan.status == 2}">
-								<a href="#" data-toggle="modal" data-target="#thongbao" data-id="${khachsan.id}" 
-												   onclick="setModalId(${khachsan.id})"
-									style="background-color: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; display: inline-block; text-decoration: none;">
-									Hủy </a>
-	                    	</c:if>	
-	                    </td>
-	                </tr>
+					    <td style="padding: 10px;">${STT.index+1}</td>
+					    <td style="padding: 10px;">
+					        <a href="<c:url value='/admin/chiTietKS/thongTinKhachSan?id=${khachsan.id}'/>" 
+					           style="display: inline-block; text-decoration: none;">
+					           ${khachsan.ten}
+					        </a>
+					    </td>
+					    <td style="padding: 10px;">${khachsan.diaChi}</td>
+					    <td style="padding: 10px;">${khachsan.sheller.fullname}</td>
+					    <td style="padding: 10px; color: green;">
+					        <c:choose>
+					            <c:when test="${khachsan.status == 1}">Đã được duyệt</c:when>
+					            <c:when test="${khachsan.status == 2}">Đang chờ duyệt</c:when>
+					            <c:when test="${khachsan.status == 3}">Không được duyệt</c:when>
+					            <c:otherwise></c:otherwise>
+					        </c:choose>
+					    </td>
+					    <td style="padding: 10px;">
+					        <c:choose>
+					            <c:when test="${khachsan.active == true}">
+					                <span style="background-color: #17a2b8; color: white; padding: 5px 10px; border-radius: 4px;">Hoạt động</span>
+					            </c:when>
+					            <c:when test="${khachsan.active == false}">
+					                <span style="background-color: #007bff; color: white; padding: 5px 10px; border-radius: 4px;">Không hoạt động</span>
+					            </c:when>
+					            <c:otherwise></c:otherwise>
+					        </c:choose>
+					    </td>
+					    <td style="padding: 10px;">
+					        <c:if test="${khachsan.status == 2 || khachsan.status == 3}">
+					            <a href="<c:url value='/admin/khachSan/duyet?id=${khachsan.id}'/>" 
+					               style="background-color: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; display: inline-block; text-decoration: none;">
+					               Chấp nhận
+					            </a>
+					        </c:if>
+					        <c:if test="${khachsan.status == 1 || khachsan.status == 2}">
+					            <a href="#" data-toggle="modal" data-target="#thongbao" data-id="${khachsan.id}" 
+					               onclick="setModalId(${khachsan.id})"
+					               style="background-color: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; display: inline-block; text-decoration: none;">
+					               Hủy
+					            </a>
+					        </c:if>
+					    </td>
+					</tr>
 	                
             	</c:forEach>
                 

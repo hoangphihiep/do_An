@@ -75,8 +75,7 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}	
 	}
 
 	@Override

@@ -116,19 +116,52 @@
 									<div style="width: 300px; display: flex; flex-direction: column;">
 										<c:forEach items="${anhMap[ks.id]}" var="anh">
 											<c:if test="${anh.vaiTroCuaAnh == 'AnhChinh'}">
-												<c:choose>
-													<c:when
-														test="${anh.urlAnhKhachSan.substring(0, 6) == 'https:'}">
-														<c:url value="${anh.urlAnhKhachSan}" var="imgUrl"></c:url>
-													</c:when>
-													<c:otherwise>
-														<c:url value="/image?fname=${anh.urlAnhKhachSan}"
-															var="imgUrl"></c:url>
-													</c:otherwise>
-												</c:choose>
-												<img
-													style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-top: 5px; margin-left: 5px;"
-													src="${imgUrl}" alt="Hotel Image">
+											    <c:choose>
+											        <c:when test="${anh.urlAnhKhachSan.substring(0, 6) == 'https:'}">
+											            <c:url value="${anh.urlAnhKhachSan}" var="imgUrl"></c:url>
+											        </c:when>
+											        <c:otherwise>
+											            <c:url value="/image?fname=${anh.urlAnhKhachSan}" var="imgUrl"></c:url>
+											        </c:otherwise>
+											    </c:choose>
+											    <div style="position: relative; display: inline-block; width: 100%;">
+										            <img
+										                style="width: 100%; height: 260px; object-fit: cover; border-radius: 5px; margin-top: 5px; margin-left: 5px;"
+										                src="${imgUrl}" alt="Hotel Image">
+										            <div style="position: absolute; top: 10px; right: 0px; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;">
+										                <c:if test="${!empty listThichKhachSan}">
+										                	<c:forEach items="${listThichKhachSan}" var="thichKS">
+											                	<c:if test="${thichKS.idKS == ks.id}">
+																    <div onclick="toggleHeart(this, ${ks.id})" 
+																         style="width: 40px; height: 40px; border-radius: 50%; background-color: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); cursor: pointer;">
+																        <svg id="heart" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" 
+																             fill="${thichKS.idKS == ks.id ? 'red' : 'none'}" 
+																             stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+																            <path d="M20.8 4.6a5.6 5.6 0 0 0-7.8 0L12 5.6l-1-1a5.6 5.6 0 0 0-7.8 7.8l1 1 7.8 7.8 7.8-7.8 1-1a5.6 5.6 0 0 0 0-7.8z"></path>
+																        </svg>
+																    </div>
+																</c:if>
+																<c:if test="${thichKS.idKS != ks.id}">
+																	<div onclick="toggleHeart(this, ${ks.id})" 
+													                     style="width: 40px; height: 40px; border-radius: 50%; background-color: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); cursor: pointer;">
+													                    <svg id="heart" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+													                        <path d="M20.8 4.6a5.6 5.6 0 0 0-7.8 0L12 5.6l-1-1a5.6 5.6 0 0 0-7.8 7.8l1 1 7.8 7.8 7.8-7.8 1-1a5.6 5.6 0 0 0 0-7.8z"></path>
+													                    </svg>
+													                </div>					
+																</c:if>
+											                </c:forEach>
+										                </c:if>
+										                <c:if test="${empty listThichKhachSan}">
+										                	<div onclick="toggleHeart(this, ${ks.id})" 
+													            style="width: 40px; height: 40px; border-radius: 50%; background-color: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); cursor: pointer;">
+													            <svg id="heart" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+													            <path d="M20.8 4.6a5.6 5.6 0 0 0-7.8 0L12 5.6l-1-1a5.6 5.6 0 0 0-7.8 7.8l1 1 7.8 7.8 7.8-7.8 1-1a5.6 5.6 0 0 0 0-7.8z"></path>
+													             </svg>
+													        </div>	
+										                </c:if>
+										                
+										            </div>
+										        </div>
 											</c:if>
 										</c:forEach>
 										<div style="display: flex; justify-content: space-between; margin-top: 5px;">
@@ -188,23 +221,25 @@
 													</c:forEach>
 												</c:if>
 											</div>
-											<div style="margin-top: 20px;">
-												<div style="font-size: 14px; color: #666; margin-top: -10px;">Cơ
-													sở lưu trú này có:</div>
-												<c:forEach items="${tienIchMap[ks.id]}" var="tienIch">
-													<c:if test="${tienIch.idLoaiTienNghi == 5}">
-														<span
-															style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
-													</c:if>
-													<c:if test="${tienIch.idLoaiTienNghi == 7}">
-														<span
-															style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
-													</c:if>
-													<c:if test="${tienIch.idLoaiTienNghi == 8}">
-														<span
-															style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
-													</c:if>
-												</c:forEach>
+											<div style="margin-top: 20px;">	
+												<c:if test="${!empty tienIchMap[ks.id]}">
+													<div style="font-size: 14px; color: #666; margin-top: -10px;">Cơ sở lưu trú này có:</div>
+													<c:forEach items="${tienIchMap[ks.id]}" var="tienIch">
+														<c:if test="${tienIch.idLoaiTienNghi == 5}">
+															<span
+																style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
+														</c:if>
+														<c:if test="${tienIch.idLoaiTienNghi == 7}">
+															<span
+																style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
+														</c:if>
+														<c:if test="${tienIch.idLoaiTienNghi == 8}">
+															<span
+																style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
+														</c:if>
+													</c:forEach>
+												</c:if>
+												
 		
 											</div>
 										<div style="color: #0071c2; font-size: 16px;">
@@ -288,5 +323,33 @@
     }
 </script>
 
+<script>
+	function toggleHeart(element, ksId) {
+	    console.log("Hàm toggleHeart đã được gọi");
+	    console.log("ksId:", ksId);
+	
+	    const heart = element.querySelector('#heart');
+	    const isRed = heart.getAttribute('fill') === 'red';
+	
+	    // Toggle heart color
+	    heart.setAttribute('fill', isRed ? 'none' : 'red');
+	
+	    // Tạo XHR Request
+	    const xhr = new XMLHttpRequest();
+	    xhr.open("POST", "/do_An/danhsachks/thichKS", true);
+	    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+	    
+	    xhr.send("favorite=" + (!isRed) + "&ksId=" + ksId);
+	    // Kiểm tra phản hồi từ server
+	    xhr.onload = function () {
+	        if (xhr.status === 200) {
+	            console.log("Phản hồi thành công:", xhr.responseText);
+	        } else {
+	            console.error("Lỗi gửi yêu cầu:", xhr.status, xhr.statusText);
+	        }
+	    };
+	}
+</script>
 </body>
 </html>

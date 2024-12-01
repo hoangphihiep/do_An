@@ -2,7 +2,9 @@ package vn.iotstar.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,20 +12,53 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import vn.iotstar.models.AnhKhachSanModel;
+import vn.iotstar.models.KhuyenMaiModel;
 import vn.iotstar.models.LichSuModel;
+import vn.iotstar.models.PhongModel;
+import vn.iotstar.models.ThichKhachSanModel;
+import vn.iotstar.models.TienIchModel;
 import vn.iotstar.models.UserModel;
+import vn.iotstar.services.IAnhKhachSanService;
+import vn.iotstar.services.IDiaDiemService;
+import vn.iotstar.services.IKhachSanService;
+import vn.iotstar.services.IKhuyenMaiService;
 import vn.iotstar.services.ILichSuDatPhongService;
+import vn.iotstar.services.ILoaiKhachSanService;
+import vn.iotstar.services.IPhongService;
+import vn.iotstar.services.IThichKhachSanService;
+import vn.iotstar.services.ITienIchService;
 import vn.iotstar.services.IUserServices;
+import vn.iotstar.services.impl.AnhKhachSanServiceImpl;
+import vn.iotstar.services.impl.DiaDiemServiceImpl;
+import vn.iotstar.services.impl.KhachSanServiceImpl;
+import vn.iotstar.services.impl.KhuyenMaiServiceImpl;
 import vn.iotstar.services.impl.LichSuDatPhongServiceImpl;
+import vn.iotstar.services.impl.LoaiKhachSanServiceImpl;
+import vn.iotstar.services.impl.PhongServiceImpl;
+import vn.iotstar.services.impl.ThichKhachSanServiceImpl;
+import vn.iotstar.services.impl.TienIchServiceImpl;
 import vn.iotstar.services.impl.UserServiceImpl;
 import vn.iotstar.utils.AESUtil;
 
-@WebServlet(urlPatterns = {"/myAccount","/myAccount/trangCaNhan","/myAccount/lichSuDatPhong"})
+@WebServlet(urlPatterns = {"/myAccount","/myAccount/trangCaNhan","/myAccount/lichSuDatPhong","/myAccount/danhsachksyeuthich"})
 public class MyAccountController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	public ILichSuDatPhongService lichSuService = new LichSuDatPhongServiceImpl();
 	public IUserServices userService = new UserServiceImpl();
+	public ILoaiKhachSanService loaiKhachSanService = new LoaiKhachSanServiceImpl();
+	public IDiaDiemService diaDiemService = new DiaDiemServiceImpl();
+	public IKhachSanService khachSanService = new KhachSanServiceImpl();
+	public IAnhKhachSanService anhKhachSanService = new AnhKhachSanServiceImpl();
+	public ITienIchService tienIchService = new TienIchServiceImpl();
+	public IPhongService phongService = new PhongServiceImpl();
+	public IKhuyenMaiService khuyenMaiService = new KhuyenMaiServiceImpl();
+	public IThichKhachSanService thichKhachSanService = new ThichKhachSanServiceImpl();
+	Map<Integer, List<AnhKhachSanModel>> anhMap = new HashMap<>();
+    Map<Integer, List<TienIchModel>> tienIchMap = new HashMap<>();
+    Map<Integer, List<PhongModel>> phongMap = new HashMap<>();
+    Map<Integer, List<KhuyenMaiModel>> khyenMaiMap = new HashMap<>();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String url = req.getRequestURI();
@@ -79,6 +114,66 @@ public class MyAccountController extends HttpServlet {
 			List<LichSuModel> listLichSu = lichSuService.findByIdUser(taiKhoan.getId());
 			req.setAttribute("listLichSu", listLichSu);
 			req.getRequestDispatcher("/views/lichSuDatPhong.jsp").forward(req, resp);	
+		}
+		if (url.contains("/myAccount/danhsachksyeuthich")) 
+		{			
+			String username = null;
+			int idUser = 0;
+			if (session != null && session.getAttribute("account") != null) {
+				UserModel user = (UserModel) session.getAttribute("account");
+				username = user.getFullname();
+				idUser = user.getId();
+				session.setAttribute("account", user);
+			}
+			req.setAttribute("username", username);
+			
+			//List<ThichKhachSanModel> listThichKhachSan = thichKhachSanService.listLikeHotel(idUser);
+		    
+			int currentPage = 1;
+            if (req.getParameter("page") != null) {
+                currentPage = Integer.parseInt(req.getParameter("page"));
+            }
+            
+            List<ThichKhachSanModel> listThichKhachSan = thichKhachSanService.findAll(currentPage, idUser);
+        	int countKS = thichKhachSanService.countAll();
+        	int endPage = countKS/5;
+        	if (countKS % 5 != 0) {
+        		endPage ++;
+        	}
+        	req.setAttribute("currentPage", currentPage);
+        	req.setAttribute("countKS", countKS);
+        	req.setAttribute("endPage", endPage);
+        	req.setAttribute("listThichKhachSan", listThichKhachSan);
+        	
+	        for (ThichKhachSanModel thicKhachSan : listThichKhachSan) {
+	            List<AnhKhachSanModel> listAnh = anhKhachSanService.findByIdKhachSan(thicKhachSan.getIdKS());
+	            anhMap.put(thicKhachSan.getIdKS(), listAnh);
+	            
+	            List<TienIchModel> listTienIch = tienIchService.findByIdKhachSan(thicKhachSan.getIdKS());
+	            tienIchMap.put(thicKhachSan.getIdKS(), listTienIch);
+	            
+	            List<PhongModel> listPhong = phongService.phongMinByIdKhachSan(thicKhachSan.getIdKS());
+	            phongMap.put(thicKhachSan.getIdKS(), listPhong);
+	            
+	            List<KhuyenMaiModel> listKhuyenMai = khuyenMaiService.findByIdKhachSan(thicKhachSan.getIdKS());
+	            khyenMaiMap.put(thicKhachSan.getIdKS(), listKhuyenMai);
+	            for (KhuyenMaiModel khuyenMai : listKhuyenMai) {
+	            	System.out.println (thicKhachSan.getIdKS() + "tên khuyến mãi: " + khuyenMai.getTen());
+	            }
+	        }
+	  
+	        req.setAttribute("anhMap", anhMap);
+	        req.setAttribute("tienIchMap", tienIchMap);
+	        req.setAttribute("phongMap", phongMap);
+	        req.setAttribute("khyenMaiMap", khyenMaiMap);
+	        
+	        req.setAttribute("listThichKhachSan", listThichKhachSan);
+	        
+	        session.setAttribute("tienThueMoiKS", phongMap);
+	        String[] strDanhGia = {"Bình thường", "Khá ổn", "Chất lượng", "Sang trọng", "Tuyệt vời", "Xuất sắc"};
+	        req.setAttribute("strDanhGia", strDanhGia);
+	        
+	        req.getRequestDispatcher("/views/danhSachKSYeuThich.jsp").forward(req, resp);
 		}
 	}
 	@Override

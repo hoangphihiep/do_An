@@ -29,7 +29,6 @@ public class HomeController extends HttpServlet {
 	public IKhachSanService khachSanService = new KhachSanServiceImpl();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		HttpSession session = req.getSession(false);
 		String username = null;
 		if (session != null && session.getAttribute("account") != null) {

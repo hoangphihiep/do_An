@@ -10,6 +10,7 @@
 	
 	<mapping path="/myAccount/trangCaNhan" name="user" decorator="templateCaNhan.jsp" />
 	<mapping path="/myAccount/lichSuDatPhong" name="user" decorator="templateCaNhan.jsp" />
+	<mapping path="/myAccount/danhsachksyeuthich" name="user" decorator="templateCaNhan.jsp" />
 	
 	<mapping path="/sheller/dangNhap" name="sheller" decorator="sheller.jsp" />
 	<mapping path="/sheller/dangKy" name="sheller" decorator="sheller.jsp" />

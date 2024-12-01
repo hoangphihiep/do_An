@@ -109,25 +109,14 @@ public class HotelController extends HttpServlet {
 			phongService.update2(phong);
 			phongService.updateSLPhong(count, phong.getSoPhongTrong(), phong.getSoPhongDaDat(), phong.getId());
 		}
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-		Date thoiGianHienTai = new Date(System.currentTimeMillis());
-		// Chuyển đổi thời gian hiện tại và các thời gian trong khuyến mãi
-		String thoiGianHienTaiStr = sdf.format(thoiGianHienTai);
 		System.out.println ("id của khách sạn: " + idKhachSan);
 		List<KhuyenMaiModel> listKhuyenMai = khuyenMaiService.findByIdKhachSan(idKhachSan);
 		for (KhuyenMaiModel khuyenMai : listKhuyenMai) {
 			System.out.println ("khuyen mãi1: " + khuyenMai.getTen());
-			System.out.println("Thời gian hiện tại: " + thoiGianHienTai);
 			System.out.println("Thời gian bắt đầu: " + khuyenMai.getThoiGianBatDau());
 			System.out.println("Thời gian kết thúc: " + khuyenMai.getThoiGianKetThuc());
-			System.out.println ("so sánh: " + thoiGianHienTai.compareTo(khuyenMai.getThoiGianBatDau()));
-			System.out.println ("so sánh1: " + thoiGianHienTai.compareTo(khuyenMai.getThoiGianKetThuc()));
-			String thoiGianBatDauStr = sdf.format(khuyenMai.getThoiGianBatDau());
-			String thoiGianKetThucStr = sdf.format(khuyenMai.getThoiGianKetThuc());
-			if (khuyenMai.getStatus() == 1
-			        && thoiGianHienTaiStr.compareTo(thoiGianBatDauStr) >= 0
-			        && thoiGianHienTaiStr.compareTo(thoiGianKetThucStr) <= 0)  {
+			if (khuyenMai.getStatus() == 1)  {
 				System.out.println ("khuyen mãi: " + khuyenMai.getTen());
 				if (khuyenMai.getIdPhong() == 0) {
 					List<PhongModel> listPhong = phongService.findByIdKhachSan(khuyenMai.getIdKS());

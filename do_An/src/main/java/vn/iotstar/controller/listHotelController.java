@@ -20,6 +20,7 @@ import vn.iotstar.models.KhachSanModel;
 import vn.iotstar.models.KhuyenMaiModel;
 import vn.iotstar.models.LoaiKhachSanModel;
 import vn.iotstar.models.PhongModel;
+import vn.iotstar.models.ThichKhachSanModel;
 import vn.iotstar.models.DiaDiemModel;
 import vn.iotstar.models.TienIchModel;
 import vn.iotstar.models.UserModel;
@@ -28,6 +29,7 @@ import vn.iotstar.services.IKhachSanService;
 import vn.iotstar.services.IKhuyenMaiService;
 import vn.iotstar.services.ILoaiKhachSanService;
 import vn.iotstar.services.IPhongService;
+import vn.iotstar.services.IThichKhachSanService;
 import vn.iotstar.services.IDiaDiemService;
 import vn.iotstar.services.ITienIchService;
 import vn.iotstar.services.impl.AnhKhachSanServiceImpl;
@@ -35,10 +37,11 @@ import vn.iotstar.services.impl.KhachSanServiceImpl;
 import vn.iotstar.services.impl.KhuyenMaiServiceImpl;
 import vn.iotstar.services.impl.LoaiKhachSanServiceImpl;
 import vn.iotstar.services.impl.PhongServiceImpl;
+import vn.iotstar.services.impl.ThichKhachSanServiceImpl;
 import vn.iotstar.services.impl.DiaDiemServiceImpl;
 import vn.iotstar.services.impl.TienIchServiceImpl;
 
-@WebServlet(urlPatterns = {"/danhsachks","/danhsachks/timkiem","/danhsachks/locks"})
+@WebServlet(urlPatterns = {"/danhsachks","/danhsachks/timkiem","/danhsachks/locks", "/danhsachks/thichKS"})
 public class listHotelController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -49,6 +52,7 @@ public class listHotelController extends HttpServlet {
 	public ITienIchService tienIchService = new TienIchServiceImpl();
 	public IPhongService phongService = new PhongServiceImpl();
 	public IKhuyenMaiService khuyenMaiService = new KhuyenMaiServiceImpl();
+	public IThichKhachSanService thichKhachSanService = new ThichKhachSanServiceImpl();
 	ArrayList<CheckboxModel> listXepHang = new ArrayList<CheckboxModel>();
 	ArrayList<CheckboxModel> listLoaiKhachSan = new ArrayList<CheckboxModel>();
 	ArrayList<CheckboxModel> listBuaAn = new ArrayList<CheckboxModel>();
@@ -67,11 +71,17 @@ public class listHotelController extends HttpServlet {
 		{			
 			HttpSession session = req.getSession();
 			String username = null;
+			int idUser = 0;
 			if (session != null && session.getAttribute("account") != null) {
 				UserModel user = (UserModel) session.getAttribute("account");
 				username = user.getFullname();
+				idUser = user.getId();
+				session.setAttribute("account", user);
 			}
 			req.setAttribute("username", username);
+			
+			List<ThichKhachSanModel> listThichKhachSan = thichKhachSanService.listLikeHotel(idUser);
+			
 			List<CheckboxModel> listXepHang = (List<CheckboxModel>) session.getAttribute("listXepHang");
 			session.setAttribute("currentURL", req.getContextPath().toString() + "/danhsachks");
 			if (listXepHang == null)
@@ -221,12 +231,18 @@ public class listHotelController extends HttpServlet {
 	            
 	            List<KhuyenMaiModel> listKhuyenMai = khuyenMaiService.findByIdKhachSan(khachSan.getId());
 	            khyenMaiMap.put(khachSan.getId(), listKhuyenMai);
+	            for (KhuyenMaiModel khuyenMai : listKhuyenMai) {
+	            	System.out.println (khachSan.getId() + "tên khuyến mãi: " + khuyenMai.getTen());
+	            }
 	        }
 	  
 	        req.setAttribute("anhMap", anhMap);
 	        req.setAttribute("tienIchMap", tienIchMap);
 	        req.setAttribute("phongMap", phongMap);
 	        req.setAttribute("khyenMaiMap", khyenMaiMap);
+	        
+	        req.setAttribute("listThichKhachSan", listThichKhachSan);
+	        
 	        session.setAttribute("tienThueMoiKS", phongMap);
 	        String[] strDanhGia = {"Bình thường", "Khá ổn", "Chất lượng", "Sang trọng", "Tuyệt vời", "Xuất sắc"};
 	        req.setAttribute("strDanhGia", strDanhGia);
@@ -239,6 +255,32 @@ public class listHotelController extends HttpServlet {
 		String url = req.getRequestURI();
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
+		
+		if (url.contains("/danhsachks/thichKS")) {
+			HttpSession session = req.getSession(false);
+			UserModel user = null;
+			
+			if (session != null && session.getAttribute("account") != null) {
+				user = (UserModel) session.getAttribute("account");
+			}
+			
+			int ksId = Integer.parseInt(req.getParameter("ksId"));
+		    boolean favorite = Boolean.parseBoolean(req.getParameter("favorite"));
+		    
+		    if (favorite == true) {
+		    	thichKhachSanService.likeHotel(user.getId(), ksId);
+		    }
+		    else {
+		    	thichKhachSanService.unlikeHotel(user.getId(), ksId);
+		    }
+
+		    System.out.println("ksId nhận được: " + ksId);
+		    System.out.println("favorite nhận được: " + favorite);
+		    System.out.println("favorite nhận được: " + user.getFullname());
+
+		    resp.setContentType("text/plain");
+		    resp.getWriter().write("Dữ liệu nhận thành công!");
+		}
 		if (url.contains("/danhsachks/timkiem")) {
 			String diadiem = req.getParameter("tenThanhPhoTimKiem");
 			String ngaydenStr = req.getParameter("thoiGianDen");

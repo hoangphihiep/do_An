@@ -1,8 +1,10 @@
 package vn.iotstar.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -220,13 +222,18 @@ public class KhuyenMaiDaoImpl extends DBConnectionSQL implements IKhuyenMaiDao {
 
 	@Override
 	public List<KhuyenMaiModel> findByIdKhachSan(int idKhachSan) {
+		
+		Date thoiGianHienTai = new Date(System.currentTimeMillis());
+		
 		String sql = "SELECT * "
-				+ "FROM KhuyenMai WHERE KhuyenMai.IdKhachSan = ?";
+				+ "FROM KhuyenMai WHERE KhuyenMai.IdKhachSan = ? AND KhuyenMai.thoiGianBatDau <= ? AND KhuyenMai.thoiGianKetThuc >= ?";
 		List<KhuyenMaiModel> list = new ArrayList<KhuyenMaiModel>();
 		try {
 			conn = new DBConnectionSQL().getConnection();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, idKhachSan);
+			ps.setDate(2, thoiGianHienTai);
+			ps.setDate(3, thoiGianHienTai);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				list.add(new KhuyenMaiModel(

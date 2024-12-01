@@ -23,9 +23,11 @@
 								            <i style="margin-right: 15px" class="fa fa-history"></i>Lịch Sử
 								        </button>
 								    </form>
-								    <button class="btn-link" style="display: block;">
-								        <i style="margin-right: 15px" class="fa fa-paper-plane"></i>Gửi Báo Cáo
-								    </button>
+								    <form action="/do_An/myAccount/danhsachksyeuthich" method="GET">
+								        <button type="submit" class="btn-link" style="display: block;">
+								            <i style="margin-right: 15px" class="fa fa-history"></i>Yêu thích
+								        </button>
+								    </form>
 								    <button class="btn-link" style="display: block;">
 								        <i style="margin-right: 15px" class="fa fa-share-alt"></i>Chia Sẻ
 								    </button>

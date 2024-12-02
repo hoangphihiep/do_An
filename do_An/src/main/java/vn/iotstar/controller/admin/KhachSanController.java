@@ -39,6 +39,10 @@ public class KhachSanController extends HttpServlet {
 		System.out.println ("id cua user: " + user.getId());
 		if (url.contains("/admin/listKhachSan")) {
 			List<KhachSanModel> listKhachSan = khachSanService.findAll();
+			List<ThongBaoModel> listThongBao = thongBaoService.listFindByIdUser(user.getId());
+			int soLuongThongBao = listThongBao.size();
+			req.setAttribute("slthongbao", soLuongThongBao);
+			req.setAttribute("listthongbao", listThongBao);
 			req.setAttribute("listkhachsan", listKhachSan);
 			req.setAttribute("username", user.getFullname());
 			req.getRequestDispatcher("/views/admin/listKhachSan.jsp").forward(req, resp);

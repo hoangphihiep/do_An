@@ -9,7 +9,7 @@
 </head>
 <body>
 <!-- Table -->
-    <div style="background-color: #ffffff; padding: 20px; border: 1px solid #ddd; border-radius: 8px; margin-left: -128px; margin-top: 0px">
+    <div style="background-color: #ffffff; padding: 20px; border: 1px solid #ddd; border-radius: 8px; margin-left: -96px; margin-top: 0px">
         <h2 style="margin-bottom: 20px;">Khuyến mãi</h2>
         <table id="reservationTable" style="width: 100%; border-collapse: collapse;">
             <thead>

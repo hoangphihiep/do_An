@@ -9,7 +9,6 @@ import java.util.List;
 import vn.iotstar.configs.DBConnectionSQL;
 import vn.iotstar.dao.ILoaiKhachSanDao;
 import vn.iotstar.models.LoaiKhachSanModel;
-import vn.iotstar.models.PhongModel;
 
 public class LoaiKhachSanImpl extends DBConnectionSQL implements ILoaiKhachSanDao {
 

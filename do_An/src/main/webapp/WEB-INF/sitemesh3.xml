@@ -25,6 +25,7 @@
 	<mapping path="/sheller/phong" name="sheller" decorator="sheller.jsp" />
 	<mapping path="/sheller/home" name="sheller" decorator="sheller.jsp" />
 	<mapping path="/sheller/danhSachDatPhong" name="sheller" decorator="sheller.jsp" />
+	<mapping path="/sheller/danhSachChiecKhau" name="sheller" decorator="sheller.jsp" />
 	
 	<mapping path="/sheller/suaChoNghi/ThongTinCoBan" name="editsheller" decorator="templateKS.jsp" />
 	<mapping path="/sheller/suaChoNghi/tienIch" name="editsheller" decorator="templateKS.jsp" />

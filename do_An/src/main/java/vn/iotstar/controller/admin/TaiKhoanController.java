@@ -9,8 +9,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import vn.iotstar.models.ThongBaoModel;
 import vn.iotstar.models.UserModel;
+import vn.iotstar.services.IThongBaoService;
 import vn.iotstar.services.IUserServices;
+import vn.iotstar.services.impl.ThongBaoServiceImpl;
 import vn.iotstar.services.impl.UserServiceImpl;
 
 @WebServlet(urlPatterns = {"/admin/listTaiKhoan"})
@@ -18,6 +21,7 @@ public class TaiKhoanController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	public IUserServices userService = new UserServiceImpl();
+	public IThongBaoService thongBaoService = new ThongBaoServiceImpl();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -27,7 +31,10 @@ public class TaiKhoanController extends HttpServlet {
 			user = (UserModel) session.getAttribute("account");
 		}
 		session.setAttribute("account", user);
-		System.out.println ("id cua user1: " + user.getId());
+		List<ThongBaoModel> listThongBao = thongBaoService.listFindByIdUser(user.getId());
+		int soLuongThongBao = listThongBao.size();
+		req.setAttribute("slthongbao", soLuongThongBao);
+		req.setAttribute("listthongbao", listThongBao);
 		String idUserStr = req.getParameter("id");
 		if (idUserStr != null) {
 			int idUser = Integer.parseInt(idUserStr);

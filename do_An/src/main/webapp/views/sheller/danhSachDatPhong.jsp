@@ -37,6 +37,7 @@
 		                    <p style="margin: 0;">Phòng: ${dp.phong.ten}</p>
 		                    <p style="margin: 5px 0;">Giá: ${dp.phong.giaThue} vnd</p>
 		                    <p style="margin: 0;">Tổng: ${dp.thanhTien} vnd</p>
+		                    <p style="margin: 0;">Tiền sau khi chiếc khấu là: ${dp.tienSauKhiChietKhau} vnd</p>
 		                </td>
 		                <td style="padding: 10px;">
 		                	<p style="margin: 5px 0;">Ngày Đặt: ${dp.ngayDat}</p>

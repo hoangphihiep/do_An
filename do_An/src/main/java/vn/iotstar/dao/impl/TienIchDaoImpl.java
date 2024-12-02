@@ -8,9 +8,7 @@ import java.util.List;
 
 import vn.iotstar.configs.DBConnectionSQL;
 import vn.iotstar.dao.ITienIchDao;
-import vn.iotstar.dao.IUserDao;
 import vn.iotstar.models.TienIchModel;
-import vn.iotstar.models.UserModel;
 
 public class TienIchDaoImpl extends DBConnectionSQL implements ITienIchDao{
 

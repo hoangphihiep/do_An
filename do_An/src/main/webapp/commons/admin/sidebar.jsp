@@ -13,11 +13,11 @@
         <img src="/do_An/Content/Images/hotel.png" alt="VietNam" valign="middle" width="20" height="20" />
         <span>Khách sạn</span>
     </a>
-    <a href="/do_An/sheller/suaChoNghi/anhKhachSan" class="sidebar-item" style="display: inline-block; text-decoration: none; text-align: center;">
+    <a href="/do_An/admin/listChiecKhau" class="sidebar-item" style="display: inline-block; text-decoration: none; text-align: center;">
         <i style="mask: url('icon-diamond.svg') no-repeat center;"></i>
         <span>Đặt phòng</span>
     </a>
-    <a href="/do_An/sheller/suaChoNghi/anhKhachSan" class="sidebar-item" style="display: inline-block; text-decoration: none; text-align: center;">
+    <a href="/do_An/admin/listChiecKhau" class="sidebar-item" style="display: inline-block; text-decoration: none; text-align: center;">
         <i style="mask: url('icon-diamond.svg') no-repeat center;"></i>
         <span>Chiết khấu</span>
     </a>

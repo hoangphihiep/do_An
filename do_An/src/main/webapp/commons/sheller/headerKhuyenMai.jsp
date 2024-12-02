@@ -10,7 +10,7 @@
         <a href="/do_An/sheller/doanhThu" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Doanh thu</a>
         <a href="/do_An/sheller/danhSachGiamGia" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Giảm giá</a>
         <a href="/do_An/sheller/danhSachKhuyenMai" class="nav-link active" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Khuyến mãi</a>
-        <a href="#" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Phân tích</a>
+        <a href="/do_An/sheller/danhSachChiecKhau" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Chiếc khấu</a>
     </nav>
 </div>
 

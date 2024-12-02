@@ -191,7 +191,26 @@
             });
         });
     </script>
-    
+    <script>
+	    function toggleDropdown(event) {
+	        event.preventDefault();
+	        const dropdown = document.getElementById('notificationDropdown');
+	        // Toggle visibility
+	        if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+	            dropdown.style.display = 'block';
+	        } else {
+	            dropdown.style.display = 'none';
+	        }
+	    }
+	
+	    // Đóng dropdown nếu click ra ngoài
+	    document.addEventListener('click', function(event) {
+	        const dropdown = document.getElementById('notificationDropdown');
+	        if (!event.target.closest('.dropdown')) {
+	            dropdown.style.display = 'none';
+	        }
+	    });
+	</script>
 	<script src="/do_An/Content/js/bootstrap.min.js"></script>
  
 

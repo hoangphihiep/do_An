@@ -25,8 +25,8 @@ public class DatPhongServiceImpl implements IDatPhongService {
 		return datPhongDao.listPhongDaDatByIdSheller(idSheller);
 	}
 	@Override
-	public void updateTrangThaiTT(int idDatPhong) {
-		datPhongDao.updateTrangThaiTT(idDatPhong);	
+	public void updateTrangThaiTT(int idDatPhong, int tienSauKhiChiecKhau) {
+		datPhongDao.updateTrangThaiTT(idDatPhong,tienSauKhiChiecKhau);	
 	}
 	@Override
 	public void delete(int idDatPhong) {
@@ -47,5 +47,9 @@ public class DatPhongServiceImpl implements IDatPhongService {
 	@Override
 	public List<DoanhThuModel> findAllDoanhThu(Date ngayBatDau, Date ngayKetThuc, int idKhachSan) {
 		return datPhongDao.findAllDoanhThu(ngayBatDau, ngayKetThuc, idKhachSan);
+	}
+	@Override
+	public DatPhongModel findById(int idDatPhong) {
+		return datPhongDao.findById(idDatPhong);
 	}
 }

@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.iotstar.models.KhachSanModel;
 import vn.iotstar.models.KhuyenMaiModel;
-import vn.iotstar.models.PhongModel;
 import vn.iotstar.models.ThongBaoModel;
 import vn.iotstar.models.UserModel;
 import vn.iotstar.services.IKhachSanService;
@@ -45,7 +44,10 @@ public class KhuyenMaiController extends HttpServlet {
 		session.setAttribute("account", user);
 		if (url.contains("/admin/listKhuyenMai")) {
 			List<KhuyenMaiModel> listKhuyenMai = khuyenMaiService.findAll();
-			
+			List<ThongBaoModel> listThongBao = thongBaoService.listFindByIdUser(user.getId());
+			int soLuongThongBao = listThongBao.size();
+			req.setAttribute("slthongbao", soLuongThongBao);
+			req.setAttribute("listthongbao", listThongBao);
 			req.setAttribute("listkhuyenmai", listKhuyenMai);
 			req.setAttribute("username", user.getFullname());
 			req.getRequestDispatcher("/views/admin/listKhuyenMai.jsp").forward(req, resp);

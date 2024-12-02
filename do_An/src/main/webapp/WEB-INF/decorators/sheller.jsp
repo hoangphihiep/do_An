@@ -35,6 +35,12 @@
         display: block;
     }
 </style>
+<link type="text/css" rel="stylesheet" href="/do_An/Content/css/bootstrap.min.css" />
+<!-- // -->
+<link type="text/css" rel="stylesheet" href="/do_An/Content/css/style.css" />
+<link type="text/css" rel="stylesheet" href="/do_An/Content/css/font.css" />
+<link type="text/css" rel="stylesheet" href="/do_An/Content/css/carousel.css" />
+<link type="text/css" rel="stylesheet" href="/do_An/Content/css/style2.css" />
 <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <!-- jQuery -->
@@ -102,5 +108,6 @@
 	        }
 	    });
 	</script>
+	<script src="/do_An/Content/js/bootstrap.min.js"></script>
 </body>
 </html>

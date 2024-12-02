@@ -83,7 +83,8 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 						rs.getInt("DaHuy"),
 						rs.getInt("SoPhongDaDat"),
 						rs.getBoolean("ThanhToan"),
-						rs.getString("PhuongThucThanhToan")));
+						rs.getString("PhuongThucThanhToan"),
+						rs.getInt("TienSauKhiChiecKhau")));
 			}
 			return list;
 		} catch (Exception e) {
@@ -142,7 +143,7 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 
 	@Override
 	public List<DatPhongModel> listPhongDaDatByIdSheller(int idSheller) {
-		String sql = "SELECT dp.Id,dp.IdUser,dp.IdPhong,dp.NgayDat,dp.NgayDen,dp.NgayTra,dp.GhiChu,dp.ThanhTien,dp.DaHuy,dp.SoPhongDaDat,dp.ThanhToan,dp.PhuongThucThanhToan " +
+		String sql = "SELECT dp.Id,dp.IdUser,dp.IdPhong,dp.NgayDat,dp.NgayDen,dp.NgayTra,dp.GhiChu,dp.ThanhTien,dp.DaHuy,dp.SoPhongDaDat,dp.ThanhToan,dp.PhuongThucThanhToan, dp.TienSauKhiChiecKhau " +
 	             "FROM DatPhong dp, Phong p, KhachSan k, Users u " +
 	             "WHERE u.Id = ? AND u.Id = k.IdUser AND k.Id = p.IdKhachSan AND p.Id = dp.IdPhong";
 		List<DatPhongModel> list = new ArrayList<DatPhongModel>();
@@ -164,7 +165,8 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 						rs.getInt("DaHuy"),
 						rs.getInt("SoPhongDaDat"),
 						rs.getBoolean("ThanhToan"),
-						rs.getString("PhuongThucThanhToan")));
+						rs.getString("PhuongThucThanhToan"),
+						rs.getInt("TienSauKhiChiecKhau")));
 			}
 			return list;
 		} catch (Exception e) {
@@ -174,15 +176,16 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 	}
 
 	@Override
-	public void updateTrangThaiTT(int idDatPhong) {
-		String sql = "UPDATE DatPhong SET ThanhToan = ? WHERE Id = ?";
+	public void updateTrangThaiTT(int idDatPhong, int tienSauKhiChiecKhau) {
+		String sql = "UPDATE DatPhong SET ThanhToan = ?, TienSauKhiChiecKhau = ? WHERE Id = ?";
 
 		try {
 			conn = new DBConnectionSQL().getConnection();
 			ps = conn.prepareStatement(sql);
 
 			ps.setBoolean(1, true);
-			ps.setInt(2, idDatPhong);
+			ps.setInt(2, tienSauKhiChiecKhau);
+			ps.setInt(3, idDatPhong);
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -205,7 +208,7 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 
 	@Override
 	public List<DatPhongModel> listKhachDatPhong(int idSheller) {
-		String sql = "SELECT dp.Id, dp.IdUser, dp.IdPhong, dp.NgayDat, dp.NgayDen, dp.NgayTra, dp.GhiChu, dp.ThanhTien, dp.DaHuy, dp.SoPhongDaDat, dp.ThanhToan, dp.PhuongThucThanhToan " +
+		String sql = "SELECT dp.Id, dp.IdUser, dp.IdPhong, dp.NgayDat, dp.NgayDen, dp.NgayTra, dp.GhiChu, dp.ThanhTien, dp.DaHuy, dp.SoPhongDaDat, dp.ThanhToan, dp.PhuongThucThanhToan, dp.TienSauKhiChiecKhau " +
 	             "FROM DatPhong dp, Phong p, KhachSan k, Users u " +
 	             "WHERE u.Id = ? " +
 	             "AND u.Id = k.IdUser " +
@@ -235,7 +238,8 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 						rs.getInt("DaHuy"),
 						rs.getInt("SoPhongDaDat"),
 						rs.getBoolean("ThanhToan"),
-						rs.getString("PhuongThucThanhToan")));
+						rs.getString("PhuongThucThanhToan"),
+						rs.getInt("TienSauKhiChiecKhau")));
 			}
 			return list;
 		} catch (Exception e) {
@@ -309,6 +313,44 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 			}
 			return list;
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public DatPhongModel findById(int idDatPhong) {
+		String sql = "select * "
+				+ "from DatPhong"
+				+ "where DatPhong.Id = ?";
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idDatPhong);
+			rs = ps.executeQuery();
+			while (rs.next())
+			{
+				DatPhongModel datPhong = new DatPhongModel();
+				datPhong.setId(rs.getInt("Id"));
+				datPhong.setIdUser(rs.getInt("IdUser"));
+				datPhong.setIdPhong(rs.getInt("IdPhong"));
+				datPhong.setNgayDat(rs.getDate("NgayDat"));
+				datPhong.setNgayDen(rs.getDate("NgayDen"));
+				datPhong.setNgayTra(rs.getDate("NgayTra"));
+				datPhong.setGhiChu(rs.getString("GhiChu"));
+				datPhong.setThanhTien(rs.getInt("ThanhTien"));
+				datPhong.setDaHuy(rs.getInt("DaHuy"));
+				datPhong.setSoPhongDaDat(rs.getInt("SoPhongDaDat"));
+				datPhong.setThanhToan(rs.getBoolean("ThanhToan"));
+				datPhong.setPhuongThucTT(rs.getString("PhuongThucThanhToan"));
+				datPhong.setTienSauKhiChietKhau(rs.getInt("TienSauKhiChiecKhau"));
+				return datPhong;
+			}
+			conn.close();
+			ps.close();
+			rs.close();
+		} catch (Exception e) {
+			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return null;

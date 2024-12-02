@@ -26,6 +26,7 @@ public class DatPhongModel implements Serializable {
     int soPhongDaDat;
     boolean thanhToan;
     String phuongThucTT;
+    int tienSauKhiChietKhau;
     UserModel user;
     PhongModel phong;
     long thoiGianConLaiTT;
@@ -41,7 +42,7 @@ public class DatPhongModel implements Serializable {
 	}
 
 	public DatPhongModel(int id, int idUser, int idPhong, Date ngayDat, Date ngayDen, Date ngayTra,
-			String ghiChu, int thanhTien, int daHuy, int soPhongDaDat, boolean thanhToan, String phuongThucTT) {
+			String ghiChu, int thanhTien, int daHuy, int soPhongDaDat, boolean thanhToan, String phuongThucTT, int tienSauKhiChietKhau) {
 		super();
 		this.id = id;
 		this.idUser = idUser;
@@ -55,6 +56,7 @@ public class DatPhongModel implements Serializable {
 		this.soPhongDaDat = soPhongDaDat;
 		this.thanhToan = thanhToan;
 		this.phuongThucTT = phuongThucTT;
+		this.tienSauKhiChietKhau = tienSauKhiChietKhau;
 		
 		if (ngayHienTai.before(ngayDat)) {
 			thoiGianConLaiTT = ChronoUnit.DAYS.between(ngayDat.toLocalDate(), ngayDen.toLocalDate());
@@ -215,5 +217,13 @@ public class DatPhongModel implements Serializable {
 
 	public void setThoiGianOConLai(long thoiGianOConLai) {
 		this.thoiGianOConLai = thoiGianOConLai;
+	}
+
+	public int getTienSauKhiChietKhau() {
+		return tienSauKhiChietKhau;
+	}
+
+	public void setTienSauKhiChietKhau(int tienSauKhiChietKhau) {
+		this.tienSauKhiChietKhau = tienSauKhiChietKhau;
 	} 
 }

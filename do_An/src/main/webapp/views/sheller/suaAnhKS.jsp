@@ -11,7 +11,7 @@
 </head>
 <body>
     <form action="${pageContext.request.contextPath }/sheller/sua/anhKS" method="post" enctype="multipart/form-data">
-        <div style="font-family: Arial, sans-serif; width: 900px; margin: 50px auto; margin-left: -56px;">
+        <div style="max-width: 900px; margin: 50px auto; padding: 20px; background-color: #fff; border: 1px solid #ddd; border-radius: 8px; margin-left: -56px;">
             <!-- Phần chính tải ảnh -->
             <div style="text-align: center;">
                 <h2 style="font-size: 18px; font-weight: bold; color: #333;">Khách sạn của Quý vị trông ra sao?</h2>

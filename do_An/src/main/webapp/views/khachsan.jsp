@@ -15,10 +15,9 @@
 		<div class="row">
 			<div class="col-md-3">
 				<div style="margin-top: 20px">
-					<div class="div-datngay">
-						<button class="btn-datngay"
-							onClick="window.location = '#phongtrong'"
-							style="margin-top: 20px; padding: 9px;">Đặt ngay</button>
+					<div
+						style="text-align: center; font-size: 18px; font-weight: bold; color: #007AD9; margin-top: 20px">
+						${ks.danhGia} &#9733;  ${strDanhGia[ks.danhGia]}
 					</div>
 					<div
 						style="border-radius: 3px; border: 1px solid #c0c0c0; margin-bottom: 20px; padding: 0 0 10px 0">
@@ -44,10 +43,7 @@
 							style="width: 90%; margin-top: 17px; border: 1px solid #0077CC; color: #0077CC">Đặt
 							câu hỏi</button>
 					</div>
-					<div
-						style="text-align: center; font-size: 18px; font-weight: bold; color: #007AD9; margin-top: 20px">
-						${ks.danhGia} &#9733;<br /> ${strDanhGia[ks.danhGia]}
-					</div>
+					
 				</div>
 			</div>
 			<div class="col-md-9">
@@ -166,7 +162,7 @@
 			</div>
 		</div>
 	</div>
-	<div style="margin-left: 0px;">
+	<div style="margin-left: 0px; margin-top: 10px;">
 		<table
 			style="width: 100%; max-width: 1180px; margin: auto; border-collapse: collapse; font-family: Arial, sans-serif; border: 1px solid #ddd; background-color: #f9f9f9;">
 			<thead>

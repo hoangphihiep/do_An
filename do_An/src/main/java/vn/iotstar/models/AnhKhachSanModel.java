@@ -6,11 +6,16 @@ public class AnhKhachSanModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	int idAnhKhachSan;
-    String vaiTroCuaAnh;
-    String urlAnhKhachSan;
-    int idKhachSan;
+	private int idAnhKhachSan;
+    private String vaiTroCuaAnh;
+    private String urlAnhKhachSan;
+    private int idKhachSan;
     
+    
+	public AnhKhachSanModel() {
+		super();
+	}
+
 	public AnhKhachSanModel(int idAnhKhachSan, String vaiTroCuaAnh, String urlAnhKhachSan, int idKhachSan) {
 		super();
 		this.idAnhKhachSan = idAnhKhachSan;

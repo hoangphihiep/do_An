@@ -20,6 +20,7 @@ import vn.iotstar.models.DiaDiemModel;
 import vn.iotstar.models.KhachSanModel;
 import vn.iotstar.models.PhongModel;
 import vn.iotstar.models.TienIchModel;
+import vn.iotstar.models.UserModel;
 import vn.iotstar.services.IAnhKhachSanService;
 import vn.iotstar.services.IDiaDiemService;
 import vn.iotstar.services.IKhachSanService;
@@ -70,12 +71,20 @@ public class suaChoNghiController extends HttpServlet {
 		    session.setAttribute("idKS", String.valueOf(id));
 		}
 		
+		UserModel user = null;
+		if (session != null && session.getAttribute("account") != null) {
+			user = (UserModel) session.getAttribute("account");
+		}
+		session.setAttribute("account", user);
+		
 		if (url.contains("/sheller/suaChoNghi/ThongTinCoBan")) {
 			KhachSanModel ks = khachSanService.findById(idKS);
 			List <PhongModel> listPhong = phongService.findByIdKhachSan(idKS);
+			System.out.println ("id của khách sạn 1: " + idKS);
 			req.setAttribute("listPhong", listPhong);
 			session.setAttribute("listPhong", listPhong);
 			req.setAttribute("ks", ks);
+			req.setAttribute("username", user.getFullname());
 			req.getRequestDispatcher("/views/sheller/suaThongTinKS.jsp").forward(req, resp);
 		}
 		if (url.contains("/sheller/suaChoNghi/tienIch")) {
@@ -153,10 +162,12 @@ public class suaChoNghiController extends HttpServlet {
 			}
 			List<PhongModel> listPhong = (List<PhongModel>) session.getAttribute("listPhong");
 			req.setAttribute("listPhong", listPhong);
+			req.setAttribute("username", user.getFullname());
 			req.getRequestDispatcher("/views/sheller/suaTienNghiKS.jsp").forward(req, resp);
 		}
 		if (url.contains("/sheller/suaChoNghi/anhKhachSan")) {
 			List<AnhKhachSanModel> listAnhKS = anhKhachSanService.findByIdKhachSan(idKS);
+			System.out.println ("id của khách sạn: " + idKS);
 			int i = 2;
 			for (AnhKhachSanModel anhKS: listAnhKS) {
 				if(anhKS.getVaiTroCuaAnh().equals("AnhChinh")) {
@@ -166,10 +177,12 @@ public class suaChoNghiController extends HttpServlet {
 					req.setAttribute("image"+i, anhKS.getUrlAnhKhachSan());
 					i++;
 				}
+				System.out.println ("anh khách sạn: " + anhKS.getIdAnhKhachSan() + anhKS.getVaiTroCuaAnh());
 				
 			}
 			List<PhongModel> listPhong = (List<PhongModel>) session.getAttribute("listPhong");
 			req.setAttribute("listPhong", listPhong);
+			req.setAttribute("username", user.getFullname());
 			req.getRequestDispatcher("/views/sheller/suaAnhKS.jsp").forward(req, resp);
 		}
 		if (url.contains("/sheller/suaChoNghi/phong")) {
@@ -198,24 +211,28 @@ public class suaChoNghiController extends HttpServlet {
 	                if (parts.length > 0) {
 	                	singleBedCount = parts[0];
 	                }
+	                System.out.println ("Số giường1: " + singleBedCount);
 	            }
 	            if (amenity.contains("Giường đôi")) {
 	                String[] parts = amenity.split(" ");
 	                if (parts.length > 0) {
 	                	doubleBedCount = parts[0];
 	                }
+	                System.out.println ("Số giường2: " + doubleBedCount);
 	            }
 	            if (amenity.contains("Giường lớn(cỡ King)")) {
 	                String[] parts = amenity.split(" ");
 	                if (parts.length > 0) {
 	                	kingBedCount = parts[0];
 	                }
+	                System.out.println ("Số giường3: " + kingBedCount);
 	            }
 	            if (amenity.contains("Giường cực lớn(cỡ Super-King)")) {
 	                String[] parts = amenity.split(" ");
 	                if (parts.length > 0) {
 	                	superkingBedCount = parts[0];
 	                }
+	                System.out.println ("Số giường4: " + superkingBedCount);
 	            }
 	            
 	            if (amenity.contains("TV màn hình phẳng")) {
@@ -279,6 +296,7 @@ public class suaChoNghiController extends HttpServlet {
 			req.setAttribute("imageUpload", phong.getAnhPhong());
 			List<PhongModel> listPhong = (List<PhongModel>) session.getAttribute("listPhong");
 			req.setAttribute("listPhong", listPhong);
+			req.setAttribute("username", user.getFullname());
 			req.getRequestDispatcher("/views/sheller/suaPhongKS.jsp").forward(req, resp);
 		}	
 	}

@@ -9,8 +9,7 @@
 </head>
 <body>
 	<div style = "width: 90%;margin: auto;">
-		<h3 style="text-align: center; color: #444; margin-bottom: 0px">Các
-			Khách sạn tìm thấy</h3>
+		<h3 style="text-align: center; color: #444; margin-bottom: 0px; margin-left: -180px">Tìm thấy ${SLKS} khách sạn tại ${diaDiem}</h3>
 		<div class="row">
 			
 			<div class="col-md-3">
@@ -22,7 +21,7 @@
 						<div>
 						  <div class="row">
 						    <div class="col-sm-12">
-						      <div id="slider-range"></div>
+						      <div id="slider-range" ></div>
 						    </div>
 						  </div>
 						  <div class="row slider-labels">
@@ -46,7 +45,9 @@
 					        <c:forEach var="xephang" items="${listxh}" varStatus="status">
 					            <div>
 					                <input type="checkbox" class="filter-checkbox" name="ranking" value="${xephang.label}" 
-					                <c:if test="${xephang.checked}">checked="checked"</c:if> 
+					                <c:if test="${xephang.checked}">
+					                	checked="checked"
+					                </c:if> 
 					                onchange="submitForm()" />
 					                ${xephang.label}
 					            </div>
@@ -69,12 +70,12 @@
 					    <!-- Tiện ích -->
 					    <div class="khoi-loc">
 					        <div class="head">Tiện ích</div>
-					        <c:forEach var="buaan" items="${listBuaAn}">
+					        <c:forEach var="tiennghi" items="${listTienNghi}">
 					            <div>
-					                <input type="checkbox" class="filter-checkbox" name="mealType" value="${buaan.label}" 
-					                <c:if test="${buaan.checked}">checked="checked"</c:if> 
+					                <input type="checkbox" class="filter-checkbox" name="mealType" value="${tiennghi.label}" 
+					                <c:if test="${tiennghi.checked}">checked="checked"</c:if> 
 					                onchange="submitForm()" />
-					                ${buaan.label}
+					                ${tiennghi.label}
 					            </div>
 					        </c:forEach>
 					    </div>
@@ -224,23 +225,15 @@
 											<div style="margin-top: 20px;">	
 												<c:if test="${!empty tienIchMap[ks.id]}">
 													<div style="font-size: 14px; color: #666; margin-top: -10px;">Cơ sở lưu trú này có:</div>
-													<c:forEach items="${tienIchMap[ks.id]}" var="tienIch">
-														<c:if test="${tienIch.idLoaiTienNghi == 5}">
-															<span
-																style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
-														</c:if>
-														<c:if test="${tienIch.idLoaiTienNghi == 7}">
-															<span
-																style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
-														</c:if>
-														<c:if test="${tienIch.idLoaiTienNghi == 8}">
-															<span
-																style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
-														</c:if>
+													<c:forEach items="${tienIchMap[ks.id]}" var="tienIch" varStatus="status">
+													    <c:if test="${status.count <= 3}">
+													            <span
+													                style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">
+													                ${tienIch.tenTienNghi}
+													            </span>
+													    </c:if>
 													</c:forEach>
 												</c:if>
-												
-		
 											</div>
 										<div style="color: #0071c2; font-size: 16px;">
 											<div style="font-size: 14px; color: #666; margin-top: 10px;">

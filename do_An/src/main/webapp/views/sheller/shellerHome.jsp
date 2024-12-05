@@ -13,7 +13,7 @@
     
     <div style="max-width: 1200px; margin: auto; padding: 20px;">
         <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">Trang chủ Nhóm chỗ nghỉ</div>
-        <button style="background-color: #0071c2; margin-top: -10px; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 14px; cursor: pointer; float: right;">Thêm chỗ nghỉ mới</button>
+        <a href="/do_An/sheller/dangChoNghi/ThongTinCoBan" style="background-color: #0071c2; margin-top: -10px; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 14px; cursor: pointer; float: right; display: inline-block; text-decoration: none;">Thêm chỗ nghỉ mới</a>
         <div style="color: #666; font-size: 14px;">Chỗ nghỉ chưa có trên Booking.com (3)</div>
         
         <p>Phát triển kinh doanh bằng cách thêm các chỗ nghỉ này vào nền tảng du lịch trực tuyến lớn nhất thế giới, Booking.com.</p>

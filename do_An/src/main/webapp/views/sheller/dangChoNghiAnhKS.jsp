@@ -11,7 +11,7 @@
 </head>
 <body>
     <form action="${pageContext.request.contextPath }/sheller/anhKS" method="post" enctype="multipart/form-data">
-        <div style="font-family: Arial, sans-serif; width: 900px; margin: 50px auto;">
+        <div style="max-width: 900px; margin: 50px auto; padding: 20px; background-color: #fff; border: 1px solid #ddd; border-radius: 8px;">
             <!-- Phần chính tải ảnh -->
             <div style="text-align: center;">
                 <h2 style="font-size: 18px; font-weight: bold; color: #333;">Khách sạn của Quý vị trông ra sao?</h2>
@@ -28,7 +28,7 @@
                                 <span id="placeholderText1" style="color: #aaa; font-size: 14px;">Chưa có ảnh</span>
                                 <img id="previewImage1" src="#" alt="Xem trước hình ảnh" style="display: none; width: 100%; height: 100%; object-fit: cover;">
                             </div>
-                            <input type="file" id="imageUpload1" name="image1" style="display: none;" accept="image/*" onchange="previewImage(event, 'previewImage1', 'placeholderText1')">
+                            <input type="file" id="imageUpload1" name="image1" style="display: none;" accept="image/*" onchange="previewImage(event, 'previewImage1', 'placeholderText1')" required>
                             <button type="button" onclick="document.getElementById('imageUpload1').click()" style="width: 100%; background-color: #4e9a9b; color: white; font-size: 24px; text-align: center; padding: 5px 0; border-radius: 0 0 10px 10px; cursor: pointer;">Upload</button>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                             <span id="placeholderText<%=i%>" style="color: #aaa; font-size: 14px;">Chưa có ảnh</span>
                             <img id="previewImage<%=i%>" src="#" alt="Xem trước hình ảnh" style="display: none; width: 100%; height: 100%; object-fit: cover;">
                         </div>
-                        <input type="file" id="imageUpload<%=i%>" name="image<%=i%>" style="display: none;" accept="image/*" onchange="previewImage(event, 'previewImage<%=i%>', 'placeholderText<%=i%>')">
+                        <input type="file" id="imageUpload<%=i%>" name="image<%=i%>" style="display: none;" accept="image/*" onchange="previewImage(event, 'previewImage<%=i%>', 'placeholderText<%=i%>')" required>
                         <button type="button" onclick="document.getElementById('imageUpload<%=i%>').click()" style="width: 100%; background-color: #4e9a9b; color: white; font-size: 24px; text-align: center; padding: 5px 0; border-radius: 0 0 10px 10px; cursor: pointer;">Upload</button>
                     </div>
                     <% } %>
@@ -52,7 +52,7 @@
                             <span id="placeholderText<%=i%>" style="color: #aaa; font-size: 14px;">Chưa có ảnh</span>
                             <img id="previewImage<%=i%>" src="#" alt="Xem trước hình ảnh" style="display: none; width: 100%; height: 100%; object-fit: cover;">
                         </div>
-                        <input type="file" id="imageUpload<%=i%>" name="image<%=i%>" style="display: none;" accept="image/*" onchange="previewImage(event, 'previewImage<%=i%>', 'placeholderText<%=i%>')">
+                        <input type="file" id="imageUpload<%=i%>" name="image<%=i%>" style="display: none;" accept="image/*" onchange="previewImage(event, 'previewImage<%=i%>', 'placeholderText<%=i%>')" required>
                         <button type="button" onclick="document.getElementById('imageUpload<%=i%>').click()" style="width: 100%; background-color: #4e9a9b; color: white; font-size: 24px; text-align: center; padding: 5px 0; border-radius: 0 0 10px 10px; cursor: pointer;">Upload</button>
                     </div>
                     <% } %>

@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.iotstar.models.AnhKhachSanModel;
-import vn.iotstar.models.BuaAnModel;
+import vn.iotstar.models.LocTienNghiModel;
 import vn.iotstar.models.CheckboxModel;
 import vn.iotstar.models.KhachSanModel;
 import vn.iotstar.models.KhuyenMaiModel;
@@ -53,11 +53,7 @@ public class listHotelController extends HttpServlet {
 	public IPhongService phongService = new PhongServiceImpl();
 	public IKhuyenMaiService khuyenMaiService = new KhuyenMaiServiceImpl();
 	public IThichKhachSanService thichKhachSanService = new ThichKhachSanServiceImpl();
-	ArrayList<CheckboxModel> listXepHang = new ArrayList<CheckboxModel>();
-	ArrayList<CheckboxModel> listLoaiKhachSan = new ArrayList<CheckboxModel>();
-	ArrayList<CheckboxModel> listBuaAn = new ArrayList<CheckboxModel>();
-	ArrayList<CheckboxModel> listCachTrungTam = new ArrayList<CheckboxModel>();
-	ArrayList<CheckboxModel> listGiapBien = new ArrayList<CheckboxModel>();
+
 	Map<Integer, List<AnhKhachSanModel>> anhMap = new HashMap<>();
     Map<Integer, List<TienIchModel>> tienIchMap = new HashMap<>();
     Map<Integer, List<PhongModel>> phongMap = new HashMap<>();
@@ -108,15 +104,16 @@ public class listHotelController extends HttpServlet {
 			}
 			req.setAttribute("listloaiks", listLoaiKhachSan);
 			
-			List<CheckboxModel> listBuaAn = (List<CheckboxModel>) session.getAttribute("listBuaAn");
-			if (listBuaAn == null) {
-			    listBuaAn = new ArrayList<>();
-			    for (BuaAnModel tmp : BuaAnModel.listBuaAn) {
-			        listBuaAn.add(new CheckboxModel(tmp.getTen()));
+			
+			List<CheckboxModel> listTienNghi = (List<CheckboxModel>) session.getAttribute("listTienNghi");
+			if (listTienNghi == null) {
+			    listTienNghi = new ArrayList<>();
+			    for (LocTienNghiModel tmp : LocTienNghiModel.listTienNghi) {
+			        listTienNghi.add(new CheckboxModel(tmp.getTen()));
 			    }
-			    session.setAttribute("listBuaAn", listBuaAn);
+			    session.setAttribute("listTienNghi", listTienNghi);
 			}
-			req.setAttribute("listBuaAn", listBuaAn);
+			req.setAttribute("listTienNghi", listTienNghi);
 
 			List<CheckboxModel> listCachTrungTam = (List<CheckboxModel>) session.getAttribute("listCachTrungTam");
 			if (listCachTrungTam == null) {
@@ -139,7 +136,55 @@ public class listHotelController extends HttpServlet {
 	        
 	        Object filteredHotelsObj = session.getAttribute("filteredHotels");
 	        List<KhachSanModel> listKS = null;
-	        if (filteredHotelsObj != null) {
+	        
+	        Object idDiaDiemObj = session.getAttribute("idDiaDiemTimKiem1");
+	        Object idDiaDiemObj1 = session.getAttribute("idDiaDiemTimKiem");        	
+        	int idDiaDiem = 0;
+        	String idDiaDiemStr = req.getParameter("id");
+	        if (idDiaDiemStr != null) {
+	        	idDiaDiem = Integer.parseInt(idDiaDiemStr);
+	        	filteredHotelsObj = null;
+	        	session.setAttribute("filteredHotels", null);
+	        	
+	        }else {
+	        	if (idDiaDiemObj != null) {
+		            idDiaDiem = (int) idDiaDiemObj;
+		            session.setAttribute("idDiaDiemTimKiem1", null);
+		            filteredHotelsObj = null;
+		            session.setAttribute("filteredHotels", null);
+		        } else if (idDiaDiemObj1 != null) {
+		        	idDiaDiem = (int) idDiaDiemObj1;    
+		        }
+	        }
+	        
+	        
+	        
+	        int idloaiKhachSan = 0;
+	        String idLoaiKhachSanStr = req.getParameter("idloaiks");
+	        if (idLoaiKhachSanStr != null) {
+	        	idloaiKhachSan = Integer.parseInt(idLoaiKhachSanStr);
+	        }
+	        
+	        if (idLoaiKhachSanStr != null) {
+	        	int currentPage = 1;
+	            if (req.getParameter("page") != null) {
+	                currentPage = Integer.parseInt(req.getParameter("page"));
+	            }
+	        	
+	        	
+	        	listKS = khachSanService.findByIdLoaiKhachSan(currentPage, idloaiKhachSan);
+	        	List<KhachSanModel> listKS1 = khachSanService.findByIdLoaiKhachSan(idloaiKhachSan);
+	        	int countKS = khachSanService.countAllByIdLoaiKS(idloaiKhachSan);
+	        	int endPage = countKS/5;
+	        	if (countKS % 5 != 0) {
+	        		endPage ++;
+	        	}
+	        	req.setAttribute("currentPage", currentPage);
+	        	req.setAttribute("countKS", countKS);
+	        	req.setAttribute("endPage", endPage);
+	        	session.setAttribute("originalHotelList", listKS1);
+	        }
+	        else if (filteredHotelsObj != null) {
 	        	int currentPage = 1;
 	            if (req.getParameter("page") != null) {
 	                currentPage = Integer.parseInt(req.getParameter("page"));
@@ -148,7 +193,9 @@ public class listHotelController extends HttpServlet {
 	        	
 	        	int startIndex = (currentPage - 1) * 5;
 	            int endIndex = Math.min(startIndex + 5, listKS.size());
-	            
+	            System.out.println ("Số khách sạn: " + listKS.size());
+	            System.out.println ("Trang hiện tại: " + currentPage);
+	            System.out.println ("Bắt đầu: " + startIndex + " Kết thúc: " + endIndex);
 	            List<KhachSanModel> paginatedList = listKS.subList(startIndex, endIndex);
 	            
 	        	int countKS = listKS.size();
@@ -162,63 +209,36 @@ public class listHotelController extends HttpServlet {
 	        	req.setAttribute("countKS", countKS);
 	        	req.setAttribute("endPage", endPage);
 	        }
-	        else {
-	        	Object idDiaDiemObj = session.getAttribute("idDiaDiemTimKiem");
-	        	
-	        	int idDiaDiem = 0;
-		        if (idDiaDiemObj != null) {
-		            idDiaDiem = (int) idDiaDiemObj;
-		        } 
-		        String idDiaDiemStr = req.getParameter("id");
-		        if (idDiaDiemStr != null) {
-		        	idDiaDiem = Integer.parseInt(idDiaDiemStr);
-		        }
-		        
-		        if (idDiaDiem != 0){
-		        	int currentPage = 1;
-		            if (req.getParameter("page") != null) {
-		                currentPage = Integer.parseInt(req.getParameter("page"));
-		            }
-		        	listKS = khachSanService.findByIdDiaDiem(currentPage,idDiaDiem);
-		        	List<KhachSanModel> listKS1 = khachSanService.findByIdDiaDiem(idDiaDiem);
-		        	int countKS = khachSanService.countAllByIdDiaDiem(idDiaDiem);
-		        	int endPage = countKS/5;
-		        	if (countKS % 5 != 0) {
-		        		endPage ++;
-		        	}
-		        	req.setAttribute("currentPage", currentPage);
-		        	req.setAttribute("countKS", countKS);
-		        	req.setAttribute("endPage", endPage);
-		        	session.setAttribute("idDiaDiemTimKiem", idDiaDiem);
-		        	//req.getSession().setAttribute("idTP", idThanhPho);
-		        	session.setAttribute("originalHotelList", listKS1);
-		        }
-		        else {
-		        	int currentPage = 1;
-		            if (req.getParameter("page") != null) {
-		                currentPage = Integer.parseInt(req.getParameter("page"));
-		            }
-		        	String idLoaiKhachSanStr = req.getParameter("idloaiks");
-		        	
-		        	int idloaiKhachSan = Integer.parseInt(idLoaiKhachSanStr);
-		        	
-		        	listKS = khachSanService.findByIdLoaiKhachSan(currentPage, idloaiKhachSan);
-		        	List<KhachSanModel> listKS1 = khachSanService.findByIdLoaiKhachSan(idloaiKhachSan);
-		        	int countKS = khachSanService.countAllByIdLoaiKS(idloaiKhachSan);
-		        	int endPage = countKS/5;
-		        	if (countKS % 5 != 0) {
-		        		endPage ++;
-		        	}
-		        	req.setAttribute("currentPage", currentPage);
-		        	req.setAttribute("countKS", countKS);
-		        	req.setAttribute("endPage", endPage);
-		        	session.setAttribute("originalHotelList", listKS1);
-		        }
+	        else if (idDiaDiemStr != null || idDiaDiemObj != null || idDiaDiemObj1 != null){
+	        	int currentPage = 1;
+	            if (req.getParameter("page") != null) {
+	                currentPage = Integer.parseInt(req.getParameter("page"));
+	            }
+	        	listKS = khachSanService.findByIdDiaDiem(currentPage,idDiaDiem);
+	        	List<KhachSanModel> listKS1 = khachSanService.findByIdDiaDiem(idDiaDiem);
+	        	int countKS = khachSanService.countAllByIdDiaDiem(idDiaDiem);
+	        	int endPage = countKS/5;
+	        	if (countKS % 5 != 0) {
+	        		endPage ++;
+	        	}
+	        	req.setAttribute("currentPage", currentPage);
+	        	req.setAttribute("countKS", countKS);
+	        	req.setAttribute("endPage", endPage);
+	        	session.setAttribute("idDiaDiemTimKiem", idDiaDiem);
+	        	//req.getSession().setAttribute("idTP", idThanhPho);
+	        	session.setAttribute("originalHotelList", listKS1);
 	        }
 	        
 	        //session.setAttribute("danhSachTimKiem", listKS);
         	req.setAttribute("listks", listKS);
-        	
+        	req.setAttribute("SLKS", listKS.size());
+        	int i = 0;
+        	for (KhachSanModel ks : listKS) {
+        		if (i == 0) {
+        			req.setAttribute("diaDiem", ks.getTenDiaDiem());
+        			i++;
+        		}
+        	}
 	        for (KhachSanModel khachSan : listKS) {
 	            List<AnhKhachSanModel> listAnh = anhKhachSanService.findByIdKhachSan(khachSan.getId());
 	            anhMap.put(khachSan.getId(), listAnh);
@@ -231,11 +251,7 @@ public class listHotelController extends HttpServlet {
 	            
 	            List<KhuyenMaiModel> listKhuyenMai = khuyenMaiService.findByIdKhachSan(khachSan.getId());
 	            khyenMaiMap.put(khachSan.getId(), listKhuyenMai);
-	            for (KhuyenMaiModel khuyenMai : listKhuyenMai) {
-	            	System.out.println (khachSan.getId() + "tên khuyến mãi: " + khuyenMai.getTen());
-	            }
 	        }
-	  
 	        req.setAttribute("anhMap", anhMap);
 	        req.setAttribute("tienIchMap", tienIchMap);
 	        req.setAttribute("phongMap", phongMap);
@@ -288,10 +304,15 @@ public class listHotelController extends HttpServlet {
 		    HttpSession session = req.getSession();
 		    DiaDiemModel theoDiaDiem = diaDiemService.findByName(diadiem);
 			int idDiaDiem =  theoDiaDiem.getId();
-			session.setAttribute("idDiaDiemTimKiem", idDiaDiem);
+			session.setAttribute("idDiaDiemTimKiem1", idDiaDiem);
 			
 			session.setAttribute("ngayDen", ngaydenStr);
 			session.setAttribute("ngayDi", ngaydiStr);
+			session.setAttribute("listXepHang", null);
+		    session.setAttribute("listLoaiKhachSan", null);
+		    session.setAttribute("listTienNghi", null);
+		    session.setAttribute("listCachTrungTam", null);
+		    session.setAttribute("listGiapBien", null);
 	        resp.sendRedirect(req.getContextPath() + "/danhsachks");
 		}
 		else if(url.contains("/danhsachks/locks"))
@@ -308,7 +329,6 @@ public class listHotelController extends HttpServlet {
             int max = Integer.parseInt(maxValue);
 		    HttpSession session = req.getSession();
 		    List<KhachSanModel> originalHotelList = (List<KhachSanModel>) session.getAttribute("originalHotelList");
-		    
 		    if ((rankings == null || rankings.length == 0) &&
 		            (hotelTypes == null || hotelTypes.length == 0) &&
 		            (mealTypes == null || mealTypes.length == 0) &&
@@ -325,8 +345,8 @@ public class listHotelController extends HttpServlet {
 			            checkbox.setChecked(false);
 			        }
 			    	
-			    	List<CheckboxModel> listBuaAn = (List<CheckboxModel>) session.getAttribute("listBuaAn");
-			    	for (CheckboxModel checkbox : listBuaAn) {
+			    	List<CheckboxModel> listTienNghi = (List<CheckboxModel>) session.getAttribute("listTienNghi");
+			    	for (CheckboxModel checkbox : listTienNghi) {
 			            checkbox.setChecked(false);
 			        }
 			    	
@@ -353,8 +373,14 @@ public class listHotelController extends HttpServlet {
 				            }
 				        }
 				    }
-				    
+				    else {
+				    	for (CheckboxModel checkbox : listXepHang) {
+				                checkbox.setChecked(false);
+				        }
+				    }
+
 				    List<CheckboxModel> listLoaiKhachSan = (List<CheckboxModel>) session.getAttribute("listLoaiKhachSan");
+				    
 				    if (hotelTypes != null) {
 				        for (CheckboxModel checkbox : listLoaiKhachSan) {
 				            if (Arrays.asList(hotelTypes).contains(checkbox.getLabel())) {
@@ -364,10 +390,15 @@ public class listHotelController extends HttpServlet {
 				            }
 				        }
 				    }
-				    
-				    List<CheckboxModel> listBuaAn = (List<CheckboxModel>) session.getAttribute("listBuaAn");
+				    else {
+				    	for (CheckboxModel checkbox : listLoaiKhachSan) {
+				                checkbox.setChecked(false);
+				        }
+				    }
+
+				    List<CheckboxModel> listTienNghi = (List<CheckboxModel>) session.getAttribute("listTienNghi");
 				    if (mealTypes != null) {
-				        for (CheckboxModel checkbox : listBuaAn) {
+				        for (CheckboxModel checkbox : listTienNghi) {
 				            if (Arrays.asList(mealTypes).contains(checkbox.getLabel())) {
 				                checkbox.setChecked(true);
 				            } else {
@@ -375,6 +406,12 @@ public class listHotelController extends HttpServlet {
 				            }
 				        }
 				    }
+				    else {
+				    	for (CheckboxModel checkbox : listTienNghi) {
+				                checkbox.setChecked(false);
+				        }
+				    }
+				    
 				    List<CheckboxModel> listCachTrungTam = (List<CheckboxModel>) session.getAttribute("listCachTrungTam");
 				    if (distances != null) {
 				        for (CheckboxModel checkbox : listCachTrungTam) {
@@ -383,6 +420,11 @@ public class listHotelController extends HttpServlet {
 				            } else {
 				                checkbox.setChecked(false);
 				            }
+				        }
+				    }
+				    else {
+				    	for (CheckboxModel checkbox : listCachTrungTam) {
+				                checkbox.setChecked(false);
 				        }
 				    }
 				    
@@ -396,15 +438,20 @@ public class listHotelController extends HttpServlet {
 				            }
 				        }
 				    }
+				    else {
+				    	for (CheckboxModel checkbox : listGiapBien) {
+				                checkbox.setChecked(false);
+				        }
+				    }
 				    
 				    session.setAttribute("listXepHang", listXepHang);
 				    session.setAttribute("listLoaiKhachSan", listLoaiKhachSan);
-				    session.setAttribute("listBuaAn", listBuaAn);
+				    session.setAttribute("listTienNghi", listTienNghi);
 				    session.setAttribute("listCachTrungTam", listCachTrungTam);
 				    session.setAttribute("listGiapBien", listGiapBien);
 				    
 				    
-			    	List<KhachSanModel> filteredHotels = locKhachSan(listXepHang, listLoaiKhachSan, listBuaAn, listCachTrungTam, listGiapBien, originalHotelList,min,max);
+			    	List<KhachSanModel> filteredHotels = locKhachSan(listXepHang, listLoaiKhachSan, listTienNghi, listCachTrungTam, listGiapBien, originalHotelList,min,max);
 			    	session.setAttribute("filteredHotels", filteredHotels);
 			    	
 			    	//List<CheckboxModel> listXepHang = (List<CheckboxModel>) session.getAttribute("listXepHang");
@@ -413,12 +460,7 @@ public class listHotelController extends HttpServlet {
 			    	
 			    	
 		        } 
-		    int idDiaDiem = 0;
-		    Object idDiaDiemTimKiem = session.getAttribute("idDiaDiemTimKiem");
-            if (idDiaDiemTimKiem != null) {
-                idDiaDiem = (int) idDiaDiemTimKiem;
-            } 
-            session.setAttribute("idDiaDiemTimKiem", idDiaDiem);
+		   
             
             resp.sendRedirect(req.getContextPath() + "/danhsachks");
 
@@ -426,11 +468,11 @@ public class listHotelController extends HttpServlet {
 
 	}	
 	private List<KhachSanModel> locKhachSan(List<CheckboxModel> listXepHang2, List<CheckboxModel> listLoaiKhachSan2,
-			List<CheckboxModel> listBuaAn2, List<CheckboxModel> listCachTrungTam2, List<CheckboxModel> listGiapBien2,
+			List<CheckboxModel> listTienNghi2, List<CheckboxModel> listCachTrungTam2, List<CheckboxModel> listGiapBien2,
 			List<KhachSanModel> danhSachTimKiem, int min, int max) {
 		List<KhachSanModel> filteredHotels = new ArrayList<>();
 		for (KhachSanModel tmp : danhSachTimKiem) {
-            if (locXepHang(tmp,listXepHang2) && locLoaiKhachSan(tmp,listLoaiKhachSan2) && locBuaAn(tmp,listBuaAn2) && locCachTrungTam(tmp,listCachTrungTam2) && locGiapBien(tmp,listGiapBien2) && locTienThue(tmp,min,max)) {
+            if (locXepHang(tmp,listXepHang2) && locLoaiKhachSan(tmp,listLoaiKhachSan2) && locTienNghi(tmp,listTienNghi2) && locCachTrungTam(tmp,listCachTrungTam2) && locGiapBien(tmp,listGiapBien2) && locTienThue(tmp,min,max)) {
             	filteredHotels.add(tmp);
             }
         }
@@ -471,12 +513,14 @@ public class listHotelController extends HttpServlet {
         }
         return !check;
 	}
-	private boolean locBuaAn(KhachSanModel ks, List<CheckboxModel> listBuaAn2) {
+	private boolean locTienNghi(KhachSanModel ks, List<CheckboxModel> listTienNghi2) {
 		boolean check = false;
 		List<TienIchModel> listTienIch = tienIchService.findByIdKhachSan(ks.getId());
-		for (CheckboxModel check1 : listBuaAn2) {
+		
+		for (CheckboxModel check1 : listTienNghi2) {
 			if (check1.isChecked()) {
 				check = true;
+				
 				for (TienIchModel tienIch : listTienIch) {
                     if(tienIch.getTenTienNghi().equals(check1.getLabel())) {
                     	return true;

@@ -11,7 +11,7 @@
 </head>
 <body>
 	<form action="${pageContext.request.contextPath}/sheller/sua/tienIch" method="post">
-		<div style="font-family: Arial, sans-serif; color: #333; padding: 20px; background-color: #fff;; width: 800px; margin: 50px auto; margin-left: -56px;">
+		<div style="max-width: 800px; margin: 50px auto; padding: 20px; background-color: #fff; border: 1px solid #ddd; border-radius: 8px; margin-left: -56px;">
 		    <!-- Phần tiêu đề -->
 		    <h2 style="color: #0071c2; font-size: 18px; font-weight: bold; margin-bottom: 10px;">Tiện nghi</h2>
 		    <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">Có gì độc đáo và tuyệt vời về chỗ nghỉ của quý đối tác</h3>
@@ -110,13 +110,14 @@
 			            </div>
 			        </div>
 			    </div> 
+			    <div style="max-width: 150px; margin-left: 330px; padding: 20px; margin-top: 0px;">
+					<!-- Button submit để gửi form -->
+					<button type="submit" style="display: block; background-color: #1a73e8; color: white; text-align: center; padding: 10px; font-size: 18px; font-weight: bold; text-decoration: none; border-radius: 5px; cursor: pointer;">
+					   Sửa
+					</button>
+				</div>
 		</div>
-		<div style="max-width: 150px; margin-left: 280px; padding: 20px; margin-top: -70px;">
-			<!-- Button submit để gửi form -->
-			<button type="submit" style="display: block; background-color: #1a73e8; color: white; text-align: center; padding: 10px; font-size: 18px; font-weight: bold; text-decoration: none; border-radius: 5px; cursor: pointer;">
-			   Sửa
-			</button>
-		</div>
+		
 	</form>
 	<script>
         <% if (Boolean.TRUE.equals(request.getAttribute("isSuccess"))) { %>

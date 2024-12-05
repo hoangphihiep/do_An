@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +14,14 @@
         <!-- Form Title -->
         <h2 style="font-size: 20px; color: #333; margin-bottom: 5px;">Bạn muốn là đối tác của chúng tôi</h2>
         <!-- Form -->
-        <form action="${pageContext.request.contextPath }/sheller/dangKy" method="post">
+        <form action="${pageContext.request.contextPath }/sheller1/dangKy" method="post">
             <label for="email" style="display: block; font-size: 14px; color: #333; margin-bottom: 5px;">Địa chỉ email</label>
-            <input type="email" id="email" name="email" value="${email}" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; margin-bottom: 20px;" required>
+            <c:if test="${!empty email}">
+            	<input type="email" id="email" name="email" value="${email}" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; margin-bottom: 20px;" required>
+            </c:if>
+            <c:if test="${empty email}">
+            	<input type="email" id="email" name="email"style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; margin-bottom: 20px;" required>
+            </c:if>
             
             <label for="username" style="display: block; font-size: 14px; color: #333; margin-bottom: 5px;">Tên đăng nhập</label>
             <input type="text" id="username" name="username" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; margin-bottom: 20px;" required>
@@ -42,20 +50,7 @@
             }
         }
         
-     	// Kiểm tra biến isSuccess và hiển thị SweetAlert nếu đăng ký thành công
-        <% if (Boolean.TRUE.equals(request.getAttribute("isSuccess"))) { %>
-            Swal.fire({
-                title: 'Giờ bạn là đối tác của chúng tôi!',
-                text: 'Hãy đăng ký khách sạn của bạn!',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Chuyển hướng sau khi nhấn OK
-                    window.location.href = '<%= request.getContextPath() %>/sheller/dangChoNghi/ThongTinCoBan';
-                }
-            });
-        <% } %>
+     	
     </script>
 </body>
 </html>

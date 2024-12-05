@@ -11,21 +11,12 @@
 
     <!-- Header Section -->
     <div style="background-color: #003580; color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
-        <h1 style="font-size: 24px; margin: 0;">Booking.com</h1>
-        <div style="background-color: #32a852; padding: 10px 15px; border-radius: 5px;">
-            Tham gia cùng 29,279,209 chỗ nghỉ khác đang được đăng trên Booking.com
-        </div>
+        <h1 style="font-size: 24px; margin: 0;">UTEBooking</h1>
         <div style="display: flex; gap: 10px; align-items: center;">
 	        <!-- Flag Icon -->
 	        <div style="width: 30px; height: 30px; background-color: red; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
 	            <span style="font-size: 20px; color: yellow;">★</span>
 	        </div>
-	        <!-- Partner Link -->
-	        <a href="#" style="color: white; font-weight: bold; text-decoration: none; margin-right: 10px;">Đã là đối tác?</a>
-	        <!-- Login Button -->
-	        <button style="background-color: transparent; color: white; border: 1px solid white; padding: 5px 15px; border-radius: 5px; cursor: pointer;">
-	            Đăng nhập
-	        </button>
 	        <!-- Help Button -->
 	        <button style="background-color: #0071c2; color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer;">
 	            Trợ giúp
@@ -38,7 +29,7 @@
         <!-- Left Content -->
         <div style="flex: 1; padding-left: 50px;">
             <h2 style="font-size: 50px; font-weight: bold; color: white; line-height: 1.2;">
-                Đăng bất cứ chỗ nghỉ nào trên Booking.com
+                Đăng bất cứ chỗ nghỉ nào trên UTEBooking
             </h2>
             <p style="font-size: 20px; color: white; max-width: 500px; line-height: 1.5;">
                 Dù host là nghề tay trái hay công việc toàn thời gian, hãy đăng nhà của bạn ngay hôm nay và nhanh chóng có thêm nguồn thu nhập.
@@ -62,8 +53,8 @@
                     Chúng tôi xử lý thanh toán thay Quý vị
                 </li>
             </ul>
-            <a style="background-color: #0071c2; color: white; padding: 12px; width: 100%; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;"
-            href="${pageContext.request.contextPath }/sheller/dangKy">
+            <a style="background-color: #0071c2; color: white; padding: 12px; width: 35%; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; display: inline-block; text-decoration: none;"
+            href="${pageContext.request.contextPath }/sheller1/dangKy">
                 Bắt đầu ngay →
             </a>
             <p style="font-size: 14px; color: #333; margin-top: 15px;">

@@ -4,8 +4,8 @@
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
 
-<div style="background-color: #003580;">
-	<a href="trangchu.jsp"><img src="/do_An/Content/Images/Logo.png"
+<div style="background-color: #003580;height: 100px;">
+	<a href="/do_An/home"><img src="/do_An/Content/Images/Logo.png"
 		width="299" height="62" style="margin: 10px 0px 5px 240px" /></a>
 	<!-- Form đăng nhập -->
     <div id="head-dangnhap" style="float: right; margin-right: 60px; margin-top: 30px">
@@ -19,22 +19,12 @@
             </c:when>
             <c:otherwise>
                 <div>
-                    <span style="margin-right: 20px; color: white; font-weight: bold">Xin chào, <strong>${username}</strong></span>
+                    <a href="/do_An/myAccount/trangCaNhan" style="margin-right: 20px; color: white; font-weight: bold">Xin chào, <strong>${username}</strong></a>
                     <a href="<c:url value='/logout'/>" style="color: #00BBFF; font-weight: bold">Đăng Xuất</a>
                 </div>
             </c:otherwise>
         </c:choose>
     </div>
-	<div class="c80">
-		<div class="topnav">
-			<form id="form-nav" action="#" method="post">
-				<a href="/do_An/home">Trang chủ</a> 
-				<a href="/do_An/myAccount/trangCaNhan">Cá nhân</a> 
-				<a href="tinTuc.jsp">Tin tức</a> 
-				<a href="lienHe.jsp">Liên hệ</a>
-			</form>
-		</div>
-	</div>
 </div>
 <div class="modal fade" id="dangnhap" tabindex="-1" role="dialog" aria-labelledby="dangnhapLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -53,11 +43,11 @@
 						</c:if>
                         <div class="form-group">
                             <label for="taiKhoan">Tài Khoản</label>
-                            <input type="text" class="form-control" id="taiKhoan" name="username" placeholder="Tên Tên Khoản ..."/>
+                            <input type="text" class="form-control" id="taiKhoan" name="username" placeholder="Tên Tên Khoản ..." required>
                         </div>
                         <div class="form-group">
                             <label for="matKhau">Mật Khẩu</label>
-                            <input type="password" class="form-control" id="matKhau" name="password" placeholder="Mật Khẩu ..."/>
+                            <input type="password" class="form-control" id="matKhau" name="password" placeholder="Mật Khẩu ..." required>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="form-check">
@@ -106,35 +96,35 @@
 						</c:if>
                         <div class="form-group">
                             <label for="dkTaiKhoan">Tên</label>
-                            <input type="text" class="form-control" id="Username" name="Username" placeholder="Tên của bạn ..."/>
+                            <input type="text" class="form-control" id="Username" name="Username" placeholder="Tên của bạn ..." required>
                         </div>
                         <div class="form-group">
                             <label for="hoTen">Họ Tên</label>
-                            <input type="text" class="form-control" id="Fullname" name="Fullname" placeholder="Họ và tên của bạn ..."/>
+                            <input type="text" class="form-control" id="Fullname" name="Fullname" placeholder="Họ và tên của bạn ..." required>
                         </div>
                         <div class="form-group">
                             <label for="Email">Email</label>
-                            <input type="text" class="form-control" id="Email" name="Email" placeholder="Email của bạn ..."/>
+                            <input type="text" class="form-control" id="Email" name="Email" placeholder="Email của bạn ..." required>
                         </div>
                         <div class="form-group">
                             <label for="soDienThoai">Số Điện Thoại</label>
-                            <input type="text" class="form-control" id="Phone" name="Phone" placeholder="Số điện thoại ..."/>
+                            <input type="text" class="form-control" id="Phone" name="Phone" placeholder="Số điện thoại ..." required>
                         </div>
                         <div class="form-group">
                             <label for="ngaySinh">Ngày Sinh</label>
-                            <input type="date" class="form-control" id="DateofBirth" name="DateofBirth" placeholder="Ngày sinh của bạn ..."/>
+                            <input type="date" class="form-control" id="DateofBirth" name="DateofBirth" placeholder="Ngày sinh của bạn ..." required>
                         </div>
                         <div class="form-group">
                             <label for="Address">Địa chỉ</label>
-                            <input type="text" class="form-control" id="Address" name="Address" placeholder="Địa chỉ của bạn ..."/>
+                            <input type="text" class="form-control" id="Address" name="Address" placeholder="Địa chỉ của bạn ..." required>
                         </div>
                         <div class="form-group">
                             <label for="dkMatKhau">Mật Khẩu</label>
-                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Mật Khẩu ..."/>
+                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Mật Khẩu ..." required>
                         </div>
                         <div class="form-group">
                             <label for="dkNhapLaiMatKhau">Nhập lại Mật Khẩu</label>
-                            <input type="password" class="form-control" id="Psw-repeat" name="Psw-repeat" placeholder="Nhập lại Mật Khẩu ..."/>
+                            <input type="password" class="form-control" id="Psw-repeat" name="Psw-repeat" placeholder="Nhập lại Mật Khẩu ..." required>
                         </div>
                         
                         <div class="form-group">

@@ -2,30 +2,34 @@ package vn.iotstar.models;
 
 import java.io.Serializable;
 
+import vn.iotstar.services.IAnhKhachSanService;
 import vn.iotstar.services.IUserServices;
+import vn.iotstar.services.impl.AnhKhachSanServiceImpl;
 import vn.iotstar.services.impl.UserServiceImpl;
 
 public class KhachSanModel implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	int id;
-    String ten;
-    String diaChi;
-    int idUser;
-    int cachTrungTam;
-    String moTa;
-    boolean giapBien;
-    int danhGia;
-    int idDiaDiem;
-    String tenDiaDiem;
-    int idLoaiKhachSan;
-    String tenLoaiKhachSan;
-    String urlHinhAnhThanhPho;
-    UserModel sheller = new UserModel();
+	private int id;
+	private String ten;
+	private String diaChi;
+	private int idUser;
+	private int cachTrungTam;
+	private String moTa;
+	private boolean giapBien;
+	private int danhGia;
+	private int idDiaDiem;
+	private String tenDiaDiem;
+	private int idLoaiKhachSan;
+	private String tenLoaiKhachSan;
+	private String urlHinhAnhThanhPho;
+	private UserModel sheller = new UserModel();    
+    private int status;
+    private boolean active;
+    private AnhKhachSanModel anhks = new AnhKhachSanModel();
     IUserServices userService = new UserServiceImpl();
-    int status;
-    boolean active;
+    IAnhKhachSanService anhKSService = new AnhKhachSanServiceImpl();
     
 	
     public KhachSanModel() {
@@ -52,6 +56,7 @@ public class KhachSanModel implements Serializable{
 		this.status = status;
 		this.active = active;
 		sheller = userService.findById(idUser);
+		anhks = anhKSService.anhChinhCuaKS(id);
 	}
 	
 
@@ -73,6 +78,7 @@ public class KhachSanModel implements Serializable{
 		this.tenLoaiKhachSan = tenLoaiKhachSan;
 		this.urlHinhAnhThanhPho = urlHinhAnhThanhPho;
 		sheller = userService.findById(idUser);
+		anhks = anhKSService.anhChinhCuaKS(id);
 	}
 
 	public int getId() {
@@ -201,6 +207,16 @@ public class KhachSanModel implements Serializable{
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	
+	
+
+	public AnhKhachSanModel getAnhks() {
+		return anhks;
+	}
+
+	public void setAnhks(AnhKhachSanModel anhks) {
+		this.anhks = anhks;
 	}
 
 	@Override

@@ -34,4 +34,6 @@ public interface IKhachSanService {
 	boolean register(KhachSanModel khachSan);
 	
 	KhachSanModel findByName(String tenKS);
+	
+	List <KhachSanModel> findByDatPhong ();
 }

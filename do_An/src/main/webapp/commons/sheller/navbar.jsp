@@ -5,7 +5,7 @@
 <div style="background-color: #003580; height: 50px; display: flex; align-items: center; padding: 0 20px; justify-content: space-between;">   
         <!-- Booking.com Text -->
         <div style="color: white; font-size: 18px; font-weight: bold;">
-            Booking.com
+            UTEBooking
         </div>
         <!-- Icons Section -->
         <div style="display: flex; align-items: center; gap: 15px;">     
@@ -18,10 +18,13 @@
 	            	<div>
 	            		<div class="dropdown" style="position: relative; display: inline-block;">
 						    <!-- Hình ảnh thông báo -->
-						    <a href="#" onclick="toggleDropdown(event)" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px; position: relative;">
-						        <img src="/do_An/Content/Images/notification.png" alt="Notification" valign="middle" width="20" height="20" />
-						        <span class="notification-count" style="position: absolute; top: 0; right: -5px; background: red; color: white; font-size: 10px; padding: 2px 5px; border-radius: 50%;">${slthongbao}</span>
-						    </a>
+						    <c:if test="${!empty slthongbao}">
+						    	<a href="#" onclick="toggleDropdown(event)" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px; position: relative;">
+							        <img src="/do_An/Content/Images/notification.png" alt="Notification" valign="middle" width="20" height="20" />
+							        <span class="notification-count" style="position: absolute; top: 0; right: -5px; background: red; color: white; font-size: 10px; padding: 2px 5px; border-radius: 50%;">${slthongbao}</span>
+						    	</a>
+						    </c:if>
+						    
 						    <!-- Nội dung dropdown -->
 						    <div class="dropdown-content" id="notificationDropdown" style="display: none; position: absolute; background-color: white; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); border-radius: 8px; width: 300px; right: 0; z-index: 1000; max-height: 400px; overflow-y: auto;">
 						        <p style="font-weight: bold; margin: 0 0 10px; color: #333;">Các thông báo</p>

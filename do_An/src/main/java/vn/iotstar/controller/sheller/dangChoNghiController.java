@@ -18,20 +18,24 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import vn.iotstar.models.AnhKhachSanModel;
 import vn.iotstar.models.KhachSanModel;
+import vn.iotstar.models.PhongModel;
 import vn.iotstar.models.DiaDiemModel;
 import vn.iotstar.models.TienIchModel;
+import vn.iotstar.models.UserModel;
 import vn.iotstar.services.IAnhKhachSanService;
 import vn.iotstar.services.IKhachSanService;
 import vn.iotstar.services.ILoaiKhachSanService;
 import vn.iotstar.services.IPhongService;
 import vn.iotstar.services.IDiaDiemService;
 import vn.iotstar.services.ITienIchService;
+import vn.iotstar.services.IUserServices;
 import vn.iotstar.services.impl.AnhKhachSanServiceImpl;
 import vn.iotstar.services.impl.KhachSanServiceImpl;
 import vn.iotstar.services.impl.LoaiKhachSanServiceImpl;
 import vn.iotstar.services.impl.PhongServiceImpl;
 import vn.iotstar.services.impl.DiaDiemServiceImpl;
 import vn.iotstar.services.impl.TienIchServiceImpl;
+import vn.iotstar.services.impl.UserServiceImpl;
 import vn.iotstar.utils.Constant;
 
 @MultipartConfig(
@@ -52,21 +56,44 @@ public class dangChoNghiController extends HttpServlet {
 	public ITienIchService tienIchService = new TienIchServiceImpl();
 	public IAnhKhachSanService anhKhachSanService = new AnhKhachSanServiceImpl();
 	public IPhongService phongService = new PhongServiceImpl();
+	public IUserServices userService = new UserServiceImpl();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String url = req.getRequestURI();
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
+		HttpSession session = req.getSession();
 		if (url.contains("/sheller/dangChoNghi/ThongTinCoBan")) {
+			int idUser = (int) session.getAttribute("idUser");
+			UserModel user = userService.findById(idUser);
+			req.setAttribute("username", user.getFullname());
+			session.setAttribute("account", user);
 			req.getRequestDispatcher("/views/sheller/dangChoNghi.jsp").forward(req, resp);
 		}
 		if (url.contains("/sheller/dangChoNghi/tienIch")) {
+			int idUser = (int) session.getAttribute("idUser");
+			UserModel user = userService.findById(idUser);
+			req.setAttribute("username", user.getFullname());
+			session.setAttribute("account", user);
 			req.getRequestDispatcher("/views/sheller/dangChoNghiTienIch.jsp").forward(req, resp);
 		}
 		if (url.contains("/sheller/dangChoNghi/anhKS")) {
+			int idUser = (int) session.getAttribute("idUser");
+			UserModel user = userService.findById(idUser);
+			req.setAttribute("username", user.getFullname());
+			session.setAttribute("account", user);
 			req.getRequestDispatcher("/views/sheller/dangChoNghiAnhKS.jsp").forward(req, resp);
 		}
 		if (url.contains("/sheller/dangChoNghi/phong")) {
+			String idKSStr = req.getParameter("idKS");
+			System.out.println ("id của khách sạn: " + idKSStr);
+			if (idKSStr != null) {
+				session.setAttribute("idKSStr", idKSStr);
+			}
+			int idUser = (int) session.getAttribute("idUser");
+			UserModel user = userService.findById(idUser);
+			req.setAttribute("username", user.getFullname());
+			session.setAttribute("account", user);
 			req.getRequestDispatcher("/views/sheller/dangChoNghiPhong.jsp").forward(req, resp);
 		}
 		
@@ -232,13 +259,15 @@ public class dangChoNghiController extends HttpServlet {
 			}
 			
 			if (ks != null && listTienIch != null && listAnhKS != null) {
+				
 				khachSanService.insert(ks);
-				int idKS = khachSanService.findByName(ks.getTen()).getId();
 				
 				for (TienIchModel tienIch : listTienIch) {
+					int idKS = khachSanService.maxId();
 				    tienIch.setIdKhachSan(idKS); // Đặt ID khách sạn thực tế cho mỗi tiện ích
 				}
 				for (AnhKhachSanModel anhks : listAnhKS) {
+					int idKS = khachSanService.maxId();
 				    anhks.setIdKhachSan(idKS); // Đặt ID khách sạn thực tế cho mỗi ảnh
 				}
 				
@@ -257,6 +286,7 @@ public class dangChoNghiController extends HttpServlet {
 			req.getRequestDispatcher("/views/sheller/dangChoNghiAnhKS.jsp").forward(req, resp);
 		}
 		if (url.contains("/sheller/phong")) {
+			HttpSession session = req.getSession();
 			String tenPhong = req.getParameter("tenphong");
 			int kichthuoc = Integer.parseInt(req.getParameter("kichthuoc"));
 			String mota = req.getParameter("mota");
@@ -267,19 +297,26 @@ public class dangChoNghiController extends HttpServlet {
 			String superkingBedCount = req.getParameter("superkingBedCount");
 			int slphong = Integer.parseInt(req.getParameter("slphong"));
 			int giathue = Integer.parseInt(req.getParameter("giathue"));
-			
+			int idKS = 0;
+			String idKSStr = (String)session.getAttribute("idKSStr");
+			if (idKSStr != null) {
+				idKS = Integer.parseInt(idKSStr);
+			}
+			else {
+				idKS = khachSanService.maxId();
+			}
 			String tienNghi = "";
 			if (!"0".equals(singleBedCount)) {
-				tienNghi = tienNghi + singleBedCount + "Giường đơn,"; 
+				tienNghi = tienNghi + singleBedCount + " Giường đơn,"; 
 			}
 			if (!"0".equals(doubleBedCount)) {
-				tienNghi = tienNghi + doubleBedCount + "Giường đôi,"; 
+				tienNghi = tienNghi + doubleBedCount + " Giường đôi,"; 
 			}
 			if (!"0".equals(kingBedCount)) {
-				tienNghi = tienNghi + kingBedCount + "Giường lớn(cỡ King),"; 
+				tienNghi = tienNghi + kingBedCount + " Giường lớn(cỡ King),"; 
 			}
 			if (!"0".equals(superkingBedCount)) {
-				tienNghi = tienNghi + superkingBedCount + "Giường cực lớn(cỡ Super-King),"; 
+				tienNghi = tienNghi + superkingBedCount + " Giường cực lớn(cỡ Super-King),"; 
 			}
 			System.out.println (tenPhong + " " + kichthuoc + " " + mota
 					+ " " + soluongnguoi + " " + singleBedCount + " " + doubleBedCount
@@ -297,7 +334,7 @@ public class dangChoNghiController extends HttpServlet {
 					int index = filename.lastIndexOf(".");
 					String ext = filename.substring(index + 1);
 					fname = System.currentTimeMillis() + "." + ext;
-
+					System.out.println ("Anh của phòng1: " + filename);
 					part.write(uploadPath + "/" + fname);
 
 				}
@@ -366,8 +403,8 @@ public class dangChoNghiController extends HttpServlet {
 			if (mlovisong != null) {
 				tienNghi = tienNghi + "Lò vi sóng,"; 
 			}
-			
-			//phongService.insert(new PhongModel(tenPhong, kichthuoc, giathue, tienNghi, mota, 0, 1, slphong, 0, soluongnguoi, fname));
+			System.out.println ("anh cua phong: " + fname);
+			phongService.insert(new PhongModel(tenPhong, kichthuoc, giathue, tienNghi, mota, 0, idKS, slphong, 0, soluongnguoi, fname));
 			req.setAttribute("isSuccess", true);
 			req.getRequestDispatcher("/views/sheller/dangChoNghiPhong.jsp").forward(req, resp);
 		}

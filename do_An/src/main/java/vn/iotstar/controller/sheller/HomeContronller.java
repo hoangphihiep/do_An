@@ -40,6 +40,7 @@ public class HomeContronller extends HttpServlet {
 		req.setAttribute("slthongbao", soLuongThongBao);
 		req.setAttribute("listthongbao", listThongBao);
 		req.setAttribute("username", user.getFullname());
+		session.setAttribute("idUser", user.getId());
 		
 		req.getRequestDispatcher("/views/sheller/shellerHome.jsp").forward(req, resp);
 	}

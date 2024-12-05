@@ -34,4 +34,6 @@ public interface IKhachSanDao {
 	int maxId ();
 	
 	KhachSanModel findByName(String tenKS);
+	
+	List <KhachSanModel> findByDatPhong ();
 }

@@ -77,13 +77,10 @@ public class AnhKhachSanDaoImpl extends DBConnectionSQL implements IAnhKhachSanD
 	public static void main(String[] args) {
 
 		try {
+
 			IAnhKhachSanDao anhkhachsanDao = new AnhKhachSanDaoImpl();
-			//thanhphoDao.insert(new ThanhPhoModel("Đồng Nai", "Thanh phố Biên Hòa", "imgae"));
-			anhkhachsanDao.insert(new AnhKhachSanModel("anhChinh", "123", 2));
-			List<AnhKhachSanModel> list = anhkhachsanDao.findByIdKhachSan(2);
-			for (AnhKhachSanModel khachsan : list) {
-				System.out.println(khachsan);
-			}
+			AnhKhachSanModel anhks = anhkhachsanDao.anhChinhCuaKS(1);
+			System.out.println (anhks.getIdAnhKhachSan() + " tên: " + anhks.getUrlAnhKhachSan());
 
 		} catch (Exception e) {
 
@@ -104,5 +101,35 @@ public class AnhKhachSanDaoImpl extends DBConnectionSQL implements IAnhKhachSanD
 			e.printStackTrace();
 		}
 		
+	}
+
+	@Override
+	public AnhKhachSanModel anhChinhCuaKS(int idKS) {
+		String sql = "select * "
+				+ "from AnhKhachSan "
+				+ "where AnhKhachSan.TenAnh = ? and AnhKhachSan.IdKhachSan = ?";
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, "AnhChinh");
+			ps.setInt(2, idKS);
+			rs = ps.executeQuery();
+			while (rs.next())
+			{
+				AnhKhachSanModel anhKS = new AnhKhachSanModel();
+				anhKS.setIdAnhKhachSan(rs.getInt("Id"));
+				anhKS.setVaiTroCuaAnh(rs.getString("TenAnh"));
+				anhKS.setUrlAnhKhachSan(rs.getString("AnhKhachSan"));
+				anhKS.setIdKhachSan(rs.getInt("IdKhachSan"));
+				return anhKS;
+			}
+			conn.close();
+			ps.close();
+			rs.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

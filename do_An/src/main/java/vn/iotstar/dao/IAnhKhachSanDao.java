@@ -17,4 +17,6 @@ public interface IAnhKhachSanDao {
 	List<AnhKhachSanModel> findByIdKhachSan(int idKhachSan);
 	
 	void deleteByIdKhachSan (int idKS);
+	
+	AnhKhachSanModel anhChinhCuaKS (int idKS);
 }

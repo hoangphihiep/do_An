@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body style="font-family: Arial, sans-serif; background-color: #f7f7f7; padding: 20px; color: #333;">
+<body >
 	
 	<form action="${pageContext.request.contextPath}/sheller/sua/thongTinCoBan" method="post">
 		<div style="max-width: 800px; margin: 50px auto; padding: 20px; background-color: #fff; border: 1px solid #ddd; border-radius: 8px; margin-left: -56px;">
@@ -99,13 +99,14 @@
 		            <option value="5" ${ks.danhGia == 5 ? 'selected' : ''}>5 Sao</option>
 		        </select>
 		    </div>
+		    <div style="max-width: 150px; margin-left: 330px; padding: 20px; margin-top: 0px;">
+				<!-- Button submit để gửi form -->
+				<button type="submit" style="display: block; background-color: #1a73e8; color: white; text-align: center; padding: 10px; font-size: 18px; font-weight: bold; text-decoration: none; border-radius: 5px; cursor: pointer;">
+				   Sửa
+				</button>
+			</div>
 		</div>	
-		<div style="max-width: 150px; margin-left: 280px; padding: 20px; margin-top: -70px;">
-			<!-- Button submit để gửi form -->
-			<button type="submit" style="display: block; background-color: #1a73e8; color: white; text-align: center; padding: 10px; font-size: 18px; font-weight: bold; text-decoration: none; border-radius: 5px; cursor: pointer;">
-			   Sửa
-			</button>
-		</div>
+		
 	</form>
 	<script>
         <% if (Boolean.TRUE.equals(request.getAttribute("isSuccess"))) { %>

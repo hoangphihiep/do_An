@@ -13,8 +13,8 @@
 	<mapping path="/myAccount/danhsachksyeuthich" name="user" decorator="templateCaNhan.jsp" />
 	
 	<mapping path="/sheller/dangNhap" name="sheller" decorator="sheller.jsp" />
-	<mapping path="/sheller/dangKy" name="sheller" decorator="sheller.jsp" />
-	<mapping path="/sheller/dangKy" name="sheller" decorator="sheller.jsp" />
+	<mapping path="/sheller1/dangKy" name="sheller" decorator="sheller.jsp" />
+	<mapping path="/sheller1/xacThucOTP" name="sheller" decorator="sheller.jsp" />
 	<mapping path="/sheller/dangChoNghi/ThongTinCoBan" name="sheller" decorator="sheller.jsp" />
 	<mapping path="/sheller/dangChoNghi/tienIch" name="sheller" decorator="sheller.jsp" />
 	<mapping path="/sheller/dangChoNghi/anhKS" name="sheller" decorator="sheller.jsp" />

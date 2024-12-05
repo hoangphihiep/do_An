@@ -96,7 +96,7 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 
 	@Override
 	public void insert(UserModel user) {
-		String sql = "INSERT INTO Users(Username, Fullname, Dateofbirth, Gender, Email, Phone, Password, DiaChi, RoleId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO Users(Username, Fullname, Dateofbirth, Gender, Email, Phone, Password, DiaChi, RoleId, Active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -111,6 +111,7 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 			ps.setString(7, user.getPassword());
 			ps.setString(8, user.getDiaChi());
 			ps.setInt(9, user.getIdRole());
+			ps.setBoolean(10, user.isAcitve());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

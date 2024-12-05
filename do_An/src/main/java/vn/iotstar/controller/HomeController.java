@@ -15,9 +15,13 @@ import vn.iotstar.models.DiaDiemModel;
 import vn.iotstar.models.UserModel;
 import vn.iotstar.services.IKhachSanService;
 import vn.iotstar.services.ILoaiKhachSanService;
+import vn.iotstar.services.IAnhKhachSanService;
+import vn.iotstar.services.IDatPhongService;
 import vn.iotstar.services.IDiaDiemService;
 import vn.iotstar.services.impl.KhachSanServiceImpl;
 import vn.iotstar.services.impl.LoaiKhachSanServiceImpl;
+import vn.iotstar.services.impl.AnhKhachSanServiceImpl;
+import vn.iotstar.services.impl.DatPhongServiceImpl;
 import vn.iotstar.services.impl.DiaDiemServiceImpl;
 
 @WebServlet(urlPatterns = {"/home"})
@@ -27,6 +31,8 @@ public class HomeController extends HttpServlet {
 	public IDiaDiemService diaDiemService = new DiaDiemServiceImpl();
 	public ILoaiKhachSanService loaiKhachSanService = new LoaiKhachSanServiceImpl();
 	public IKhachSanService khachSanService = new KhachSanServiceImpl();
+	public IAnhKhachSanService anhKhachSanService = new AnhKhachSanServiceImpl();
+	public IDatPhongService datPhongService = new DatPhongServiceImpl();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
@@ -52,7 +58,7 @@ public class HomeController extends HttpServlet {
 		
 		//danh sách khách sạn
 		String[] strDanhGia = {"Bình thường", "Khá ổn", "Chất lượng", "Sang trọng", "Tuyệt vời", "Xuất sắc"};
-		List<KhachSanModel> listKS = khachSanService.findAll();
+		List<KhachSanModel> listKS = khachSanService.findByDatPhong();
 		req.setAttribute("listks", listKS);
 		req.setAttribute("strDanhGia", strDanhGia);
 		req.getRequestDispatcher("/views/home/trangchu.jsp").forward(req, resp);

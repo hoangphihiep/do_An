@@ -130,7 +130,13 @@
 		                        🏨 ${tenphong}
 		                        <input type="hidden" name="tenPhong" value="${tenphong}">
 		                    </h4>
-		                     <img src="${anhhong}" alt="Khách sạn Agena Sea Hotel" style="width: 100%; height: auto; border-radius: 10px; margin-top: 10px;">
+		                    <c:if test="${anhphong.substring(0,5) != 'https' }">
+                                    <c:url value="/image?fname=${anhphong}" var="imgUrl"></c:url>
+                             </c:if>
+                             <c:if test="${anhphong.substring(0,5) == 'https' }">
+                                   <c:url value="${anhphong}" var="imgUrl"></c:url>
+                             </c:if>          
+		                     <img src="${imgUrl}" alt="Khách sạn Agena Sea Hotel" style="width: 100%; height: auto; border-radius: 10px; margin-top: 10px;">
 		                    <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 10px 0;">
 		                    <div style="margin-bottom: 8px;">
 		                        <strong>Ngày nhận phòng:</strong>

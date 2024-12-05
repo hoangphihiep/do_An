@@ -40,4 +40,9 @@ public class AnhKhachSanServiceImpl implements IAnhKhachSanService {
 		anhKhachSanDao.deleteByIdKhachSan(idKS);
 	}
 
+	@Override
+	public AnhKhachSanModel anhChinhCuaKS(int idKS) {
+		return anhKhachSanDao.anhChinhCuaKS(idKS);
+	}
+
 }

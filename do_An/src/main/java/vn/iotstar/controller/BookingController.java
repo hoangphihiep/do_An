@@ -86,6 +86,7 @@ public class BookingController extends HttpServlet {
         if (idKhachSanObj != null) {
         	idKhachSan = (int) idKhachSanObj;
         } 
+        System.out.println ("id của khách sạn mà đặt phòng: " + idKhachSan);
         KhachSanModel ks = khachSanService.findById(idKhachSan);
         List<GiamGiaModel> listGiamGia = giamGiaService.findByIdSheller(ks.getidUser());
         Date ngayHienTai = new Date(System.currentTimeMillis());
@@ -94,30 +95,39 @@ public class BookingController extends HttpServlet {
         	int count = datPhongService.countDatPhongByIdUser(user.getId());
         	int sum = datPhongService.sumTienDatPhongByIdUser(user.getId(), idKhachSan);
         	boolean kiemTra = giamGiaService.checkExistIdUser(user.getId(), giamGia.getId());
-        	if (giamGia.getApDung().equals ("Giảm giá cho người mới")) {        		
-        		if ((count == 0 || kiemTra == false) && ngayHienTai.before(giamGia.getNgayKetThuc())  && ngayHienTai.after(giamGia.getNgayBatDau())) {
-        			giamGia.setStatus(true);
-        			System.out.println ("Giảm giá cho người mới");        		}
+        	System.out.println ("Ap dụng cho: " + giamGia.getApDung());
+        	if (giamGia.getSoLanDaSuDung() < giamGia.getSoLuongMa()) {
+        		if (giamGia.getApDung().equals ("Giảm giá cho người mới")) {        		
+            		if ((count == 0 || kiemTra == false) && ngayHienTai.before(giamGia.getNgayKetThuc())  && ngayHienTai.after(giamGia.getNgayBatDau())) {
+            			giamGia.setStatus(true);
+            			System.out.println ("Giảm giá cho người mới");        		}
+            	}
+            	if (giamGia.getApDung().equals("Khách hàng thân thiết")) {
+            		if (count > 5 && kiemTra == false && ngayHienTai.before(giamGia.getNgayKetThuc())  && ngayHienTai.after(giamGia.getNgayBatDau())) {
+            			giamGia.setStatus(true);
+            			System.out.println ("Giảm giá cho khách hàng thân thiết");      
+            		}
+            	}
+            	if (giamGia.getApDung().equals("Số tiền lớn hơn 5.000.000 VNĐ")) {
+            		if (sum >= 5000000 && kiemTra == false && ngayHienTai.before(giamGia.getNgayKetThuc())  && ngayHienTai.after(giamGia.getNgayBatDau())) {
+            			giamGia.setStatus(true);
+            			System.out.println ("Số tiền lớn hơn 5.000.000 VNĐ");      
+            		}
+            	}
+            	if (giamGia.getApDung().equals(user.getFullname())) {
+            		if (kiemTra == false) {
+            			giamGia.setStatus(true);
+                		System.out.println ("Giảm giá cho một người");
+            		}
+            		
+            	}
         	}
-        	if (giamGia.getApDung().equals("Khách hàng thân thiết")) {
-        		if (count > 5 && kiemTra == false && ngayHienTai.before(giamGia.getNgayKetThuc())  && ngayHienTai.after(giamGia.getNgayBatDau())) {
-        			giamGia.setStatus(true);
-        			System.out.println ("Giảm giá cho khách hàng thân thiết");      
-        		}
-        	}
-        	if (giamGia.getApDung().equals("Số tiền lớn hơn 5.000.000 VNĐ")) {
-        		if (sum >= 5000000 && kiemTra == false && ngayHienTai.before(giamGia.getNgayKetThuc())  && ngayHienTai.after(giamGia.getNgayBatDau())) {
-        			giamGia.setStatus(true);
-        			System.out.println ("Số tiền lớn hơn 5.000.000 VNĐ");      
-        		}
-        	}
-        	if (giamGia.getApDung().equals(user.getFullname())) {
-        		giamGia.setStatus(true);
-        	}
+        	
         }
+        System.out.println ("Ảnh của phòng: " + Phong.getAnhPhong());
 		req.setAttribute("listgiamgia", listGiamGia);
 		req.setAttribute("tenphong", Phong.getTen());
-		req.setAttribute("anhhong", Phong.getAnhPhong());
+		req.setAttribute("anhphong", Phong.getAnhPhong());
 		req.setAttribute("slkhach", Phong.getSucChuaToiDa());
 		req.setAttribute("sophongtrong", Phong.getSoPhongTrong());
 		req.setAttribute("tienphong", Phong.getTienThueSauKhiGiam());

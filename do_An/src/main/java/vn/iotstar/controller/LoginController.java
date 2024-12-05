@@ -75,7 +75,8 @@ public class LoginController extends HttpServlet {
 		}
 
 		// Xử lý bài toán login
-
+		System.out.println (username);
+		System.out.println (password);
 		UserModel user = service.login(username, password);
 		System.out.println (user.getFullname());
 		System.out.println (user.isAcitve());

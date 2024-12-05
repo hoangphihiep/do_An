@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/sheller/link"})
+@WebServlet(urlPatterns = {"/link"})
 public class linkController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;

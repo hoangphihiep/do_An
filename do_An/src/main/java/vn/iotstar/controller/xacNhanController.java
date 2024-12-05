@@ -132,14 +132,13 @@ public class xacNhanController extends HttpServlet {
 		
 		String payment = (String) session.getAttribute("payment");
 		
-		GiamGiaModel giamGia = giamGiaService.findById(idGiamGia);
-		
-		giamGiaService.updateSoLanDaSuDung(giamGia.getSoLanDaSuDung() + 1, idGiamGia);
+		if (idGiamGia != 0) {
+			GiamGiaModel giamGia = giamGiaService.findById(idGiamGia);
+			giamGiaService.updateSoLanDaSuDung(giamGia.getSoLanDaSuDung() + 1, idGiamGia);	
+			giamGiaService.insertMaGiamGiaCuaKhach(idGiamGia, idUser);
+		}
 		
 		datPhongService.insert(new DatPhongModel(idUser, idPhong, ngayDi, ngayDen, ngayDi, specialRequests, thanhTien, 0, slphongdat, false, payment));
-		
-		giamGiaService.insertMaGiamGiaCuaKhach(idGiamGia, idUser);
-		
 		req.setAttribute("isSuccess", true);
 		req.getRequestDispatcher("/views/xacNhanDatPhong.jsp").forward(req, resp);
 	}

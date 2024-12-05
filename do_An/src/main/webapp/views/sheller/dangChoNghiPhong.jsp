@@ -65,9 +65,14 @@
 					                </div>
 					            </div>
 					            <div style="display: flex; align-items: center;">
-					                <button type="button" onclick="decrease('singleBed')" style="border: 1px solid #ccc; background-color: #fff; color: #333; width: 30px; height: 30px; font-size: 18px; cursor: pointer;">-</button>
-					                <span id="singleBed" style="padding: 0 10px; font-size: 14px;">0</span>
-					                <button type="button" onclick="increase('singleBed')" style="border: 1px solid #ccc; background-color: #fff; color: #333; width: 30px; height: 30px; font-size: 18px; cursor: pointer;">+</button>
+					                <button type="button" onclick="decrease('singleBed')" 
+					                style="border: 1px solid #ccc; background-color: #fff; color: #333; width: 30px; 
+					                height: 30px; font-size: 18px; cursor: pointer; display: flex; align-items: center; 
+					                justify-content: center;">-</button>
+					                <span id="singleBed" style="padding: 0 10px; font-size: 14px; margin-top: 12px;">0</span>
+					                <button type="button" onclick="increase('singleBed')" style="border: 1px solid #ccc; background-color: #fff; color: #333; width: 30px; 
+					                height: 30px; font-size: 18px; cursor: pointer; display: flex; align-items: center; 
+					                justify-content: center;">+</button>
 					            </div>
 					        </div>
 					        <input type="hidden" name="singleBedCount" id="singleBedCount" value="0">
@@ -84,9 +89,13 @@
 					                </div>
 					            </div>
 					            <div style="display: flex; align-items: center;">
-					                <button type="button" onclick="decrease('doubleBed')" style="border: 1px solid #ccc; background-color: #fff; color: #333; width: 30px; height: 30px; font-size: 18px; cursor: pointer;">-</button>
-					                <span id="doubleBed" style="padding: 0 10px; font-size: 14px;">0</span>
-					                <button type="button" onclick="increase('doubleBed')" style="border: 1px solid #ccc; background-color: #fff; color: #333; width: 30px; height: 30px; font-size: 18px; cursor: pointer;">+</button>
+					                <button type="button" onclick="decrease('doubleBed')" style="border: 1px solid #ccc; background-color: #fff; color: #333; width: 30px; 
+					                height: 30px; font-size: 18px; cursor: pointer; display: flex; align-items: center; 
+					                justify-content: center;">-</button>
+					                <span id="doubleBed" style="padding: 0 10px; font-size: 14px; margin-top: 12px;">0</span>
+					                <button type="button" onclick="increase('doubleBed')" style="border: 1px solid #ccc; background-color: #fff; color: #333; width: 30px; 
+					                height: 30px; font-size: 18px; cursor: pointer; display: flex; align-items: center; 
+					                justify-content: center;">+</button>
 					            </div>
 					        </div>
 					        <input type="hidden" name="doubleBedCount" id="doubleBedCount" value="0">
@@ -103,9 +112,13 @@
 					                </div>
 					            </div>
 					            <div style="display: flex; align-items: center;">
-					                <button type="button" onclick="decrease('kingBed')" style="border: 1px solid #ccc; background-color: #fff; color: #333; width: 30px; height: 30px; font-size: 18px; cursor: pointer;">-</button>
-					                <span id="kingBed" style="padding: 0 10px; font-size: 14px;">0</span>
-					                <button type="button" onclick="increase('kingBed')" style="border: 1px solid #ccc; background-color: #fff; color: #333; width: 30px; height: 30px; font-size: 18px; cursor: pointer;">+</button>
+					                <button type="button" onclick="decrease('kingBed')" style="border: 1px solid #ccc; background-color: #fff; color: #333; width: 30px; 
+					                height: 30px; font-size: 18px; cursor: pointer; display: flex; align-items: center; 
+					                justify-content: center;">-</button>
+					                <span id="kingBed" style="padding: 0 10px; font-size: 14px; margin-top: 12px;">0</span>
+					                <button type="button" onclick="increase('kingBed')" style="border: 1px solid #ccc; background-color: #fff; color: #333; width: 30px; 
+					                height: 30px; font-size: 18px; cursor: pointer; display: flex; align-items: center; 
+					                justify-content: center;">+</button>
 					            </div>
 					        </div>
 					        <input type="hidden" name="kingBedCount" id="kingBedCount" value="0">
@@ -122,9 +135,13 @@
 					                </div>
 					            </div>
 					            <div style="display: flex; align-items: center;">
-					                <button type="button" onclick="decrease('superkingBed')" style="border: 1px solid #ccc; background-color: #fff; color: #333; width: 30px; height: 30px; font-size: 18px; cursor: pointer;">-</button>
-					                <span id="superkingBed" style="padding: 0 10px; font-size: 14px;">0</span>
-					                <button type="button" onclick="increase('superkingBed')" style="border: 1px solid #ccc; background-color: #fff; color: #333; width: 30px; height: 30px; font-size: 18px; cursor: pointer;">+</button>
+					                <button type="button" onclick="decrease('superkingBed')" style="border: 1px solid #ccc; background-color: #fff; color: #333; width: 30px; 
+					                height: 30px; font-size: 18px; cursor: pointer; display: flex; align-items: center; 
+					                justify-content: center;">-</button>
+					                <span id="superkingBed" style="padding: 0 10px; font-size: 14px; margin-top: 12px;">0</span>
+					                <button type="button" onclick="increase('superkingBed')" style="border: 1px solid #ccc; background-color: #fff; color: #333; width: 30px; 
+					                height: 30px; font-size: 18px; cursor: pointer; display: flex; align-items: center; 
+					                justify-content: center;">+</button>
 					            </div>
 					        </div>
 					        <input type="hidden" name="superkingBedCount" id="superkingBedCount" value="0">

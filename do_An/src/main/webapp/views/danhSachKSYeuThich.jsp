@@ -115,24 +115,17 @@
 							</div>
 							<div style="margin-top: 20px;">
 								<c:if test="${!empty tienIchMap[ksthich.ks.id]}">
-									<div style="font-size: 14px; color: #666; margin-top: -10px;">Cơ sở lưu trú này có:</div>
-									<c:forEach items="${tienIchMap[ks.id]}" var="tienIch">
-										<c:if test="${tienIch.idLoaiTienNghi == 5}">
+									<div style="font-size: 14px; color: #666; margin-top: -10px;">Cơ
+										sở lưu trú này có:</div>
+									<c:forEach items="${tienIchMap[ksthich.ks.id]}" var="tienIch"
+										varStatus="status">
+										<c:if test="${status.count <= 2}">
 											<span
-												style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
-										</c:if>
-										<c:if test="${tienIch.idLoaiTienNghi == 7}">
-											<span
-												style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
-										</c:if>
-										<c:if test="${tienIch.idLoaiTienNghi == 8}">
-											<span
-												style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">${tienIch.tenTienNghi}</span>
+												style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">
+												${tienIch.tenTienNghi} </span>
 										</c:if>
 									</c:forEach>
 								</c:if>
-
-
 							</div>
 							<div style="color: #0071c2; font-size: 16px;">
 								<div style="font-size: 14px; color: #666; margin-top: 10px;">

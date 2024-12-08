@@ -59,7 +59,9 @@ public class HomeController extends HttpServlet {
 		//danh sách khách sạn
 		String[] strDanhGia = {"Bình thường", "Khá ổn", "Chất lượng", "Sang trọng", "Tuyệt vời", "Xuất sắc"};
 		List<KhachSanModel> listKS = khachSanService.findByDatPhong();
+		List<DiaDiemModel> listDiaDiem = diaDiemService.findAll();
 		req.setAttribute("listks", listKS);
+		req.setAttribute("listdiadiem", listDiaDiem);
 		req.setAttribute("strDanhGia", strDanhGia);
 		req.getRequestDispatcher("/views/home/trangchu.jsp").forward(req, resp);
 	} 

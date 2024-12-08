@@ -16,7 +16,7 @@ public interface IDatPhongDao {
 	
 	List<DatPhongModel> listPhongDaDatByIdSheller (int idSheller);
 	
-	void updateTrangThaiTT (int idDatPhong, int tienSauKhiChiecKhau);
+	void updateTrangThaiTT (int idDatPhong, int tienSauKhiChiecKhau, Date ngayThanhToan);
 	
 	void delete (int idDatPhong);
 	
@@ -29,4 +29,6 @@ public interface IDatPhongDao {
 	List <DoanhThuModel> findAllDoanhThu (Date ngayBatDau, Date ngayKetThuc, int idKhachSan);
 	
 	DatPhongModel findById (int idDatPhong);
+	
+	List <DoanhThuModel> findAllDoanhThuChiecKhau (Date ngayBatDau, Date ngayKetThuc);
 }

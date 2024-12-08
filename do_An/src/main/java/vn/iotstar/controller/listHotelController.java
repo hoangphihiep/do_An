@@ -53,7 +53,7 @@ public class listHotelController extends HttpServlet {
 	public IPhongService phongService = new PhongServiceImpl();
 	public IKhuyenMaiService khuyenMaiService = new KhuyenMaiServiceImpl();
 	public IThichKhachSanService thichKhachSanService = new ThichKhachSanServiceImpl();
-
+	
 	Map<Integer, List<AnhKhachSanModel>> anhMap = new HashMap<>();
     Map<Integer, List<TienIchModel>> tienIchMap = new HashMap<>();
     Map<Integer, List<PhongModel>> phongMap = new HashMap<>();
@@ -65,7 +65,7 @@ public class listHotelController extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 		if (url.contains("/danhsachks")) 
 		{			
-			HttpSession session = req.getSession();
+			HttpSession session = req.getSession(false);
 			String username = null;
 			int idUser = 0;
 			if (session != null && session.getAttribute("account") != null) {
@@ -76,7 +76,7 @@ public class listHotelController extends HttpServlet {
 			}
 			req.setAttribute("username", username);
 			
-			List<ThichKhachSanModel> listThichKhachSan = thichKhachSanService.listLikeHotel(idUser);
+			
 			
 			List<CheckboxModel> listXepHang = (List<CheckboxModel>) session.getAttribute("listXepHang");
 			session.setAttribute("currentURL", req.getContextPath().toString() + "/danhsachks");
@@ -230,6 +230,14 @@ public class listHotelController extends HttpServlet {
 	        }
 	        
 	        //session.setAttribute("danhSachTimKiem", listKS);
+	        List<ThichKhachSanModel> listThichKhachSan = thichKhachSanService.listLikeHotel(idUser);
+			for (ThichKhachSanModel thich : listThichKhachSan) {
+				for (KhachSanModel ks : listKS) {
+					if (ks.getId() == thich.getIdKS()) {
+						ks.setDaThich(true);
+					}
+				}
+			}
         	req.setAttribute("listks", listKS);
         	req.setAttribute("SLKS", listKS.size());
         	int i = 0;
@@ -240,6 +248,38 @@ public class listHotelController extends HttpServlet {
         		}
         	}
 	        for (KhachSanModel khachSan : listKS) {
+	        	List<KhuyenMaiModel> listKhuyenMai = khuyenMaiService.findByIdKhachSan(khachSan.getId());
+	            khyenMaiMap.put(khachSan.getId(), listKhuyenMai);
+	            
+	        	List<PhongModel> listP = phongService.findByIdKhachSan(khachSan.getId());
+	            for (PhongModel phong : listP) {	
+	    			phong.setTienThueSauKhiGiam(phong.getGiaThue());
+	    			phongService.update2(phong);
+	    		}
+	    		for (KhuyenMaiModel khuyenMai : listKhuyenMai) {
+	    			System.out.println ("khuyen mãi1: " + khuyenMai.getTen());
+	    			System.out.println("Thời gian bắt đầu: " + khuyenMai.getThoiGianBatDau());
+	    			System.out.println("Thời gian kết thúc: " + khuyenMai.getThoiGianKetThuc());
+	    			if (khuyenMai.getStatus() == 1)  {
+	    				System.out.println ("khuyen mãi: " + khuyenMai.getTen());
+	    				if (khuyenMai.getIdPhong() == 0) {
+	    					List<PhongModel> listPhong1 = phongService.findByIdKhachSan(khuyenMai.getIdKS());
+	    					for (PhongModel phong : listPhong1) {
+	    						int tienSauKhiGiam = (phong.getTienThueSauKhiGiam() * (100 - khuyenMai.getGiaTriGiam()))/100;
+	    						phong.setTienThueSauKhiGiam(tienSauKhiGiam);
+	    						phongService.update2(phong);
+	    					}
+	    				}
+	    				else {
+	    					PhongModel phong = phongService.findById(khuyenMai.getIdPhong());
+	    					int tienSauKhiGiam = (phong.getGiaThue() * (100 - khuyenMai.getGiaTriGiam()))/100;
+	    					phong.setTienThueSauKhiGiam(tienSauKhiGiam);
+	    					phongService.update2(phong);
+	    				}
+	    				
+	    			}
+	    		}
+	    		
 	            List<AnhKhachSanModel> listAnh = anhKhachSanService.findByIdKhachSan(khachSan.getId());
 	            anhMap.put(khachSan.getId(), listAnh);
 	            
@@ -247,10 +287,7 @@ public class listHotelController extends HttpServlet {
 	            tienIchMap.put(khachSan.getId(), listTienIch);
 	            
 	            List<PhongModel> listPhong = phongService.phongMinByIdKhachSan(khachSan.getId());
-	            phongMap.put(khachSan.getId(), listPhong);
-	            
-	            List<KhuyenMaiModel> listKhuyenMai = khuyenMaiService.findByIdKhachSan(khachSan.getId());
-	            khyenMaiMap.put(khachSan.getId(), listKhuyenMai);
+	            phongMap.put(khachSan.getId(), listPhong);  
 	        }
 	        req.setAttribute("anhMap", anhMap);
 	        req.setAttribute("tienIchMap", tienIchMap);

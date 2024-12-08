@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,13 +19,10 @@
 		        <h3 style="font-size: 16px; font-weight: bold; color: #333; margin-bottom: 5px;">Chọn loại chổ nghỉ</h3>
 		        <p style="font-size: 14px; color: #666; margin-bottom: 10px;">Đánh giá giúp khách hàng hình dung cụ thể về nơi ở</p>
 		        <select name="accommodationType" style="width: 43%; padding: 8px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px; " required>
-		            <option value="" selected hidden>Chọn loại khách sạn</option>
-		            <option value="Khách sạn">Khách sạn</option>
-		            <option value="Biệt thự">Biệt thự</option>
-		            <option value="Resort">Resort</option>
-		            <option value="Nhà khách">Nhà khách</option>
-		            <option value="Nhà trọ">Nhà trọ</option>
-		            <option value="Căn hộ">Nhà trọ</option>
+		            <option value="">-- Chọn khách sạn --</option>
+				    <c:forEach items="${listloaiks}" var="loaiks">
+				        <option value="${loaiks.ten}">${loaiks.ten}</option>
+				    </c:forEach>
 		        </select>
 		    </div>
 		    
@@ -55,18 +55,10 @@
 		        <div style="flex: 1;">
 		            <label for="city" style="display: block; font-size: 14px; font-weight: bold; margin-bottom: 5px;">Tên thành phố</label>
 		            <select id="city" name="city" style="width: 20%; padding: 8px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px; " required>
-		               	<option value="" selected hidden>Chọn địa điểm</option>
-		                <option value="Hà Nội">Hà Nội</option>
-		                <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
-		                <option value="Đà Nẵng">Đà Nẵng</option>
-		                <option value="Đà Lạt">Đà Lạt</option>
-		                <option value="Hội An">Hội An</option>
-		                <option value="Phú Quốc">Phú Quốc</option>
-		                <option value="Sapa">Sapa</option>
-		                <option value="Huế">Huế</option>
-		                <option value="Nha Trang">Nha Trang</option>
-		                <option value="Buôn Ma Thuột">Buôn Ma Thuột</option>
-		                <option value="Đồng Nai">Đồng Nai</option>
+		               	<option value="">-- Chọn địa điểm --</option>
+					    <c:forEach items="${listdiadiem}" var="diadiem">
+					        <option value="${diadiem.ten}">${diadiem.ten}</option>
+					    </c:forEach>
 		            </select>
 		        </div>
 		    </div>

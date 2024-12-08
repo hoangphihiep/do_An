@@ -51,7 +51,7 @@ public class HotelController extends HttpServlet {
 	public IKhuyenMaiService khuyenMaiService = new KhuyenMaiServiceImpl();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession();
+		HttpSession session = req.getSession(false);
 		String username = null;
 		if (session != null && session.getAttribute("account") != null) {
 			UserModel user = (UserModel) session.getAttribute("account");
@@ -105,36 +105,12 @@ public class HotelController extends HttpServlet {
 		List<PhongModel> listP = phongService.findByIdKhachSan(idKhachSan);
 		for (PhongModel phong : listP) {	
 			int count  = datPhongService.countPhongDaDat(ngayDen1, ngayDi1, phong.getId());	
-			phong.setTienThueSauKhiGiam(phong.getGiaThue());
-			phongService.update2(phong);
 			phongService.updateSLPhong(count, phong.getSoPhongTrong(), phong.getSoPhongDaDat(), phong.getId());
 		}
 
 		System.out.println ("id của khách sạn: " + idKhachSan);
 		List<KhuyenMaiModel> listKhuyenMai = khuyenMaiService.findByIdKhachSan(idKhachSan);
-		for (KhuyenMaiModel khuyenMai : listKhuyenMai) {
-			System.out.println ("khuyen mãi1: " + khuyenMai.getTen());
-			System.out.println("Thời gian bắt đầu: " + khuyenMai.getThoiGianBatDau());
-			System.out.println("Thời gian kết thúc: " + khuyenMai.getThoiGianKetThuc());
-			if (khuyenMai.getStatus() == 1)  {
-				System.out.println ("khuyen mãi: " + khuyenMai.getTen());
-				if (khuyenMai.getIdPhong() == 0) {
-					List<PhongModel> listPhong = phongService.findByIdKhachSan(khuyenMai.getIdKS());
-					for (PhongModel phong : listPhong) {
-						int tienSauKhiGiam = (phong.getTienThueSauKhiGiam() * (100 - khuyenMai.getGiaTriGiam()))/100;
-						phong.setTienThueSauKhiGiam(tienSauKhiGiam);
-						phongService.update2(phong);
-					}
-				}
-				else {
-					PhongModel phong = phongService.findById(khuyenMai.getIdPhong());
-					int tienSauKhiGiam = (phong.getGiaThue() * (100 - khuyenMai.getGiaTriGiam()))/100;
-					phong.setTienThueSauKhiGiam(tienSauKhiGiam);
-					phongService.update2(phong);
-				}
-				
-			}
-		}
+		
 		
 		List<PhongModel> listPhong1 = phongService.findByIdKhachSan(idKhachSan);
 		List<PhongModel> listPhong2 = new ArrayList<>(); 

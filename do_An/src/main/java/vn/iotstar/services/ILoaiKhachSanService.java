@@ -16,4 +16,6 @@ public interface ILoaiKhachSanService {
 	List <LoaiKhachSanModel> listTenLoaiKhachSan();
 	
 	int findIdByNameLoaiKS(String tenLoaiKS);
+	
+	LoaiKhachSanModel findById (int id);
 }

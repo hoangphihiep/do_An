@@ -225,7 +225,7 @@ public class KhuyenMaiDaoImpl extends DBConnectionSQL implements IKhuyenMaiDao {
 		Date thoiGianHienTai = new Date(System.currentTimeMillis());
 		
 		String sql = "SELECT * "
-				+ "FROM KhuyenMai WHERE KhuyenMai.IdKhachSan = ? AND KhuyenMai.thoiGianBatDau <= ? AND KhuyenMai.thoiGianKetThuc >= ?";
+				+ "FROM KhuyenMai WHERE KhuyenMai.IdKhachSan = ? AND KhuyenMai.thoiGianBatDau <= ? AND KhuyenMai.thoiGianKetThuc >= ? AND KhuyenMai.status = 1";
 		List<KhuyenMaiModel> list = new ArrayList<KhuyenMaiModel>();
 		try {
 			conn = new DBConnectionSQL().getConnection();

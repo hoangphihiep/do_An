@@ -16,5 +16,6 @@ public interface IThichKhachSanDao {
 	
 	List<ThichKhachSanModel> findAll(int currentPage, int idUser);
 	
-	int countAll();
+	int countAll(int idUser);
+
 }

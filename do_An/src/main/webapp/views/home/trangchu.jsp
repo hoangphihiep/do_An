@@ -33,8 +33,12 @@
             <!-- Trường nhập địa điểm -->
             <div>
                 <div style="color: black;font-size:20px;">Chọn địa điểm</div>
-                <input type="text" id="a" name="tenThanhPhoTimKiem" placeholder="Nhập thành phố"
-                       style="padding-left: 20px; height: 50px; width: 250px; font-size: 18px; border: 2px solid #FEBB02; border-radius: 5px; transition: border-color 0.3s ease, box-shadow 0.3s ease;" />
+                <select id="tenThanhPhoTimKiem" name="tenThanhPhoTimKiem" style=" color: black; padding-left: 20px; height: 50px; width: 250px; font-size: 18px; border: 2px solid #FEBB02; border-radius: 5px; transition: border-color 0.3s ease, box-shadow 0.3s ease;">
+				    <option style="color: black;" value="">-- Chọn địa điểm --</option>
+				    <c:forEach items="${listdiadiem}" var="diadiem">
+				        <option style="color: black;" value="${diadiem.ten}">${diadiem.ten}</option>
+				    </c:forEach>
+				</select>
                 <span id="error-a" style="color: red; font-size: 14px; display: none;">Vui lòng nhập thành phố.</span>
             </div>
             <!-- Trường nhập ngày đến -->
@@ -71,7 +75,13 @@
 				<a href="${pageContext.request.contextPath}/danhsachks?id=${diadiem.id}" style="display: block; text-decoration: none; color: inherit;">
 					<div class="col-md-6">
 						<div class="div-zoom">
-							<img class="img-zoom" src="${diadiem.urlHinhAnh}" alt="Img" width="1000" style="margin-right: 150px;"/>
+							<c:if test="${diadiem.urlHinhAnh.substring(0,5) != 'https' }">
+	                            <c:url value="/image?fname=${diadiem.urlHinhAnh}" var="imgUrl"></c:url>
+	                        </c:if>
+	                        <c:if test="${diadiem.urlHinhAnh.substring(0,5) == 'https' }">
+	                            <c:url value="${diadiem.urlHinhAnh}" var="imgUrl"></c:url>
+	                        </c:if>
+							<img class="img-zoom" src="${imgUrl}" alt="Img" width="1000" style="margin-right: 150px;"/>
 						</div>
 						<div class="chu-goc-trai">
 							<span style="font-size: 28px; font-weight: bold;">${diadiem.ten}</span>
@@ -92,7 +102,13 @@
 				<a href="${pageContext.request.contextPath}/danhsachks?id=${diadiem.id}" style="display: block; text-decoration: none; color: inherit;">
 					<div class="col-md-4">
 						<div class="div-zoom">
-							<img class="img-zoom" src="${diadiem.urlHinhAnh}" alt="Img" width="1000" style="margin-right: 150px;"/>
+							<c:if test="${diadiem.urlHinhAnh.substring(0,5) != 'https' }">
+	                            <c:url value="/image?fname=${diadiem.urlHinhAnh}" var="imgUrl"></c:url>
+	                        </c:if>
+	                        <c:if test="${diadiem.urlHinhAnh.substring(0,5) == 'https' }">
+	                            <c:url value="${diadiem.urlHinhAnh}" var="imgUrl"></c:url>
+	                        </c:if>
+							<img class="img-zoom" src="${imgUrl}" alt="Img" width="1000" style="margin-right: 150px;"/>
 						</div>
 						<div class="chu-goc-trai">
 							<span style="font-size: 28px; font-weight: bold;">${diadiem.ten}</span>
@@ -117,7 +133,14 @@
                         <c:forEach items="${listloaiks}" var="loaiks">
                             <a href="${pageContext.request.contextPath}/danhsachks?idloaiks=${loaiks.id}" style="text-decoration: none">
                                 <div class="item">
-                                    <div class="img-loaiks"><img src="${loaiks.urlHinhAnh}" alt="Img"/></div>
+                                    <div class="img-loaiks">
+                                    	<c:if test="${loaiks.urlHinhAnh.substring(0,5) != 'https' }">
+				                            <c:url value="/image?fname=${loaiks.urlHinhAnh}" var="imgUrl"></c:url>
+				                        </c:if>
+				                        <c:if test="${loaiks.urlHinhAnh.substring(0,5) == 'https' }">
+				                            <c:url value="${loaiks.urlHinhAnh}" var="imgUrl"></c:url>
+				                        </c:if>
+                                    	<img src="${imgUrl}" alt="Img" style ="width: 256px; height: 191px;"/></div>
                                     <br/>
                                     <div style="padding-left: 10px;">
                                         <span style="font-size: 18px; font-weight: bold">${loaiks.ten}</span>

@@ -180,7 +180,11 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 
 	@Override
 	public PhongModel findById(int id) {
-		String sql = "SELECT * FROM Phong WHERE Id = ? ";
+		String sql = "select P.Id, P.Ten, P.DienTich, P.GiaThue, P.TienNghi, "
+				+ "P.MoTa, P.LoaiGiuong, P.SoPhongTrong, P.SoPhongDaDat, "
+				+ "P.SucChuaToiDa, P.AnhPhong, P.TienThueSauKhiGiam, P.IdKhachSan, K.Ten as TenKhachSan "
+				+ "from Phong P, KhachSan K "
+				+ "where P.Id = ? and P.IdKhachSan=K.Id";
 		try {
 			conn = new DBConnectionSQL().getConnection();
 			ps = conn.prepareStatement(sql);
@@ -190,6 +194,7 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 				PhongModel phong = new PhongModel();
 				phong.setId(rs.getInt("Id"));
 				phong.setIdKhachSan(rs.getInt("IdKhachSan"));
+				phong.setTenKhachSan(rs.getString("TenKhachSan"));
 				phong.setAnhPhong(rs.getString("AnhPhong"));
 				phong.setGiaThue(rs.getInt("GiaThue"));
 				phong.setSoPhongDaDat(rs.getInt("SoPhongDaDat"));

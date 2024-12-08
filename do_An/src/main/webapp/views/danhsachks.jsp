@@ -130,37 +130,24 @@
 										                style="width: 100%; height: 260px; object-fit: cover; border-radius: 5px; margin-top: 5px; margin-left: 5px;"
 										                src="${imgUrl}" alt="Hotel Image">
 										            <div style="position: absolute; top: 10px; right: 0px; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;">
-										                <c:if test="${!empty listThichKhachSan}">
-										                	<c:forEach items="${listThichKhachSan}" var="thichKS">
-											                	<c:if test="${thichKS.idKS == ks.id}">
+											                	<c:if test="${ks.daThich == true}">
 																    <div onclick="toggleHeart(this, ${ks.id})" 
 																         style="width: 40px; height: 40px; border-radius: 50%; background-color: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); cursor: pointer;">
 																        <svg id="heart" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" 
-																             fill="${thichKS.idKS == ks.id ? 'red' : 'none'}" 
+																             fill="${ks.daThich == true ? 'red' : 'none'}" 
 																             stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 																            <path d="M20.8 4.6a5.6 5.6 0 0 0-7.8 0L12 5.6l-1-1a5.6 5.6 0 0 0-7.8 7.8l1 1 7.8 7.8 7.8-7.8 1-1a5.6 5.6 0 0 0 0-7.8z"></path>
 																        </svg>
 																    </div>
 																</c:if>
-																<c:if test="${thichKS.idKS != ks.id}">
+																<c:if test="${ks.daThich == false}">
 																	<div onclick="toggleHeart(this, ${ks.id})" 
 													                     style="width: 40px; height: 40px; border-radius: 50%; background-color: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); cursor: pointer;">
 													                    <svg id="heart" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 													                        <path d="M20.8 4.6a5.6 5.6 0 0 0-7.8 0L12 5.6l-1-1a5.6 5.6 0 0 0-7.8 7.8l1 1 7.8 7.8 7.8-7.8 1-1a5.6 5.6 0 0 0 0-7.8z"></path>
 													                    </svg>
 													                </div>					
-																</c:if>
-											                </c:forEach>
-										                </c:if>
-										                <c:if test="${empty listThichKhachSan}">
-										                	<div onclick="toggleHeart(this, ${ks.id})" 
-													            style="width: 40px; height: 40px; border-radius: 50%; background-color: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); cursor: pointer;">
-													            <svg id="heart" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-													            <path d="M20.8 4.6a5.6 5.6 0 0 0-7.8 0L12 5.6l-1-1a5.6 5.6 0 0 0-7.8 7.8l1 1 7.8 7.8 7.8-7.8 1-1a5.6 5.6 0 0 0 0-7.8z"></path>
-													             </svg>
-													        </div>	
-										                </c:if>
-										                
+																</c:if>  
 										            </div>
 										        </div>
 											</c:if>
@@ -226,7 +213,7 @@
 												<c:if test="${!empty tienIchMap[ks.id]}">
 													<div style="font-size: 14px; color: #666; margin-top: -10px;">Cơ sở lưu trú này có:</div>
 													<c:forEach items="${tienIchMap[ks.id]}" var="tienIch" varStatus="status">
-													    <c:if test="${status.count <= 3}">
+													    <c:if test="${status.count <= 2}">
 													            <span
 													                style="display: inline-block; padding: 5px 10px; background-color: #f2f2f2; border-radius: 5px; margin-right: 10px;">
 													                ${tienIch.tenTienNghi}

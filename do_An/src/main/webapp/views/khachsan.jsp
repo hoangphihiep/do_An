@@ -21,8 +21,14 @@
 					</div>
 					<div
 						style="border-radius: 3px; border: 1px solid #c0c0c0; margin-bottom: 20px; padding: 0 0 10px 0">
+							<c:if test="${ks.urlHinhAnhThanhPho.substring(0,5) != 'https' }">
+	                            <c:url value="/image?fname=${ks.urlHinhAnhThanhPho}" var="imgUrl"></c:url>
+	                        </c:if>
+	                        <c:if test="${ks.urlHinhAnhThanhPho.substring(0,5) == 'https' }">
+	                            <c:url value="${ks.urlHinhAnhThanhPho}" var="imgUrl"></c:url>
+	                        </c:if>
 						<div
-							style="width: 100%; height: 230px; border-radius: 3px; background: linear-gradient(transparent 70%, black), url(${ks.urlHinhAnhThanhPho}); background-repeat: no-repeat; background-position: center">
+							style="width: 261px; height: 229px; border-radius: 3px; background: linear-gradient(transparent 70%, black), url(${imgUrl}); background-size: 261px 229px; background-repeat: no-repeat; background-position: center">
 						</div>
 						<div
 							style="position: relative; top: -30px; left: 20px; color: white; font-size: 16px">
@@ -77,7 +83,7 @@
 												var="imgUrl"></c:url>
 										</c:otherwise>
 									</c:choose>
-									<img style="width: 100%; height: auto; border-radius: 10px;"
+									<img style="width: 585px; height: 389px; border-radius: 10px;"
 										src="${imgUrl}" alt="Main Image">
 								</div>
 							</c:if>
@@ -102,7 +108,7 @@
 										</c:otherwise>
 									</c:choose>
 									<img
-										style="width: 100%; height: auto; border-radius: 10px; flex: 1;"
+										style="width: 124px; height: 124px; border-radius: 10px; flex: 1;"
 										src="${imgUrl}" alt="Side Image">
 								</div>
 							</c:if>
@@ -204,7 +210,12 @@
 						</td>
 						<td style="padding: 15px; border: 1px solid #ddd; text-align: center; vertical-align: middle; font-weight: bold; color: #0078d4;">
 							<c:forEach var="khuyenmai" items="${listkhuyenmai}">
-								<p style="font-size: 14px; color: red; font-weight: bold; margin: 10px 0;">ƯU ĐÃI ${khuyenmai.ten} GIẢM ${khuyenmai.giaTriGiam}% HÔM NAY</p>
+								<c:if test="${khuyenmai.idPhong == phong.id}">
+									<p style="font-size: 14px; color: red; font-weight: bold; margin: 10px 0;">ƯU ĐÃI ${khuyenmai.ten} GIẢM ${khuyenmai.giaTriGiam}% HÔM NAY</p>
+								</c:if>	
+								<c:if test="${khuyenmai.idPhong == 0}">
+									<p style="font-size: 14px; color: red; font-weight: bold; margin: 10px 0;">ƯU ĐÃI ${khuyenmai.ten} GIẢM ${khuyenmai.giaTriGiam}% HÔM NAY</p>
+								</c:if>	
 							</c:forEach>
 							
 							<c:if test="${phong.giaThue > phong.tienThueSauKhiGiam}">

@@ -14,5 +14,13 @@ public class LichSuDatPhongServiceImpl implements ILichSuDatPhongService {
 	public List<LichSuModel> findByIdUser(int idUser) {
 		return lichSuDatPhongDao.findByIdUser(idUser);
 	}
+	@Override
+	public List<LichSuModel> findAll(int currentPage, int idUser) {
+		return lichSuDatPhongDao.findAll(currentPage, idUser);
+	}
+	@Override
+	public int countAll(int idUser) {
+		return lichSuDatPhongDao.countAll(idUser);
+	}
 
 }

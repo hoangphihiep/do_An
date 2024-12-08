@@ -108,10 +108,25 @@ public class MyAccountController extends HttpServlet {
 				taiKhoan = user;
 			}
 			req.setAttribute("username", username);
+			
+			int currentPage = 1;
+            if (req.getParameter("page") != null) {
+                currentPage = Integer.parseInt(req.getParameter("page"));
+            }
+            
+            List <LichSuModel> listLichSu = lichSuService.findAll(currentPage, taiKhoan.getId());
+            int countLS = lichSuService.countAll(taiKhoan.getId());
+        	int endPage = countLS/5;
+        	if (countLS % 5 != 0) {
+        		endPage ++;
+        	}
+        	req.setAttribute("currentPage", currentPage);
+        	req.setAttribute("countKS", countLS);
+        	req.setAttribute("endPage", endPage);
+            
 			session.setAttribute("idKhachHang", taiKhoan.getId());
 			System.out.println (taiKhoan.getId());
 			session.setAttribute("currentURL", req.getContextPath().toString() + "/myAccount/lichSuDatPhong");
-			List<LichSuModel> listLichSu = lichSuService.findByIdUser(taiKhoan.getId());
 			req.setAttribute("listLichSu", listLichSu);
 			req.getRequestDispatcher("/views/lichSuDatPhong.jsp").forward(req, resp);	
 		}
@@ -135,7 +150,7 @@ public class MyAccountController extends HttpServlet {
             }
             
             List<ThichKhachSanModel> listThichKhachSan = thichKhachSanService.findAll(currentPage, idUser);
-        	int countKS = thichKhachSanService.countAll();
+        	int countKS = thichKhachSanService.countAll(idUser);
         	int endPage = countKS/5;
         	if (countKS % 5 != 0) {
         		endPage ++;
@@ -143,7 +158,6 @@ public class MyAccountController extends HttpServlet {
         	req.setAttribute("currentPage", currentPage);
         	req.setAttribute("countKS", countKS);
         	req.setAttribute("endPage", endPage);
-        	req.setAttribute("listThichKhachSan", listThichKhachSan);
         	
 	        for (ThichKhachSanModel thicKhachSan : listThichKhachSan) {
 	            List<AnhKhachSanModel> listAnh = anhKhachSanService.findByIdKhachSan(thicKhachSan.getIdKS());
@@ -151,6 +165,9 @@ public class MyAccountController extends HttpServlet {
 	            
 	            List<TienIchModel> listTienIch = tienIchService.findByIdKhachSan(thicKhachSan.getIdKS());
 	            tienIchMap.put(thicKhachSan.getIdKS(), listTienIch);
+	            for (TienIchModel tienich : listTienIch) {
+	            	System.out.println ("id tien ich: " + tienich.getId() + " ten tien ich: " + tienich.getTenTienNghi());
+	            }
 	            
 	            List<PhongModel> listPhong = phongService.phongMinByIdKhachSan(thicKhachSan.getIdKS());
 	            phongMap.put(thicKhachSan.getIdKS(), listPhong);

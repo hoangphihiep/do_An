@@ -17,7 +17,7 @@ public class LoaiKhachSanImpl extends DBConnectionSQL implements ILoaiKhachSanDa
 	public ResultSet rs = null;
 	@Override
 	public List<LoaiKhachSanModel> findAll() {
-		String sql = "select L.Id as A, L.Ten as B, L.MoTa as C, L.UrlHinhAnh as D, count(L.Id) as E from LoaiKhachSan L left join KhachSan K on L.Id = K.IdLoaiKhachSan group by L.Id, L.Ten, L.MoTa, L.UrlHinhAnh";
+		String sql = "select L.Id as A, L.Ten as B, L.MoTa as C, L.UrlHinhAnh as D, count(K.Id) as E from LoaiKhachSan L left join KhachSan K on L.Id = K.IdLoaiKhachSan group by L.Id, L.Ten, L.MoTa, L.UrlHinhAnh";
 		List<LoaiKhachSanModel> list = new ArrayList<LoaiKhachSanModel>();
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -131,6 +131,28 @@ public class LoaiKhachSanImpl extends DBConnectionSQL implements ILoaiKhachSanDa
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	@Override
+	public LoaiKhachSanModel findById(int id) {
+		String sql = "SELECT * FROM LoaiKhachSan WHERE Id = ? ";
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				LoaiKhachSanModel loaiKS = new LoaiKhachSanModel();
+				loaiKS.setId(rs.getInt("Id"));
+				loaiKS.setTen(rs.getString("Ten"));
+				loaiKS.setMoTa(rs.getString("MoTa"));
+				loaiKS.setUrlHinhAnh(rs.getString("UrlHinhAnh"));
+				return loaiKS;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 

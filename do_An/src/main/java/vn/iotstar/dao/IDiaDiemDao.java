@@ -15,4 +15,6 @@ public interface IDiaDiemDao {
 	void delete (int idDiaDiem);
 	
 	DiaDiemModel findByName(String tenDiaDiem);
+	
+	DiaDiemModel findById (int id);
 }

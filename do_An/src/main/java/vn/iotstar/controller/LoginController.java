@@ -75,13 +75,7 @@ public class LoginController extends HttpServlet {
 		}
 
 		// Xử lý bài toán login
-		System.out.println (username);
-		System.out.println (password);
 		UserModel user = service.login(username, password);
-		System.out.println (user.getFullname());
-		System.out.println (user.isAcitve());
-		System.out.println (username);
-		System.out.println (password);
 		if (user != null) {
 			if (user.isAcitve() == false){
 				alertMsg = "Tài khoản của bạn đã bị khóa ";
@@ -100,7 +94,7 @@ public class LoginController extends HttpServlet {
 			}
 			
 		} 
-		else {
+		else if (user == null) {
 			alertMsg = "Tài khoản hoặc mật khẩu không đúng";
 			req.getSession().setAttribute("alert", alertMsg);
 			resp.sendRedirect(req.getContextPath() + "/home?showLoginModal=true");

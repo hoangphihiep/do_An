@@ -130,11 +130,13 @@ public class ThichKhachSanDaoImpl extends DBConnectionSQL implements IThichKhach
 	}
 
 	@Override
-	public int countAll() {
-		String sql = "select count (*) from KhachSanThich";
+	public int countAll(int idUser) {
+		String sql = "select count (*) from KhachSanThich"
+				+ " where KhachSanThich.IdUser = ?";
 		try {
 			conn = new DBConnectionSQL().getConnection();
 			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idUser);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				return rs.getInt(1);

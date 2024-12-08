@@ -5,8 +5,12 @@
 <%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
 
 <div style="background-color: #003580;height: 100px;">
-	<a href="/do_An/home"><img src="/do_An/Content/Images/Logo.png"
-		width="299" height="62" style="margin: 10px 0px 5px 240px" /></a>
+	<a href="/do_An/home" style="display: inline-block; text-decoration: none;">
+		<!-- Tựa đề chính -->
+        <h1 style="margin: 0; margin-left: 100px; font-size: 60px; font-weight: bold; letter-spacing: 3px; color: white;">UTE BOOKING</h1>
+        <!-- Dòng mô tả -->
+        <p style="margin: 0; margin-left: 220px; font-size: 20px; letter-spacing: 2px; color: #00bfff; font-weight: bold;">HOTEL & VILLAS</p>
+	</a>
 	<!-- Form đăng nhập -->
     <div id="head-dangnhap" style="float: right; margin-right: 60px; margin-top: 30px">
         <c:choose>

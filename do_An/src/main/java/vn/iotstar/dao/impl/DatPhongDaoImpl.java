@@ -176,8 +176,8 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 	}
 
 	@Override
-	public void updateTrangThaiTT(int idDatPhong, int tienSauKhiChiecKhau) {
-		String sql = "UPDATE DatPhong SET ThanhToan = ?, TienSauKhiChiecKhau = ? WHERE Id = ?";
+	public void updateTrangThaiTT(int idDatPhong, int tienSauKhiChiecKhau, Date ngayThanhToan) {
+		String sql = "UPDATE DatPhong SET ThanhToan = ?, TienSauKhiChiecKhau = ?, NgayThanhToan=? WHERE Id = ?";
 
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -185,7 +185,9 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 
 			ps.setBoolean(1, true);
 			ps.setInt(2, tienSauKhiChiecKhau);
-			ps.setInt(3, idDatPhong);
+			ps.setDate(3, ngayThanhToan);
+			ps.setInt(4, idDatPhong);
+			
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -291,9 +293,9 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 
 	@Override
 	public List<DoanhThuModel> findAllDoanhThu(Date ngayBatDau, Date ngayKetThuc, int idKhachSan) {
-		String sql = "SELECT dp.NgayDat, SUM(dp.ThanhTien) AS TongTien, SUM(dp.SoPhongDaDat) AS TongPhongDat " +
+		String sql = "SELECT dp.NgayDat, SUM(dp.TienSauKhiChiecKhau) AS TongTien, SUM(dp.SoPhongDaDat) AS TongPhongDat " +
 	             "FROM DatPhong dp JOIN Phong p ON dp.IdPhong = p.Id JOIN KhachSan k ON p.IdKhachSan = k.Id " +
-	             "WHERE k.Id = ? "+ 
+	             "WHERE k.Id = ? AND dp.ThanhToan=1 "+ 
 	             "AND dp.NgayDat BETWEEN ? AND ? "+ 
 	             "GROUP BY dp.NgayDat "+
 	             "ORDER BY dp.NgayDat";
@@ -321,7 +323,7 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 	@Override
 	public DatPhongModel findById(int idDatPhong) {
 		String sql = "select * "
-				+ "from DatPhong"
+				+ "from DatPhong "
 				+ "where DatPhong.Id = ?";
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -351,6 +353,34 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 			rs.close();
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<DoanhThuModel> findAllDoanhThuChiecKhau(Date ngayBatDau, Date ngayKetThuc) {
+		String sql = "SELECT dp.NgayThanhToan, SUM(dp.ThanhTien - dp.TienSauKhiChiecKhau) AS TongTien, SUM(dp.SoPhongDaDat) AS TongPhongDat " +
+	             "FROM DatPhong dp JOIN Phong p ON dp.IdPhong = p.Id JOIN KhachSan k ON p.IdKhachSan = k.Id " +
+	             "WHERE dp.ThanhToan=1 "+ 
+	             "AND dp.NgayThanhToan BETWEEN ? AND ? "+ 
+	             "GROUP BY dp.NgayThanhToan "+
+	             "ORDER BY dp.NgayThanhToan";
+		List<DoanhThuModel> list = new ArrayList<DoanhThuModel>();
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setDate(1, ngayBatDau);
+			ps.setDate(2, ngayKetThuc);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(new DoanhThuModel (
+						rs.getDate("NgayThanhToan"),
+						rs.getInt("TongTien"),
+						rs.getInt("TongPhongDat")));
+			}
+			return list;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

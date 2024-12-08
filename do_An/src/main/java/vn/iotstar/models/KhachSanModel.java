@@ -30,6 +30,7 @@ public class KhachSanModel implements Serializable{
     private AnhKhachSanModel anhks = new AnhKhachSanModel();
     IUserServices userService = new UserServiceImpl();
     IAnhKhachSanService anhKSService = new AnhKhachSanServiceImpl();
+    private boolean daThich = false;
     
 	
     public KhachSanModel() {
@@ -217,6 +218,14 @@ public class KhachSanModel implements Serializable{
 
 	public void setAnhks(AnhKhachSanModel anhks) {
 		this.anhks = anhks;
+	}
+	
+	public boolean isDaThich() {
+		return daThich;
+	}
+
+	public void setDaThich(boolean daThich) {
+		this.daThich = daThich;
 	}
 
 	@Override

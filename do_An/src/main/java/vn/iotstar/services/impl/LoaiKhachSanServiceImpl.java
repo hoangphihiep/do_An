@@ -40,4 +40,9 @@ public class LoaiKhachSanServiceImpl implements ILoaiKhachSanService{
 		return loaiKhachSanDao.findIdByNameLoaiKS(tenLoaiKS);
 	}
 
+	@Override
+	public LoaiKhachSanModel findById(int id) {
+		return loaiKhachSanDao.findById(id);
+	}
+
 }

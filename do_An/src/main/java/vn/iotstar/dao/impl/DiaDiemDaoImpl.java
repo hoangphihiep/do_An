@@ -127,4 +127,31 @@ public class DiaDiemDaoImpl extends DBConnectionSQL implements IDiaDiemDao  {
 		}
 		return null;
 	}
+
+	@Override
+	public DiaDiemModel findById(int id) {
+		String sql = "Select * from DiaDiem where Id =  ?";
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+			while (rs.next())
+			{
+				DiaDiemModel diaDiem = new DiaDiemModel();
+				diaDiem.setId(rs.getInt("Id"));
+				diaDiem.setTen(rs.getString("Ten"));
+				diaDiem.setMoTa(rs.getString("MoTa"));
+				diaDiem.setUrlHinhAnh(rs.getString("UrlHinhAnh"));
+				return diaDiem;
+			}
+			conn.close();
+			ps.close();
+			rs.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

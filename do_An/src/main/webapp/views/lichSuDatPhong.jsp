@@ -20,7 +20,7 @@
                     <c:forEach var="lichSu" items="${listLichSu}">
 					    <div style="border: 1px solid #c0c0c0; border-radius: 5px; margin-top: 20px">
 					        <div class="row" style="padding: 10px 0 10px 20px">
-					            <div class="col-md-3">
+					            <div class="col-md-3" style="margin-left: -30px; margin-top: -20px">
 					                <c:if test="${lichSu.anhPhong.substring(0,5) != 'https' }">
 										<c:url value="/image?fname=${lichSu.anhPhong}" var="imgUrl"></c:url>
 									</c:if> 
@@ -28,12 +28,12 @@
 										<c:url value="${lichSu.anhPhong}" var="imgUrl"></c:url>
 									</c:if>
 									
-					                <img src="${imgUrl}" style="width: 100%; height: auto; border-radius: 5px;">
+					                <img src="${imgUrl}" style="width: 198px; height: 156px; border-radius: 5px;">
 					            </div>
 					            <div class="col-md-6">
 					                <div style="font-weight: bold; color: #444">
 					                    <span style="font-size: 18px; color: #077812">${lichSu.tenPhong}</span> - 
-					                    <a href="${pageContext.request.contextPath}/thongTinKhachSan?id=${lichSu.idKhachSan}" style="font-size: 16px; color: #0077CC">
+					                    <a href="${pageContext.request.contextPath}/khachsan?id=${lichSu.idKhachSan}" style="font-size: 16px; color: #0077CC">
 					                        ${lichSu.tenKhachSan}
 					                    </a>
 					                </div>
@@ -49,7 +49,7 @@
 					                        	<button style="display: flex; align-items: center; padding: 10px 20px; border: 1px solid #4CAF50; border-radius: 5px; background-color: white; color: #4CAF50; font-size: 16px; cursor: pointer; margin-left: 50px">			      
 											        Đã đặt
 											    </button>
-					                            <button type="button" class="cancel-button" onclick="huyDatPhong(${lichSu.id})" style="cursor: pointer; margin-right:15px">
+					                            <button type="button" class="cancel-button" onclick="huyDatPhong(${lichSu.id})" style="cursor: pointer; margin-right:22px">
 					                                Hủy Đặt
 					                            </button>
 					                        </c:when>
@@ -59,7 +59,7 @@
 											    </button>
 					                        	<a href="#" data-toggle="modal" data-target="#comment" data-id="${lichSu.idKhachSan}" 
 												   onclick="setModalId(${lichSu.idKhachSan})" 
-												   style="padding: 10px 20px; color: white; background-color: #28a745; border: none; border-radius: 3px; cursor: pointer; margin-bottom: 5px; margin-top: 15px; margin-right: 30px; display: inline-block; text-decoration: none;">
+												   style="padding: 10px 20px; color: white; background-color: #28a745; border: none; border-radius: 3px; cursor: pointer; margin-bottom: 5px; margin-top: 10px; margin-right: 37px; display: inline-block; text-decoration: none;">
 												    Đánh giá
 												</a>
 					                        </c:when>
@@ -129,7 +129,35 @@
 		        </div>
 		    </div>
 		</div>
-        
+        <div style="margin-left: -70px; margin-top: 20px">
+					    <ul style="display: flex; list-style-type: none; padding: 0; justify-content: center; align-items: center;">
+					        <!-- Nút đầu tiên và nút trước -->
+					        <li style="margin: 0 5px;">
+					            <a href="?page=1" style="display: block; padding: 8px 12px; text-decoration: none; color: ${currentPage == 1 ? '#ccc' : '#333'}; border: 1px solid #ddd; border-radius: 4px;">&laquo;</a>
+					        </li>
+					        <li style="margin: 0 5px;">
+					            <a href="?page=${currentPage > 1 ? currentPage - 1 : 1}" style="display: block; padding: 8px 12px; text-decoration: none; color: ${currentPage == 1 ? '#ccc' : '#333'}; border: 1px solid #ddd; border-radius: 4px;">&lsaquo;</a>
+					        </li>
+					
+					        <!-- Các trang giữa -->
+					        <c:forEach var="i" begin="1" end="${endPage}">
+					            <li style="margin: 0 5px;">
+					                <a href="?page=${i}" style="display: block; padding: 8px 12px; text-decoration: none; color: ${currentPage == i ? '#fff' : '#333'}; border: 1px solid ${currentPage == i ? '#007bff' : '#ddd'}; border-radius: 4px; background-color: ${currentPage == i ? '#007bff' : 'transparent'};">
+					                    ${i}
+					                </a>
+					            </li>
+					        </c:forEach>
+					
+					        <!-- Nút kế tiếp và nút cuối -->
+					        <li style="margin: 0 5px;">
+					            <a href="?page=${currentPage < endPage ? currentPage + 1 : endPage}" style="display: block; padding: 8px 12px; text-decoration: none; color: ${currentPage == endPage ? '#ccc' : '#333'}; border: 1px solid #ddd; border-radius: 4px;">&rsaquo;</a>
+					        </li>
+					        <li style="margin: 0 5px;">
+					            <a href="?page=${endPage}" style="display: block; padding: 8px 12px; text-decoration: none; color: ${currentPage == endPage ? '#ccc' : '#333'}; border: 1px solid #ddd; border-radius: 4px;">&raquo;</a>
+					        </li>
+					    </ul>
+					</div>
+				</div>
         
         <script>
             // Script để hiển thị hộp thoại xác nhận

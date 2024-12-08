@@ -35,4 +35,9 @@ public class DiaDiemServiceImpl implements IDiaDiemService {
 		return diaDiemDao.findByName(tenDiaDiem);
 	}
 
+	@Override
+	public DiaDiemModel findById(int id) {
+		return diaDiemDao.findById(id);
+	}
+
 }

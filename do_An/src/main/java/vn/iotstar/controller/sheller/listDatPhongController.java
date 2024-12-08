@@ -1,6 +1,7 @@
 package vn.iotstar.controller.sheller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 import jakarta.servlet.ServletException;
@@ -11,7 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.iotstar.models.ChiecKhauModel;
 import vn.iotstar.models.DatPhongModel;
-import vn.iotstar.models.KhachSanModel;
 import vn.iotstar.models.PhongModel;
 import vn.iotstar.models.ThongBaoModel;
 import vn.iotstar.models.UserModel;
@@ -51,6 +51,9 @@ public class listDatPhongController extends HttpServlet{
 			int idUser = user.getId();
 			System.out.println ("id cua chu: " + idUser);
 			List<DatPhongModel> listDP = datPhongService.listPhongDaDatByIdSheller(idUser);
+			for (DatPhongModel dp : listDP) {
+				System.out.println ("Ten ks: " + dp.getPhong().getIdKhachSan() + " Tên phòng: " + dp.getPhong().getTen());
+			}
 			List<ThongBaoModel> listThongBao = thongBaoService.listFindByIdUser(user.getId());
 			int soLuongThongBao = listThongBao.size();
 			session.setAttribute("account", user);
@@ -65,9 +68,9 @@ public class listDatPhongController extends HttpServlet{
 			DatPhongModel datPhong = datPhongService.findById(id);
 			PhongModel phong = phongService.findById(datPhong.getIdPhong());
 			ChiecKhauModel chiecKhau = chiecKhauService.findByIdKS(phong.getIdKhachSan());
-			
-			int tienSauKhiChiecKhau = datPhong.getThanhTien()*(100-chiecKhau.getTiLeChiecKhau())*100;
-			datPhongService.updateTrangThaiTT(id, tienSauKhiChiecKhau);
+			int tienSauKhiChiecKhau = (datPhong.getThanhTien()*(100-chiecKhau.getTiLeChiecKhau()))/100;
+			Date ngayHienTai = new Date(System.currentTimeMillis());
+			datPhongService.updateTrangThaiTT(id, tienSauKhiChiecKhau, ngayHienTai);
 			resp.sendRedirect(req.getContextPath() + "/sheller/danhSachDatPhong");	
 		}
 		if (url.contains("/sheller/datPhong/huyDatPhong")) {

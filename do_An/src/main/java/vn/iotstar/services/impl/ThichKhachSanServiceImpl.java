@@ -36,8 +36,8 @@ public class ThichKhachSanServiceImpl implements IThichKhachSanService {
 	}
 
 	@Override
-	public int countAll() {
-		return thichKhachSanDao.countAll();
+	public int countAll(int idUser) {
+		return thichKhachSanDao.countAll(idUser);
 	}
 
 }

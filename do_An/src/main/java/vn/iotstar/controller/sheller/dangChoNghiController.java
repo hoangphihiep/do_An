@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import vn.iotstar.models.AnhKhachSanModel;
 import vn.iotstar.models.KhachSanModel;
+import vn.iotstar.models.LoaiKhachSanModel;
 import vn.iotstar.models.PhongModel;
 import vn.iotstar.models.DiaDiemModel;
 import vn.iotstar.models.TienIchModel;
@@ -65,7 +66,11 @@ public class dangChoNghiController extends HttpServlet {
 		HttpSession session = req.getSession();
 		if (url.contains("/sheller/dangChoNghi/ThongTinCoBan")) {
 			int idUser = (int) session.getAttribute("idUser");
+			List<LoaiKhachSanModel> listLoaiKS = loaiKSService.findAll();
+			List<DiaDiemModel> listDiaDiem = thanhPhoService.findAll();
 			UserModel user = userService.findById(idUser);
+			req.setAttribute("listloaiks", listLoaiKS);
+			req.setAttribute("listdiadiem", listDiaDiem);
 			req.setAttribute("username", user.getFullname());
 			session.setAttribute("account", user);
 			req.getRequestDispatcher("/views/sheller/dangChoNghi.jsp").forward(req, resp);

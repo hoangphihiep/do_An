@@ -11,8 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.iotstar.models.ChiecKhauModel;
-import vn.iotstar.models.KhachSanModel;
-import vn.iotstar.models.KhuyenMaiModel;
 import vn.iotstar.models.ThongBaoModel;
 import vn.iotstar.models.UserModel;
 import vn.iotstar.services.IChiecKhauService;

@@ -111,26 +111,8 @@
 					</script>
 				</div>
 			</div>
-			<div style="flex: 1; margin-right: 120px;">
-				<div style="margin-top: 20px;">
-					<div style="margin: 0 0 5px 10px; color: #0072C7">&#9734; Gợi
-						ý cho bạn</div>
-					<div
-						style="border-radius: 3px; border: 1px solid #c0c0c0; margin-bottom: 20px">
-						<div
-							style="width: 100%; height: 230px; border-radius: 3px; background: linear-gradient(transparent 70%, black), url('Content/Images/KhachSan/${beanNguoiDung.khachSanGoiY.id}.jpg'); background-size: 200%; background-repeat: no-repeat; background-position: center">
-						</div>
-						<div
-							style="position: relative; top: -30px; left: 20px; color: white; font-size: 16px">
-							${beanNguoiDung.khachSanGoiY.ten}</div>
-						<form action="thongTinKhachSan" method="post">
-							<div style="margin: -10px 10px 0 10px; text-align: center">
-								Một trong những khách sạn tuyệt vời nhất của chúng tôi!
-								<button type="submit" class="btn-datngay"
-									style="margin: 10px 0 16px;">Đặt ngay</button>
-							</div>
-						</form>
-					</div>
+			<div style="flex: 1; margin-right: 120px;margin-top: 50px;">
+				
 					<div
 						style="border-radius: 3px; background-color: #E9F0FA; border: 1px solid #CCE1FF; padding: 10px 12px 10px 12px; margin-bottom: 20px; font-size: 13px">
 						Kiếm thêm thu nhập bằng cách đăng ký chỗ nghỉ trên QLKS, dù đó là

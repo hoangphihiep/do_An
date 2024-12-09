@@ -12,7 +12,6 @@ public class PhongModel implements Serializable {
     int giaThue;
     String tienNghi;
     String moTa;
-    int loaiGiuong;
     int idKhachSan;
     String tenKhachSan;
     int soPhongTrong;
@@ -25,7 +24,7 @@ public class PhongModel implements Serializable {
 		super();
 	}
 
-	public PhongModel(int id, String ten, int dienTich, int giaThue, String tienNghi, String moTa, int loaiGiuong,
+	public PhongModel(int id, String ten, int dienTich, int giaThue, String tienNghi, String moTa,
 			int idKhachSan, String tenKhachSan) {
 		super();
 		this.id = id;
@@ -34,12 +33,11 @@ public class PhongModel implements Serializable {
 		this.giaThue = giaThue;
 		this.tienNghi = tienNghi;
 		this.moTa = moTa;
-		this.loaiGiuong = loaiGiuong;
 		this.idKhachSan = idKhachSan;
 		this.tenKhachSan = tenKhachSan;
 	}
 	
-	public PhongModel(int id, String ten, int dienTich, int giaThue, String tienNghi, String moTa, int loaiGiuong,
+	public PhongModel(int id, String ten, int dienTich, int giaThue, String tienNghi, String moTa,
 			int idKhachSan, int soPhongTrong, int soPhongDaDat, int sucChuaToiDa, String anhPhong) {
 		super();
 		this.id = id;
@@ -48,7 +46,6 @@ public class PhongModel implements Serializable {
 		this.giaThue = giaThue;
 		this.tienNghi = tienNghi;
 		this.moTa = moTa;
-		this.loaiGiuong = loaiGiuong;
 		this.idKhachSan = idKhachSan;
 		this.soPhongTrong = soPhongTrong;
 		this.soPhongDaDat = soPhongDaDat;
@@ -56,7 +53,7 @@ public class PhongModel implements Serializable {
 		this.anhPhong = anhPhong;
 	}
 	
-	public PhongModel(int id, String ten, int dienTich, int giaThue, String tienNghi, String moTa, int loaiGiuong,
+	public PhongModel(int id, String ten, int dienTich, int giaThue, String tienNghi, String moTa,
 			int idKhachSan, String tenKhachSan, int soPhongTrong, int soPhongDaDat, int sucChuaToiDa, String anhPhong, int tienThueSauKhiGiam) {
 		super();
 		this.id = id;
@@ -65,7 +62,6 @@ public class PhongModel implements Serializable {
 		this.giaThue = giaThue;
 		this.tienNghi = tienNghi;
 		this.moTa = moTa;
-		this.loaiGiuong = loaiGiuong;
 		this.idKhachSan = idKhachSan;
 		this.tenKhachSan = tenKhachSan;
 		this.soPhongTrong = soPhongTrong;
@@ -75,7 +71,7 @@ public class PhongModel implements Serializable {
 		this.tienThueSauKhiGiam = tienThueSauKhiGiam;
 	}
 	
-	public PhongModel(String ten, int dienTich, int giaThue, String tienNghi, String moTa, int loaiGiuong,
+	public PhongModel(String ten, int dienTich, int giaThue, String tienNghi, String moTa,
 			int idKhachSan, int soPhongTrong, int soPhongDaDat, int sucChuaToiDa, String anhPhong) {
 		super();
 		this.ten = ten;
@@ -83,7 +79,6 @@ public class PhongModel implements Serializable {
 		this.giaThue = giaThue;
 		this.tienNghi = tienNghi;
 		this.moTa = moTa;
-		this.loaiGiuong = loaiGiuong;
 		this.idKhachSan = idKhachSan;
 		this.soPhongTrong = soPhongTrong;
 		this.soPhongDaDat = soPhongDaDat;
@@ -146,14 +141,6 @@ public class PhongModel implements Serializable {
 		this.moTa = moTa;
 	}
 
-	public int getLoaiGiuong() {
-		return loaiGiuong;
-	}
-
-	public void setLoaiGiuong(int loaiGiuong) {
-		this.loaiGiuong = loaiGiuong;
-	}
-
 	public int getIdKhachSan() {
 		return idKhachSan;
 	}
@@ -213,7 +200,7 @@ public class PhongModel implements Serializable {
 	@Override
 	public String toString() {
 		return "PhongModel [id=" + id + ", ten=" + ten + ", dienTich=" + dienTich + ", giaThue=" + giaThue
-				+ ", tienNghi=" + tienNghi + ", moTa=" + moTa + ", loaiGiuong=" + loaiGiuong + ", idKhachSan="
+				+ ", tienNghi=" + tienNghi + ", moTa=" + moTa  + ", idKhachSan="
 				+ idKhachSan + ", tenKhachSan=" + tenKhachSan + ", soPhongTrong=" + soPhongTrong + ", soPhongDaDat="
 				+ soPhongDaDat + ", sucChuaToiDa=" + sucChuaToiDa + ", anhPhong=" + anhPhong + "]";
 	}

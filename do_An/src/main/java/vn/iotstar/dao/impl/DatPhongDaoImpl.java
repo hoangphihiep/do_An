@@ -293,12 +293,12 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 
 	@Override
 	public List<DoanhThuModel> findAllDoanhThu(Date ngayBatDau, Date ngayKetThuc, int idKhachSan) {
-		String sql = "SELECT dp.NgayDat, SUM(dp.TienSauKhiChiecKhau) AS TongTien, SUM(dp.SoPhongDaDat) AS TongPhongDat " +
+		String sql = "SELECT dp.NgayThanhToan, SUM(dp.TienSauKhiChiecKhau) AS TongTien, SUM(dp.SoPhongDaDat) AS TongPhongDat " +
 	             "FROM DatPhong dp JOIN Phong p ON dp.IdPhong = p.Id JOIN KhachSan k ON p.IdKhachSan = k.Id " +
 	             "WHERE k.Id = ? AND dp.ThanhToan=1 "+ 
-	             "AND dp.NgayDat BETWEEN ? AND ? "+ 
-	             "GROUP BY dp.NgayDat "+
-	             "ORDER BY dp.NgayDat";
+	             "AND dp.NgayThanhToan BETWEEN ? AND ? "+ 
+	             "GROUP BY dp.NgayThanhToan "+
+	             "ORDER BY dp.NgayThanhToan";
 		List<DoanhThuModel> list = new ArrayList<DoanhThuModel>();
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -309,7 +309,7 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				list.add(new DoanhThuModel (
-						rs.getDate("NgayDat"),
+						rs.getDate("NgayThanhToan"),
 						rs.getInt("TongTien"),
 						rs.getInt("TongPhongDat")));
 			}

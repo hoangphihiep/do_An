@@ -30,7 +30,7 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
 
 	@Override
 	public void delete(int idDanhGia) {
-		// TODO Auto-generated method stub
+		danhGiaDao.delete(idDanhGia);
 		
 	}
 
@@ -53,6 +53,11 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
 	@Override
 	public List<DanhGiaModel> findByIdKhachSan(int idKhachSan) {
 		return danhGiaDao.findByIdKhachSan(idKhachSan);
+	}
+
+	@Override
+	public List<DanhGiaModel> findByIdSheller(int idSheller) {
+		return danhGiaDao.findByIdSheller(idSheller);
 	}
 
 }

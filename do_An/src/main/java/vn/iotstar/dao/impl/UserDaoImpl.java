@@ -218,6 +218,7 @@ public class UserDaoImpl extends DBConnectionSQL implements IUserDao {
 					user.setPassword(rs.getString("Password"));
 					user.setDiaChi(rs.getString("DiaChi"));
 					user.setIdRole(rs.getInt("RoleId"));
+					user.setAcitve(rs.getBoolean("Active"));
 					return user;
 				}
 			}

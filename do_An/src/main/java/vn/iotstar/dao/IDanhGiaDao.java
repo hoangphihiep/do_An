@@ -20,4 +20,6 @@ public interface IDanhGiaDao {
 	List<DanhGiaModel> countUserByIdKhachSan(int idKhachSan);
 	
 	int countAllByIdKhachSan(int idKhachSan);
+	
+	List<DanhGiaModel> findByIdSheller(int idSheller);
 }

@@ -18,7 +18,7 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 	@Override
 	public List<PhongModel> findAll() {
 		String sql = "select P.Id, P.Ten, P.DienTich, P.GiaThue, P.TienNghi, "
-				+ "P.MoTa, P.LoaiGiuong, P.SoPhongTrong, P.SoPhongDaDat, P.SucChuaToiDa, "
+				+ "P.MoTa, P.SoPhongTrong, P.SoPhongDaDat, P.SucChuaToiDa, "
 				+ "P.AnhPhong, P.IdKhachSan, K.Ten as TenKhachSan "
 				+ "from Phong P, KhachSan K "
 				+ "where P.IdKhachSan=K.Id";
@@ -35,7 +35,6 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 						rs.getInt("GiaThue"),
 						rs.getString("TienNghi"),
 						rs.getString("MoTa"),
-						rs.getInt("LoaiGiuong"),
 						rs.getInt("IdKhachSan"),
 						rs.getString("TenKhachSan"),
 						rs.getInt("SoPhongTrong"),
@@ -54,7 +53,7 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 
 	@Override
 	public void insert(PhongModel phong) {
-		String sql = "INSERT INTO Phong(Ten, DienTich, GiaThue, TienNghi, MoTa, LoaiGiuong, IdKhachSan, SoPhongTrong, SoPhongDaDat, SucChuaToiDa, AnhPhong) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO Phong(Ten, DienTich, GiaThue, TienNghi, MoTa, IdKhachSan, SoPhongTrong, SoPhongDaDat, SucChuaToiDa, AnhPhong) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			conn = new DBConnectionSQL().getConnection();
@@ -65,12 +64,11 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 			ps.setInt(3, phong.getGiaThue());
 			ps.setString(4, phong.getTienNghi());
 			ps.setString(5, phong.getMoTa());
-			ps.setInt(6, phong.getLoaiGiuong());
-			ps.setInt(7, phong.getIdKhachSan());
-			ps.setInt(8, phong.getSoPhongTrong());
-			ps.setInt(9, phong.getSoPhongDaDat());
-			ps.setInt(10, phong.getSucChuaToiDa());
-			ps.setString(11, phong.getAnhPhong());
+			ps.setInt(6, phong.getIdKhachSan());
+			ps.setInt(7, phong.getSoPhongTrong());
+			ps.setInt(8, phong.getSoPhongDaDat());
+			ps.setInt(9, phong.getSucChuaToiDa());
+			ps.setString(10, phong.getAnhPhong());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -80,7 +78,7 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 
 	@Override
 	public void update(PhongModel phong) {
-		String sql = "UPDATE Phong SET Ten=?, DienTich=?, GiaThue=?, TienNghi=?, MoTa=?, LoaiGiuong=?, IdKhachSan=?, SoPhongTrong=?, SoPhongDaDat=?, SucChuaToiDa=?, AnhPhong=? WHERE Id = ?";
+		String sql = "UPDATE Phong SET Ten=?, DienTich=?, GiaThue=?, TienNghi=?, MoTa=?, IdKhachSan=?, SoPhongTrong=?, SoPhongDaDat=?, SucChuaToiDa=?, AnhPhong=? WHERE Id = ?";
 		try {
 			conn = new DBConnectionSQL().getConnection();
 			ps = conn.prepareStatement(sql);
@@ -90,13 +88,12 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 			ps.setInt(3, phong.getGiaThue());
 			ps.setString(4, phong.getTienNghi());
 			ps.setString(5, phong.getMoTa());
-			ps.setInt(6, phong.getLoaiGiuong());
-			ps.setInt(7, phong.getIdKhachSan());
-			ps.setInt(8, phong.getSoPhongTrong());
-			ps.setInt(9, phong.getSoPhongDaDat());
-			ps.setInt(10, phong.getSucChuaToiDa());
-			ps.setString(11, phong.getAnhPhong());
-			ps.setInt(12, phong.getId());
+			ps.setInt(6, phong.getIdKhachSan());
+			ps.setInt(7, phong.getSoPhongTrong());
+			ps.setInt(8, phong.getSoPhongDaDat());
+			ps.setInt(9, phong.getSucChuaToiDa());
+			ps.setString(10, phong.getAnhPhong());
+			ps.setInt(11, phong.getId());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -119,7 +116,7 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 	@Override
 	public List<PhongModel> findByIdKhachSan(int idKhachSan) {
 		String sql = "select P.Id, P.Ten, P.DienTich, P.GiaThue, P.TienNghi, "
-				+ "P.MoTa, P.LoaiGiuong, P.SoPhongTrong, P.SoPhongDaDat, "
+				+ "P.MoTa, P.SoPhongTrong, P.SoPhongDaDat, "
 				+ "P.SucChuaToiDa, P.AnhPhong, P.TienThueSauKhiGiam, P.IdKhachSan, K.Ten as TenKhachSan "
 				+ "from Phong P, KhachSan K "
 				+ "where K.Id = ? and P.IdKhachSan=K.Id";
@@ -137,7 +134,6 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 						rs.getInt("GiaThue"),
 						rs.getString("TienNghi"),
 						rs.getString("MoTa"),
-						rs.getInt("LoaiGiuong"),
 						rs.getInt("IdKhachSan"),
 						rs.getString("TenKhachSan"),
 						rs.getInt("SoPhongTrong"),
@@ -181,7 +177,7 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 	@Override
 	public PhongModel findById(int id) {
 		String sql = "select P.Id, P.Ten, P.DienTich, P.GiaThue, P.TienNghi, "
-				+ "P.MoTa, P.LoaiGiuong, P.SoPhongTrong, P.SoPhongDaDat, "
+				+ "P.MoTa, P.SoPhongTrong, P.SoPhongDaDat, "
 				+ "P.SucChuaToiDa, P.AnhPhong, P.TienThueSauKhiGiam, P.IdKhachSan, K.Ten as TenKhachSan "
 				+ "from Phong P, KhachSan K "
 				+ "where P.Id = ? and P.IdKhachSan=K.Id";
@@ -251,7 +247,7 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 
 	@Override
 	public void update2(PhongModel phong) {
-		String sql = "UPDATE Phong SET Ten=?, DienTich=?, GiaThue=?, TienNghi=?, MoTa=?, LoaiGiuong=?, IdKhachSan=?, SoPhongTrong=?, SoPhongDaDat=?, SucChuaToiDa=?, AnhPhong=?, TienThueSauKhiGiam=? WHERE Id = ?";
+		String sql = "UPDATE Phong SET Ten=?, DienTich=?, GiaThue=?, TienNghi=?, MoTa=?, IdKhachSan=?, SoPhongTrong=?, SoPhongDaDat=?, SucChuaToiDa=?, AnhPhong=?, TienThueSauKhiGiam=? WHERE Id = ?";
 		try {
 			conn = new DBConnectionSQL().getConnection();
 			ps = conn.prepareStatement(sql);
@@ -261,14 +257,13 @@ public class PhongDaoImpl extends DBConnectionSQL implements IPhongDao {
 			ps.setInt(3, phong.getGiaThue());
 			ps.setString(4, phong.getTienNghi());
 			ps.setString(5, phong.getMoTa());
-			ps.setInt(6, phong.getLoaiGiuong());
-			ps.setInt(7, phong.getIdKhachSan());
-			ps.setInt(8, phong.getSoPhongTrong());
-			ps.setInt(9, phong.getSoPhongDaDat());
-			ps.setInt(10, phong.getSucChuaToiDa());
-			ps.setString(11, phong.getAnhPhong());
-			ps.setInt(12, phong.getTienThueSauKhiGiam());
-			ps.setInt(13, phong.getId());
+			ps.setInt(6, phong.getIdKhachSan());
+			ps.setInt(7, phong.getSoPhongTrong());
+			ps.setInt(8, phong.getSoPhongDaDat());
+			ps.setInt(9, phong.getSucChuaToiDa());
+			ps.setString(10, phong.getAnhPhong());
+			ps.setInt(11, phong.getTienThueSauKhiGiam());
+			ps.setInt(12, phong.getId());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

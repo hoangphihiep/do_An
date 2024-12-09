@@ -409,7 +409,7 @@ public class dangChoNghiController extends HttpServlet {
 				tienNghi = tienNghi + "Lò vi sóng,"; 
 			}
 			System.out.println ("anh cua phong: " + fname);
-			phongService.insert(new PhongModel(tenPhong, kichthuoc, giathue, tienNghi, mota, 0, idKS, slphong, 0, soluongnguoi, fname));
+			phongService.insert(new PhongModel(tenPhong, kichthuoc, giathue, tienNghi, mota, idKS, slphong, 0, soluongnguoi, fname));
 			req.setAttribute("isSuccess", true);
 			req.getRequestDispatcher("/views/sheller/dangChoNghiPhong.jsp").forward(req, resp);
 		}

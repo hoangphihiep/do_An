@@ -553,24 +553,19 @@
 							test="${danhGia.urlHinhAnhDanhGia.substring(0,5) == 'https' }">
 							<c:url value="${danhGia.urlHinhAnhDanhGia}" var="imgUrl"></c:url>
 						</c:if>
-						<img src="${imgUrl}" alt="Review Image">
+						
+						<img style="width: 339px; height: 287px;" src="${imgUrl}" alt="Review Image">
 					</div>
-					<div
-						style="margin-top: 20px; padding: 10px; border-left: 3px solid #007bff; background-color: #f0f8ff; font-size: 14px;">
-						<div style="color: #007bff; font-weight: bold;">Trả lời của
-							khách sạn</div>
-						<div style="font-size: 12px; color: #888; margin-bottom: 10px;">25
-							Jun 2024</div>
-						<div class="hotel-reply-content">
-							Xin chào anh/chị Nguyen D. T.,<br> Lời chào trân trọng từ
-							khách sạn Mường Thanh Luxury Đà Nẵng!<br> Tôi rất lấy làm
-							vinh dự và hạnh phúc khi nhận được đánh giá của anh/chị về chất
-							lượng dịch vụ của Khách sạn.<br> Chăm sóc khách hàng bằng sự
-							tận tâm và chuyên nghiệp luôn là tiêu chí hàng đầu của chúng tôi.<br>
-							Mong sớm gặp lại anh/chị và gia đình lần tới.<br> Trân
-							trọng,<br> Ngô Thị Hương<br> Giám đốc Khách sạn
-						</div>
-					</div>
+					<!-- Thêm nút Chỉnh sửa và Xóa -->
+					<c:if test="${danhGia.idKhachHang == iduser}">
+						<div style="margin-top: 4px;">
+	                        <a href="<c:url value='/ks/xoaDanhGia?id=${danhGia.id}'/>"
+		                    		style="background-color: #f44336; color: white; padding: 5px 10px; border: none; cursor: pointer; border-radius: 5px; display: inline-block; text-decoration: none;"
+	                        >Xóa</a>
+		                    
+		                </div>
+					</c:if>
+	                
 				</td>
 			</tr>
 		</table>

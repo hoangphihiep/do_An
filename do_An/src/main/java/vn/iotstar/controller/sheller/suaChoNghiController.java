@@ -626,7 +626,7 @@ public class suaChoNghiController extends HttpServlet {
 			PhongModel phong = phongService.findById(idPhong);
 			System.out.println ("Id phòng: " + idPhong );
 			
-			phongService.update(new PhongModel(idPhong, tenPhong, kichthuoc, giathue,tienNghi, mota, 0, idKS, slphong, phong.getSoPhongDaDat(), soluongnguoi,fname)); 
+			phongService.update(new PhongModel(idPhong, tenPhong, kichthuoc, giathue,tienNghi, mota, idKS, slphong, phong.getSoPhongDaDat(), soluongnguoi,fname)); 
 			req.setAttribute("idPhong", idPhong); 
 			req.setAttribute("isSuccess",true); 
 			req.getRequestDispatcher("/views/sheller/suaPhongKS.jsp").forward(req,resp);

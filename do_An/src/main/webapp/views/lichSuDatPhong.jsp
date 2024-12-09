@@ -46,7 +46,7 @@
 					                <div style="margin: 10px 20px">
 					                    <c:choose>
 					                        <c:when test="${lichSu.trangThai == 0}">
-					                        	<button style="display: flex; align-items: center; padding: 10px 20px; border: 1px solid #4CAF50; border-radius: 5px; background-color: white; color: #4CAF50; font-size: 16px; cursor: pointer; margin-left: 50px">			      
+					                        	<button style="align-items: center; padding: 10px 20px; border: 1px solid #4CAF50; border-radius: 5px; background-color: white; color: #4CAF50; font-size: 16px; cursor: pointer;  margin-right:18px">			      
 											        Đã đặt
 											    </button>
 					                            <button type="button" class="cancel-button" onclick="huyDatPhong(${lichSu.id})" style="cursor: pointer; margin-right:22px">
@@ -92,7 +92,7 @@
 		                     <div style="margin-bottom: 15px;">
 		                     	<input type="hidden" id="modal-id" name="id" value="">
 			                    <label for="danhgia" style="display: block; margin-bottom: 5px; font-size: 14px; color: #555;">Đánh Giá</label>
-			                    <select id="danhgia" name="danhgia" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
+			                    <select id="danhgia" name="danhgia" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;" required>
 			                        <option value="1">1 điểm</option>
 			                        <option value="2">2 điểm</option>
 			                        <option value="3">3 điểm</option>
@@ -107,7 +107,7 @@
 			                </div>
 			                <div style="margin-bottom: 15px;">
 			                    <label for="comment" style="display: block; margin-bottom: 5px; font-size: 14px; color: #555;">Nội Dung</label>
-			                    <textarea id="comment" name="comment" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;"></textarea>
+			                    <textarea id="comment" name="comment" minlength="50" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;" required></textarea>
 			                </div>
 			                <div style="margin-bottom: 15px;">
 			                    <div style="width: 270px; height: 300px; background-color: white; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
@@ -115,7 +115,7 @@
 			                            <span id="placeholderText1" style="color: #aaa; font-size: 14px;">Chưa có ảnh</span>
 			                            <img id="previewImage1" src="#" alt="Xem trước hình ảnh" style="display: none; width: 100%; height: 100%; object-fit: cover;">
 			                        </div>
-			                        <input type="file" id="imageUpload1" name="image1" style="display: none;" accept="image/*" onchange="previewImage(event, 'previewImage1', 'placeholderText1')">
+			                        <input type="file" id="imageUpload1" name="image1" style="display: none;" accept="image/*,video/*" onchange="previewImage(event, 'previewImage1', 'placeholderText1')">
 			                        <button type="button" onclick="document.getElementById('imageUpload1').click()" style="width: 100%; background-color: #4e9a9b; color: white; font-size: 24px; text-align: center; padding: 5px 0; border-radius: 0 0 10px 10px; cursor: pointer;">Upload</button>
 			                    </div>
 			                </div>

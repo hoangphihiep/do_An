@@ -3,6 +3,8 @@ package vn.iotstar.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import jakarta.servlet.ServletException;
@@ -66,10 +68,17 @@ public class BookingController extends HttpServlet {
 		String ngayDen = (String) session.getAttribute("ngayDen1");
 		String ngayDi = (String) session.getAttribute("ngayDi1");
 		
+		long soNgay = 0;
 		SimpleDateFormat newFormat = new SimpleDateFormat("dd-MM-yyyy");
 		try {
 			Date dateNgayDen = Date.valueOf(ngayDen);
 		    Date dateNgayDi = Date.valueOf(ngayDi);
+		    
+		    LocalDate localDateNgayDen = dateNgayDen.toLocalDate();
+	        LocalDate localDateNgayDi = dateNgayDi.toLocalDate();
+
+	        soNgay = ChronoUnit.DAYS.between(localDateNgayDen, localDateNgayDi);
+
 
 		    // Chuyển đổi java.sql.Date thành chuỗi theo định dạng mong muốn
 		    String ngayDenFormatted = newFormat.format(dateNgayDen);
@@ -126,6 +135,7 @@ public class BookingController extends HttpServlet {
         }
         System.out.println ("Ảnh của phòng: " + Phong.getAnhPhong());
 		req.setAttribute("listgiamgia", listGiamGia);
+		req.setAttribute("songay", soNgay);
 		req.setAttribute("tenphong", Phong.getTen());
 		req.setAttribute("anhphong", Phong.getAnhPhong());
 		req.setAttribute("slkhach", Phong.getSucChuaToiDa());

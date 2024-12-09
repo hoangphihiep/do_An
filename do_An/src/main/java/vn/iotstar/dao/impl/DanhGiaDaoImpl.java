@@ -49,7 +49,15 @@ public class DanhGiaDaoImpl extends DBConnectionSQL implements IDanhGiaDao {
 
 	@Override
 	public void delete(int idDanhGia) {
-		// TODO Auto-generated method stub
+		String sql = "DELETE DanhGia WHERE Id = ?";
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idDanhGia);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -145,6 +153,34 @@ public class DanhGiaDaoImpl extends DBConnectionSQL implements IDanhGiaDao {
 			  e.printStackTrace(); }
 	  
 	  }
+
+	@Override
+	public List<DanhGiaModel> findByIdSheller(int idSheller) {
+		String sql = "select d.Id as Id, d.Diem as Diem, d.NoiDung as NoiDung, d.IdKhachHang as IdKhachHang, d.IdKhachSan as IdKhachSan, u.Fullname as Ten, d.UrlHinhAnhDanhGia as HinhAnhDanhGia "
+				+ "from DanhGia d, Users u, KhachSan k "
+				+ "where u.Id = ? and u.Id = k.IdUser and k.Id = d.IdKhachSan";
+		List<DanhGiaModel> list = new ArrayList<DanhGiaModel>();
+		try {
+			conn = new DBConnectionSQL().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idSheller);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(new DanhGiaModel(
+						rs.getInt("Id"),
+						rs.getInt("Diem"),
+						rs.getString("NoiDung"),
+						rs.getInt("IdKhachHang"),
+						rs.getInt("IdKhachSan"),
+						rs.getString("Ten"),
+						rs.getString("HinhAnhDanhGia")));
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	 
 
 }

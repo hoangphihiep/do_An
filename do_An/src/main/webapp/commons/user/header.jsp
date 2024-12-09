@@ -72,7 +72,7 @@
             <div class="text-center mb-3">
                 <span>Nếu chưa có tài khoản, </span>
                 <!-- Nút mở modal Đăng Ký -->
-                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#dangky" data-dismiss="modal">
+                <button type="button" class="btn btn-link" style ="margin-top: -5px;" data-toggle="modal" data-target="#dangky" data-dismiss="modal">
                     Đăng Ký
                 </button>
             </div>
@@ -284,7 +284,7 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" style="width: 100%;">Cập Nhật Mật Khẩu</button>
                     <!-- Nút bỏ qua cập nhật mật khẩu -->
-                    <button type="button" class="btn btn-secondary" style="width: 100%; margin-top: 10px;" onclick="skipUpdatePassword()">
+                    <button type="button" class="btn btn-secondary" style="width: 100%; margin-top: 10px; margin-left: -100px;" onclick="skipUpdatePassword()">
     					Bỏ Qua Cập Nhật
 					</button>
 					<input type="hidden" id="skipUpdate" name="skipUpdate" value="false" />
@@ -293,7 +293,7 @@
             <div class="text-center mb-3">
                 <span>Quay lại </span>
                 <!-- Nút mở modal Đăng Nhập -->
-                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#dangnhap" data-dismiss="modal">
+                <button type="button" style ="margin-top: -5px;" class="btn btn-link" data-toggle="modal" data-target="#dangnhap" data-dismiss="modal">
                     Đăng Nhập
                 </button>
                 

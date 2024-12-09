@@ -24,7 +24,9 @@
 			                    </div>
 			                    <div style="display: flex; gap: 10px;">
 			                        <input type="text" name="phone" placeholder="Số điện thoại" value="${sodt}" style="flex: 1; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
-			                        <input type="number" id="slphongdat" name="slphongdat" placeholder="Số lượng phòng cần đặt" style="flex: 1; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+			                        <input type="number" id="slphongdat" name="slphongdat" placeholder="Số lượng phòng cần đặt" 
+										    style="flex: 1; padding: 10px; border-radius: 5px; border: 1px solid #ccc;" 
+										    max="${sophongtrong}" oninput="validateRoomCount(this)">
 			                    </div>			        
 			                </div>
 		                <!-- Special Requests -->
@@ -58,6 +60,10 @@
 		                        <span id="tenPhong">${tenphong }</span>
     							<span id="giaPhong">${tienphong} VND</span>
 		                    </div>
+		                    <div style="border-top: 1px solid #ccc; padding-top: 10px; display: flex; justify-content: space-between; font-weight: bold;">
+							    <span>Số ngày ở:</span>
+							    <span>${songay} ngày</span>
+							</div>
 		                    <!-- Hiển thị tổng tiền sau khi nhân với số lượng phòng -->
 							<div style="border-top: 1px solid #ccc; padding-top: 10px; display: flex; justify-content: space-between; font-weight: bold;">
 							    <span>Tiền đặt phòng:</span>
@@ -81,10 +87,11 @@
 							<script>
 							    const giaPhong = ${tienphong}; // Giá phòng
 							    const phiDichVu = 60000; // Phí dịch vụ cố định
+							    const soNgayO = ${songay}
 							
 							    function updateDiscount() {
 							        const soLuongPhong = parseInt(document.getElementById("slphongdat").value) || 0;
-							        const tongTienPhong = soLuongPhong * giaPhong;
+							        const tongTienPhong = soLuongPhong * giaPhong*soNgayO;
 							        const tongTienCoPhi = tongTienPhong + phiDichVu;
 							
 							        const selectGiamGia = document.getElementById("selectGiamGia");
@@ -169,7 +176,19 @@
 		        Tiếp tục
 		    </button>
 		</div>
-     </form>  	
+     </form>  
+     <script>
+	    const sophongtrong = ${sophongtrong}; // Gán giá trị số phòng trống từ server
+	    function validateRoomCount(input) {
+	        if (input.value < 1) {
+	            alert("Số lượng phòng đặt phải lớn hơn hoặc bằng 1.");
+	            input.value = 1; // Tự động điều chỉnh về giá trị tối thiểu
+	        } else if (input.value > sophongtrong) {
+	            alert(`Số lượng phòng đặt không được lớn hơn ${sophongtrong}.`);
+	            input.value = sophongtrong; // Tự động điều chỉnh về giá trị tối đa
+	        }
+	    }
+	</script>
 </body>
 
 </html>

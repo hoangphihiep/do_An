@@ -26,13 +26,13 @@
                         <div style="width: 400px; height: 200px; background-color: white; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
                             <div id="previewContainer1" style="width: 100%; height: 200px; background-color: #eee; display: flex; align-items: center; justify-content: center; border: 1px dashed #ccc; overflow: hidden;">
                                 <span id="placeholderText1" style="color: #aaa; font-size: 14px;"></span>
-                                <c:if test="${image1.substring(0,5) != 'https' }">
-									<c:url value="/image?fname=${image1}" var="imgUrl"></c:url>
-								</c:if> 
-								<c:if test="${image1.substring(0,5) == 'https' }">
-									<c:url value="${image1}" var="imgUrl"></c:url>
-								</c:if>
-                                <img id="previewImage1" src="${imgUrl}" style="width: 100%; height: 100%; object-fit: cover;">
+	                                <c:if test="${image1.substring(0,5) != 'https' }">
+										<c:url value="/image?fname=${image1}" var="imgUrl"></c:url>
+									</c:if> 
+									<c:if test="${image1.substring(0,5) == 'https' }">
+										<c:url value="${image1}" var="imgUrl"></c:url>
+									</c:if>
+	                                <img id="previewImage1" src="${imgUrl}" style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
                             <input type="file" id="imageUpload1" name="image1" value="${imgUrl}" style="display: none;" accept="image/*" onchange="previewImage(event, 'previewImage1', 'placeholderText1')">
                             <input type="hidden" name="image1Url" value="${imgUrl}">

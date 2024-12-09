@@ -23,7 +23,7 @@
                     <th style="padding: 10px; text-align: left;">Phòng</th>
                     <th style="padding: 10px; text-align: left;">Khách sạn</th>
                     <th style="padding: 10px; text-align: left;">Trạng thái</th>
-                    <th style="padding: 10px; text-align: left;">Thao tác</th>
+                    <th style="padding: 10px; text-align: left; width: 100px;">Thao tác</th>
                 </tr>
             </thead>
             <tbody>

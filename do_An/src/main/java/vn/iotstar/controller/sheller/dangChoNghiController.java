@@ -246,10 +246,9 @@ public class dangChoNghiController extends HttpServlet {
 					if (part.getSize() > 0) {
 						String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
 			            String ext = filename.substring(filename.lastIndexOf(".") + 1);
-			            fname = System.currentTimeMillis() + "_" + i + "." + ext; // Unique filename with timestamp and index
+			            fname = System.currentTimeMillis() + "_" + i + "." + ext;
 			           
 			            part.write(uploadPath + File.separator + fname);
-			            // Optional: Log or save `fname` in the database if needed
 			            if (i == 1) {
 			                listAnhKS.add(new AnhKhachSanModel("AnhChinh", fname, 0));
 			            }

@@ -95,7 +95,8 @@ public class BookingController extends HttpServlet {
         if (idKhachSanObj != null) {
         	idKhachSan = (int) idKhachSanObj;
         } 
-        System.out.println ("id của khách sạn mà đặt phòng: " + idKhachSan);
+
+        
         KhachSanModel ks = khachSanService.findById(idKhachSan);
         List<GiamGiaModel> listGiamGia = giamGiaService.findByIdSheller(ks.getidUser());
         Date ngayHienTai = new Date(System.currentTimeMillis());
@@ -104,29 +105,25 @@ public class BookingController extends HttpServlet {
         	int count = datPhongService.countDatPhongByIdUser(user.getId());
         	int sum = datPhongService.sumTienDatPhongByIdUser(user.getId(), idKhachSan);
         	boolean kiemTra = giamGiaService.checkExistIdUser(user.getId(), giamGia.getId());
-        	System.out.println ("Ap dụng cho: " + giamGia.getApDung());
         	if (giamGia.getSoLanDaSuDung() < giamGia.getSoLuongMa()) {
         		if (giamGia.getApDung().equals ("Giảm giá cho người mới")) {        		
             		if ((count == 0 || kiemTra == false) && ngayHienTai.before(giamGia.getNgayKetThuc())  && ngayHienTai.after(giamGia.getNgayBatDau())) {
             			giamGia.setStatus(true);
-            			System.out.println ("Giảm giá cho người mới");        		}
+      		}
             	}
             	if (giamGia.getApDung().equals("Khách hàng thân thiết")) {
             		if (count > 5 && kiemTra == false && ngayHienTai.before(giamGia.getNgayKetThuc())  && ngayHienTai.after(giamGia.getNgayBatDau())) {
             			giamGia.setStatus(true);
-            			System.out.println ("Giảm giá cho khách hàng thân thiết");      
             		}
             	}
             	if (giamGia.getApDung().equals("Số tiền lớn hơn 5.000.000 VNĐ")) {
             		if (sum >= 5000000 && kiemTra == false && ngayHienTai.before(giamGia.getNgayKetThuc())  && ngayHienTai.after(giamGia.getNgayBatDau())) {
-            			giamGia.setStatus(true);
-            			System.out.println ("Số tiền lớn hơn 5.000.000 VNĐ");      
+            			giamGia.setStatus(true);      
             		}
             	}
-            	if (giamGia.getApDung().equals(user.getFullname())) {
+            	if (giamGia.getApDung().equals(user.getFullname()) && ngayHienTai.before(giamGia.getNgayKetThuc())  && ngayHienTai.after(giamGia.getNgayBatDau())) {
             		if (kiemTra == false) {
             			giamGia.setStatus(true);
-                		System.out.println ("Giảm giá cho một người");
             		}
             		
             	}

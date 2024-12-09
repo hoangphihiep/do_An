@@ -39,14 +39,12 @@ public class TaiKhoanController extends HttpServlet {
 		if (idUserStr != null) {
 			int idUser = Integer.parseInt(idUserStr);
 			UserModel user1 = userService.findById(idUser);
-			System.out.println("Vai tro: " + user1.getIdRole());
 			if (user1.isAcitve() == true) {
 				user1.setAcitve(false);
 				userService.update(user1);
 			}
 			else
 			{
-				System.out.println ("Có vào đây 888");
 				user1.setAcitve(true);
 				userService.update(user1);
 			}

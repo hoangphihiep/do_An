@@ -293,8 +293,10 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 
 	@Override
 	public List<DoanhThuModel> findAllDoanhThu(Date ngayBatDau, Date ngayKetThuc, int idKhachSan) {
-		String sql = "SELECT dp.NgayThanhToan, SUM(dp.TienSauKhiChiecKhau) AS TongTien, SUM(dp.SoPhongDaDat) AS TongPhongDat " +
-	             "FROM DatPhong dp JOIN Phong p ON dp.IdPhong = p.Id JOIN KhachSan k ON p.IdKhachSan = k.Id " +
+		String sql = "SELECT dp.NgayThanhToan, SUM(dp.TienSauKhiChiecKhau) AS TongTien, "
+				+ "SUM(dp.SoPhongDaDat) AS TongPhongDat " +
+	             "FROM DatPhong dp JOIN Phong p ON dp.IdPhong = p.Id JOIN KhachSan "
+	             + "k ON p.IdKhachSan = k.Id " +
 	             "WHERE k.Id = ? AND dp.ThanhToan=1 "+ 
 	             "AND dp.NgayThanhToan BETWEEN ? AND ? "+ 
 	             "GROUP BY dp.NgayThanhToan "+
@@ -360,7 +362,8 @@ public class DatPhongDaoImpl extends DBConnectionSQL implements IDatPhongDao {
 
 	@Override
 	public List<DoanhThuModel> findAllDoanhThuChiecKhau(Date ngayBatDau, Date ngayKetThuc) {
-		String sql = "SELECT dp.NgayThanhToan, SUM(dp.ThanhTien - dp.TienSauKhiChiecKhau) AS TongTien, SUM(dp.SoPhongDaDat) AS TongPhongDat " +
+		String sql = "SELECT dp.NgayThanhToan, SUM(dp.ThanhTien - dp.TienSauKhiChiecKhau) AS TongTien, "
+				+ "SUM(dp.SoPhongDaDat) AS TongPhongDat " +
 	             "FROM DatPhong dp JOIN Phong p ON dp.IdPhong = p.Id JOIN KhachSan k ON p.IdKhachSan = k.Id " +
 	             "WHERE dp.ThanhToan=1 "+ 
 	             "AND dp.NgayThanhToan BETWEEN ? AND ? "+ 

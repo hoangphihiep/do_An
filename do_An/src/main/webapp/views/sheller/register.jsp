@@ -14,6 +14,9 @@
         <!-- Form Title -->
         <h2 style="font-size: 20px; color: #333; margin-bottom: 5px;">Bạn muốn là đối tác của chúng tôi</h2>
         <!-- Form -->
+        <c:if test="${alert1 !=null}">
+			<h3 class="alert alertdanger">${alert1}</h3>
+		</c:if>
         <form action="${pageContext.request.contextPath }/sheller1/dangKy" method="post">
             <label for="email" style="display: block; font-size: 14px; color: #333; margin-bottom: 5px;">Địa chỉ email</label>
             <c:if test="${!empty email}">

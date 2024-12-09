@@ -12,14 +12,18 @@ import jakarta.servlet.http.HttpSession;
 import vn.iotstar.models.AnhKhachSanModel;
 import vn.iotstar.models.KhachSanModel;
 import vn.iotstar.models.PhongModel;
+import vn.iotstar.models.ThongBaoModel;
 import vn.iotstar.models.TienIchModel;
+import vn.iotstar.models.UserModel;
 import vn.iotstar.services.IAnhKhachSanService;
 import vn.iotstar.services.IKhachSanService;
 import vn.iotstar.services.IPhongService;
+import vn.iotstar.services.IThongBaoService;
 import vn.iotstar.services.ITienIchService;
 import vn.iotstar.services.impl.AnhKhachSanServiceImpl;
 import vn.iotstar.services.impl.KhachSanServiceImpl;
 import vn.iotstar.services.impl.PhongServiceImpl;
+import vn.iotstar.services.impl.ThongBaoServiceImpl;
 import vn.iotstar.services.impl.TienIchServiceImpl;
 
 @WebServlet(urlPatterns = {"/admin/chiTietKS/thongTinKhachSan","/admin/chiTietKS/tienIch","/admin/chiTietKS/anhKhachSan","/admin/chiTietKS/phongKhachSan"})
@@ -30,12 +34,19 @@ public class ChiTietKhachSanController extends HttpServlet{
 	public IPhongService phongService = new PhongServiceImpl();
 	public ITienIchService tienIchService = new TienIchServiceImpl();
 	public IAnhKhachSanService anhKhachSanService = new AnhKhachSanServiceImpl();
+	public IThongBaoService thongBaoService = new ThongBaoServiceImpl();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String url = req.getRequestURI();
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
 		HttpSession session = req.getSession();
+		UserModel user = null;
+		if (session != null && session.getAttribute("account") != null) {
+			user = (UserModel) session.getAttribute("account");
+		}
+		session.setAttribute("account", user);
+		List<ThongBaoModel> listThongBao = thongBaoService.listFindByIdUser(user.getId());
 		int idKS = 0;
 		String id = req.getParameter("id");
 		if (id == null) {
@@ -50,6 +61,10 @@ public class ChiTietKhachSanController extends HttpServlet{
 		if (url.contains("/admin/chiTietKS/thongTinKhachSan")) {
 			KhachSanModel ks = khachSanService.findById(idKS);
 			List <PhongModel> listPhong = phongService.findByIdKhachSan(idKS);
+			int soLuongThongBao = listThongBao.size();
+			req.setAttribute("slthongbao", soLuongThongBao);
+			req.setAttribute("listthongbao", listThongBao);
+			req.setAttribute("username", user.getFullname());
 			req.setAttribute("listPhong", listPhong);
 			session.setAttribute("listPhong", listPhong);
 			req.setAttribute("ks", ks);
@@ -129,6 +144,10 @@ public class ChiTietKhachSanController extends HttpServlet{
 				}
 			}
 			List<PhongModel> listPhong = (List<PhongModel>) session.getAttribute("listPhong");
+			int soLuongThongBao = listThongBao.size();
+			req.setAttribute("slthongbao", soLuongThongBao);
+			req.setAttribute("listthongbao", listThongBao);
+			req.setAttribute("username", user.getFullname());
 			req.setAttribute("listPhong", listPhong);
 			req.getRequestDispatcher("/views/admin/chiTietTienNghi.jsp").forward(req, resp);
 		}
@@ -146,6 +165,10 @@ public class ChiTietKhachSanController extends HttpServlet{
 				
 			}
 			List<PhongModel> listPhong = (List<PhongModel>) session.getAttribute("listPhong");
+			int soLuongThongBao = listThongBao.size();
+			req.setAttribute("slthongbao", soLuongThongBao);
+			req.setAttribute("listthongbao", listThongBao);
+			req.setAttribute("username", user.getFullname());
 			req.setAttribute("listPhong", listPhong);
 			req.getRequestDispatcher("/views/admin/chiTietAnhKhachSan.jsp").forward(req, resp);
 		}
@@ -243,6 +266,10 @@ public class ChiTietKhachSanController extends HttpServlet{
 	            	req.setAttribute("lovisong", true);
 	            }   
 	        }
+			int soLuongThongBao = listThongBao.size();
+			req.setAttribute("slthongbao", soLuongThongBao);
+			req.setAttribute("listthongbao", listThongBao);
+			req.setAttribute("username", user.getFullname());
 			req.setAttribute("singleBedCount", singleBedCount);
 			req.setAttribute("doubleBedCount", doubleBedCount);
 			req.setAttribute("kingBedCount", kingBedCount);

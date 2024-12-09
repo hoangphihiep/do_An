@@ -47,20 +47,12 @@ public class RegisterController extends HttpServlet {
 		String password = req.getParameter("password");
 		String repeatPassword = req.getParameter("Repassword");
 		
-		HttpSession session = req.getSession();
 		
 		String alertMsg1 = "";
-		if (email == null || password == null ){
-			alertMsg1 = "Bạn chưa điền thông tin vào đăng ký!";
-			System.out.println(alertMsg1);
-			req.getSession().setAttribute("alert1", alertMsg1);
-			resp.sendRedirect(req.getContextPath() + "/home?showRegisterModal=true");
-			return;
-		}
 		if (!password.equals(repeatPassword)) {
 			alertMsg1 = "Mật khẩu không khớp!";
-			req.getSession().setAttribute("alert1", alertMsg1);
-			resp.sendRedirect(req.getContextPath() + "/home?showRegisterModal=true");
+			req.setAttribute("alert1", alertMsg1);
+			resp.sendRedirect(req.getContextPath() + "/sheller1/dangKy");
 			return;
 		}
 		String otpCode = String.format("%06d", (int)(Math.random() * 1000000));

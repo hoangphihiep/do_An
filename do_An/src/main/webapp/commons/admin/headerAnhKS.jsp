@@ -15,9 +15,6 @@
             </div>
         </div>
         <a href="/do_An/admin/chiTietKS/anhKhachSan" class="nav-link active" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Ảnh khách sạn</a>
-        <a href="/do_An/sheller/danhSachGiamGia" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Giảm giá</a>
-        <a href="#" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Khuyến mãi</a>
-        <a href="#" class="nav-link" style="color: white; margin: 0 10px; text-decoration: none; padding: 8px; border-radius: 4px;">Phân tích</a>
     </nav>
 </div>
 

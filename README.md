@@ -5,7 +5,7 @@
 Mục tiêu của dự án là cung cấp một giải pháp tiện lợi và hiệu quả cho việc quản lý và đặt phòng khách sạn.
 
 ## Tính năng chính
-  Guest + User:
+  ## Guest + User:
     - Tìm kiếm khách sạn theo địa điểm, ngày đến, ngày đi, loại khách sạn, khách sạn có số lượng đặt phòng nhiều nhất.
     - Lọc khách sạn dựa trên tiện ích, khoảng tiền.
     - Xem thông tin chi tiết về khách sạn, hình ảnh, mô tả, phòng và đánh giá, tiện ích, bình luận.
@@ -14,7 +14,7 @@ Mục tiêu của dự án là cung cấp một giải pháp tiện lợi và hi
     - Lịch sử đặt phòng.
     - Khách sạn yêu thích.
     - Áp dụng mã giảm giá.
-  Sheller:
+  ## Sheller:
     - Quản lý khách sạn: thêm, xóa, sửa.
     - Xem chi tiết khách sạn.
     - Quản lý phòng của từng khách sạn
@@ -23,7 +23,7 @@ Mục tiêu của dự án là cung cấp một giải pháp tiện lợi và hi
     - Quản lý giảm giá: thêm, xóa, sửa.
     - Quản lý khuyến mãi: thêm, xóa, sửa.
     - Xem danh sách chiếc khấu.
-  Admin:
+  ## Admin:
     - Quản lý tài khoản: Xem danh sách, khóa và mở khóa tài khoản.
     - Quản lý khách sạn: Xem danh sách tất cả các khách sạn và xem chi tiết từng khách sạn và duyệt đăng ký khách sạn mới.
     - Quản lý chiếc khấu: Xem danh sách tất cả chiếc khấu, thêm, xóa, sửa chiếc khấu của từng khách sạn.
